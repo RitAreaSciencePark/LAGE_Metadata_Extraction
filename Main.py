@@ -1,6 +1,9 @@
 import Extractor
+import argparse  
 
-def main():
+
+
+def main_Multi_file():
     """
     Main function to execute the complete metadata extraction pipeline.
     """
@@ -10,10 +13,6 @@ def main():
     # Define output directory
     output_dir = './Output'
     
-    print("=" * 60)
-    print("BeadStudio CSV Metadata Extractor")
-    print("=" * 60)
-    
     # Process all CSV files
     results = Extractor.process_all_csv_files(directory_path, output_dir)
     
@@ -22,14 +21,29 @@ def main():
     
     # Save results
     Extractor.save_results(summary_table, output_dir)
+
+
+
+def main_single_file():   
+    # 1. Setup the Argument Parser
+    parser = argparse.ArgumentParser(description="Process a single CSV file and extract metadata.")
     
-    # Display the summary table
-    #print("\n" + "=" * 60)
-    #print("Metadata Summary Table")
-    #print("=" * 60)
-    #print(summary_table.to_string(index=False))
-    #print("=" * 60)
+    # 2. Add the arguments
+    parser.add_argument("input_dir", help="Path to the folder containing the CSV file")
+    parser.add_argument("csv_name", help="The name of the CSV file (including .csv extension)")
+    parser.add_argument("output_dir", help="Path to the folder where results should be saved")
 
+    # 3. Parse the arguments
+    args = parser.parse_args()
+    
+    # 4. Run the logic using the terminal inputs
+    # Process one CSV file
+    results = Extractor.one_single_file(args.input_dir, args.output_dir, args.csv_name)
+    # Create summary table
+    summary_table = Extractor.create_summary_table(results)
+     # Save results
+    Extractor.save_results(summary_table, args.output_dir)
 
+    
 if __name__ == '__main__':
-    main()
+    main_Multi_file()    

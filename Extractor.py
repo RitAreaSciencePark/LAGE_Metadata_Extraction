@@ -2,6 +2,8 @@ import pandas as pd
 import io
 import os
 import json
+import argparse  
+
 
 def get_csv_section(file_path, section_name):
     """
@@ -125,7 +127,7 @@ def process_all_csv_files(directory_path, output_dir='output_jsons'):
             'number_of_samples': num_samples
         }
         
-        # --- NEW LOGIC: Save individual JSON immediately ---
+        
         # Replace .csv with .json for the filename
         json_filename = os.path.splitext(csv_file)[0] + '.json'
         json_path = os.path.join(output_dir, json_filename)
@@ -136,6 +138,42 @@ def process_all_csv_files(directory_path, output_dir='output_jsons'):
         results.append(file_info)
     
     return results
+
+
+def one_single_file(file_path, output_dir, csv_file_name):
+    """
+    Process one CSV file in a directory and extract metadata.
+    Saves individual JSON files for each CSV and returns a list for the summary.
+    """
+        
+    results = [] 
+    os.makedirs(output_dir, exist_ok=True)
+
+    file_Input = os.path.join(file_path, csv_file_name)
+    print(f"Processing: {csv_file_name}")
+        
+    metadata = extract_metadata(file_Input)
+    manifest_id = extract_manifest_info(file_Input)
+    num_samples = count_samples(file_Input)
+        
+    file_info = {
+            'file_name': csv_file_name,
+            'metadata': metadata,
+            'manifest_id': manifest_id,
+            'number_of_samples': num_samples
+        }
+        
+    json_filename = os.path.splitext(csv_file_name)[0] + '.json'
+    json_path = os.path.join(output_dir, json_filename)
+        
+    with open(json_path, 'w') as f:
+        json.dump(file_info, f, indent=2)
+            
+    results.append(file_info)
+    print(f"Saved Json output file to: {json_path}")
+    return results
+
+
 
 def create_summary_table(results):
     """
