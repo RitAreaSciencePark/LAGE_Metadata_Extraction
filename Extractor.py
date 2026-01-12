@@ -5,6 +5,28 @@ import json
 import argparse  
 
 
+def is_beadstudio_file(file_path):
+    """
+    Checks if the file is a valid BeadStudio file by looking for 
+    the keyword BeadStudio in the [Header] section.
+    """
+    try:
+        # We only need to check the first ~20 lines to find the header
+        with open(file_path, 'r') as f:
+            head = [next(f).lower() for _ in range(20)]
+        
+        content = "".join(head)
+        
+        # Check for 'beadstudio' anywhere in the top of the file
+        if 'beadstudio' in content:
+            return True
+        else:
+            return False
+            
+    except Exception as e:
+        print(f"Error reading file for validation: {e}")
+        return False
+    
 def get_csv_section(file_path, section_name):
     """
     Extracts a specific section from a semi-structured CSV.
@@ -107,12 +129,22 @@ def process_all_csv_files(directory_path, output_dir='output_jsons'):
     
     # Create output directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)
-    
+    # Get list of CSV files in directory
     csv_files = sorted([f for f in os.listdir(directory_path) if f.endswith('.csv')])
-    
+    # Get the total number of files for progress tracking
+    total_files = len(csv_files)
+    processed_count = 0
+    print(f"Found {total_files} CSV files in directory.\n")
+
     for csv_file in csv_files:
         file_path = os.path.join(directory_path, csv_file)
-        print(f"Processing: {csv_file}")
+        
+        # VALIDATION CHECK
+        if not is_beadstudio_file(file_path):
+            print(f" WRONG FILE : {csv_file} does not appear to be a BeadStudio file.")
+            continue # This skips the rest of the loop for THIS file
+            
+        print(f"BeadStudio format verified. Extracting data from: {csv_file}")
         
         # Extract metadata
         metadata = extract_metadata(file_path)
@@ -127,7 +159,7 @@ def process_all_csv_files(directory_path, output_dir='output_jsons'):
             'number_of_samples': num_samples
         }
         
-        
+        processed_count += 1
         # Replace .csv with .json for the filename
         json_filename = os.path.splitext(csv_file)[0] + '.json'
         json_path = os.path.join(output_dir, json_filename)
@@ -136,6 +168,13 @@ def process_all_csv_files(directory_path, output_dir='output_jsons'):
             json.dump(file_info, f, indent=2)
             
         results.append(file_info)
+        # Final Summary Print
+    print("-" * 30)
+    print(f"Batch Summary:")
+    print(f"Successfully Processed: {processed_count}")
+    print(f"Skipped/Failed:         {total_files - processed_count}")
+    print(f"Total files checked:    {total_files}")
+    print("-" * 30)
     
     return results
 
@@ -146,11 +185,17 @@ def one_single_file(file_path, output_dir, csv_file_name):
     Saves individual JSON files for each CSV and returns a list for the summary.
     """
         
+    file_Input = os.path.join(file_path, csv_file_name)
+
+    # VALIDATION CHECK
+    if not is_beadstudio_file(file_Input):
+        # Raising an error stops the execution for this specific file
+        raise ValueError(f"Process aborted: {csv_file_name} is not a valid BeadStudio file.")
+
+    print(f"BeadStudio format verified. Extracting data from{csv_file_name}")
+
     results = [] 
     os.makedirs(output_dir, exist_ok=True)
-
-    file_Input = os.path.join(file_path, csv_file_name)
-    print(f"Processing: {csv_file_name}")
         
     metadata = extract_metadata(file_Input)
     manifest_id = extract_manifest_info(file_Input)

@@ -1,4 +1,4 @@
-import Extractor
+import Extractor_Test
 import argparse  
 
 
@@ -12,19 +12,30 @@ def main_Multi_file():
     
     # Define output directory
     output_dir = './Output'
+
+    try:
     
-    # Process all CSV files
-    results = Extractor.process_all_csv_files(directory_path, output_dir)
-    
-    # Create summary table
-    summary_table = Extractor.create_summary_table(results)
-    
-    # Save results
-    Extractor.save_results(summary_table, output_dir)
+        # Process all CSV files
+        # Since the process_all_csv_files function already has a 'continue' inside it,
+        # so it won't crash on a bad file, it will just skip it.
+        results = Extractor_Test.process_all_csv_files(directory_path, output_dir)
+
+        if not results:
+            print("No valid BeadStudio files were found to process.")
+            return
+        
+        # Create summary table
+        summary_table = Extractor_Test.create_summary_table(results)
+
+        # Save results
+        Extractor_Test.save_results(summary_table, output_dir)
+
+        print("\nBatch Processing Complete.")
+    except Exception as e:
+        print(f"\nAn unexpected error occurred during batch processing: {e}")
 
 
-
-def main_single_file():   
+def main_Single_file():   
     # 1. Setup the Argument Parser
     parser = argparse.ArgumentParser(description="Process a single CSV file and extract metadata.")
     
@@ -35,15 +46,24 @@ def main_single_file():
 
     # 3. Parse the arguments
     args = parser.parse_args()
+
+    #print (args)
     
     # 4. Run the logic using the terminal inputs
-    # Process one CSV file
-    results = Extractor.one_single_file(args.input_dir, args.output_dir, args.csv_name)
-    # Create summary table
-    summary_table = Extractor.create_summary_table(results)
-     # Save results
-    Extractor.save_results(summary_table, args.output_dir)
+    try:
+        # Process one CSV file
+        results = Extractor_Test.one_single_file(args.input_dir, args.output_dir, args.csv_name)
+        # Create summary table
+        summary_table = Extractor_Test.create_summary_table(results)
+        # Save results
+        Extractor_Test.save_results(summary_table, args.output_dir)
+    except ValueError as e:
+        # This catches the "Validity File Error" defined in the Extractor module and prints it cleanly
+        print(f"\n{e}")
+    except Exception as e:
+        # This catches any other unexpected error (like permission issues)
+        print(f"\nAn unexpected error occurred: {e}")    
 
-    
+
 if __name__ == '__main__':
-    main_Multi_file()    
+    main_Single_file()
