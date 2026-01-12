@@ -4,15 +4,16 @@ import os
 import json
 import argparse  
 
-
-def is_beadstudio_file(file_path):
+# File Validation Function
+    # "file_Input_path" --> Full path to the input file    
+def is_beadstudio_file(file_Input_path):
     """
     Checks if the file is a valid BeadStudio file by looking for 
     the keyword BeadStudio in the [Header] section.
     """
     try:
         # We only need to check the first ~20 lines to find the header
-        with open(file_path, 'r') as f:
+        with open(file_Input_path, 'r') as f:
             head = [next(f).lower() for _ in range(20)]
         
         content = "".join(head)
@@ -27,12 +28,12 @@ def is_beadstudio_file(file_path):
         print(f"Error reading file for validation: {e}")
         return False
     
-def get_csv_section(file_path, section_name):
+def get_csv_section(file_Input_path, section_name):
     """
     Extracts a specific section from a semi-structured CSV.
     Returns a pandas DataFrame.
     """
-    with open(file_path, 'r') as f:
+    with open(file_Input_path, 'r') as f:
         lines = f.readlines()
     
     # 1. Locate the starting line of the section
@@ -57,7 +58,7 @@ def get_csv_section(file_path, section_name):
     return pd.read_csv(io.StringIO(section_content))
 
 
-def extract_metadata(file_path):
+def extract_metadata(file_Input_path):
     """
     Extract header-level metadata from a BeadStudio CSV file.
     Returns a dictionary with project name, experiment name, date, and other metadata.
@@ -65,7 +66,7 @@ def extract_metadata(file_path):
     metadata = {}
     
     try:
-        header_df = get_csv_section(file_path, '[Header]')
+        header_df = get_csv_section(file_Input_path, '[Header]')
         
         # Extract key metadata fields
         for _, row in header_df.iterrows():
@@ -75,18 +76,18 @@ def extract_metadata(file_path):
                 # Store metadata with lowercase keys
                 metadata[key.lower().replace(' ', '_')] = value
     except Exception as e:
-        print(f"Error extracting header from {file_path}: {e}")
+        print(f"Error extracting header from {file_Input_path}: {e}")
     
     return metadata
 
 
-def extract_manifest_info(file_path):
+def extract_manifest_info(file_Input_path):
     """
     Extract manifest information from a BeadStudio CSV file.
     Returns the manifest ID string.
     """
     try:
-        with open(file_path, 'r') as f:
+        with open(file_Input_path, 'r') as f:
             lines = f.readlines()
         
         # Find the Manifests section
@@ -102,25 +103,25 @@ def extract_manifest_info(file_path):
                             return parts[1].strip()
                 break
     except Exception as e:
-        print(f"Error extracting manifest from {file_path}: {e}")
+        print(f"Error extracting manifest from {file_Input_path}: {e}")
     
     return 'N/A'
 
 
-def count_samples(file_path):
+def count_samples(file_Input_path):
     """
     Count the number of samples in the Data section.
     Returns the count (excluding header row).
     """
     try:
-        data_df = get_csv_section(file_path, '[Data]')
+        data_df = get_csv_section(file_Input_path, '[Data]')
         return len(data_df)
     except Exception as e:
-        print(f"Error counting samples from {file_path}: {e}")
+        print(f"Error counting samples from {file_Input_path}: {e}")
         return 0
 
 
-def process_all_csv_files(directory_path, output_dir='output_jsons'):
+def process_all_csv_files(input_dir_path, output_dir_path):
     """
     Process all CSV files in a directory and extract metadata.
     Saves individual JSON files for each CSV and returns a list for the summary.
@@ -128,41 +129,41 @@ def process_all_csv_files(directory_path, output_dir='output_jsons'):
     results = []
     
     # Create output directory if it doesn't exist
-    os.makedirs(output_dir, exist_ok=True)
+    os.makedirs(output_dir_path, exist_ok=True)
     # Get list of CSV files in directory
-    csv_files = sorted([f for f in os.listdir(directory_path) if f.endswith('.csv')])
+    csv_files = sorted([f for f in os.listdir(input_dir_path) if f.endswith('.csv')])
     # Get the total number of files for progress tracking
     total_files = len(csv_files)
     processed_count = 0
-    print(f"Found {total_files} CSV files in directory.\n")
-
-    for csv_file in csv_files:
-        file_path = os.path.join(directory_path, csv_file)
+    print(f"Found {total_files} CSV files in {input_dir_path}.\n")
+    for csv_file_name in csv_files:
+        file_Input_path = os.path.join(input_dir_path, csv_file_name)
         
         # VALIDATION CHECK
-        if not is_beadstudio_file(file_path):
-            print(f" WRONG FILE : {csv_file} does not appear to be a BeadStudio file.")
+        if not is_beadstudio_file(file_Input_path):
+            print(f" BeadStudio file validation failed : {csv_file_name} does not appear to be a BeadStudio file.")
             continue # This skips the rest of the loop for THIS file
             
-        print(f"BeadStudio format verified. Extracting data from: {csv_file}")
+        print(f"BeadStudio file validated successfully. Extracting data from: {csv_file_name}")
         
         # Extract metadata
-        metadata = extract_metadata(file_path)
-        manifest_id = extract_manifest_info(file_path)
-        num_samples = count_samples(file_path)
-        
+        metadata = extract_metadata(file_Input_path)
+        manifest_id = extract_manifest_info(file_Input_path)
+        num_samples = count_samples(file_Input_path)
+
         # Combine all information
         file_info = {
-            'file_name': csv_file,
+            'file_name': csv_file_name,
             'metadata': metadata,
             'manifest_id': manifest_id,
             'number_of_samples': num_samples
         }
-        
         processed_count += 1
+        print(f" Processing completed for: {csv_file_name}")
+
         # Replace .csv with .json for the filename
-        json_filename = os.path.splitext(csv_file)[0] + '.json'
-        json_path = os.path.join(output_dir, json_filename)
+        json_filename = os.path.splitext(csv_file_name)[0] + '.json'
+        json_path = os.path.join(output_dir_path, json_filename)
         
         with open(json_path, 'w') as f:
             json.dump(file_info, f, indent=2)
@@ -179,27 +180,32 @@ def process_all_csv_files(directory_path, output_dir='output_jsons'):
     return results
 
 
-def one_single_file(file_path, output_dir, csv_file_name):
+def one_single_file(input_file_dir_path, output_dir_path, csv_file_name):
     """
     Process one CSV file in a directory and extract metadata.
     Saves individual JSON files for each CSV and returns a list for the summary.
-    """
-        
-    file_Input = os.path.join(file_path, csv_file_name)
 
-    # VALIDATION CHECK
-    if not is_beadstudio_file(file_Input):
+    # "input_file_dir_path" --> "Path to the directory containing the CSV file")
+    # "csv_file_name" --> "The name of the CSV file (including .csv extension)")
+    # "output_dir_path" --> "Path to the folder where results should be saved")
+    """
+    # Full path to the input file    
+    file_Input_path = os.path.join(input_file_dir_path, csv_file_name)
+
+    # 1. VALIDATION CHECK
+    if not is_beadstudio_file(file_Input_path):
         # Raising an error and stops the execution for this specific file
         raise ValueError(f"Process aborted: {csv_file_name} is not a valid BeadStudio file.")
 
-    print(f"BeadStudio format verified. Extracting data from{csv_file_name}")
+    print(f"BeadStudio file validation completed successfully. Extracting data from{csv_file_name}")
+    
+    # 2. Extraction 
+    results = []
+    os.makedirs(output_dir_path, exist_ok=True)
 
-    results = [] 
-    os.makedirs(output_dir, exist_ok=True)
-        
-    metadata = extract_metadata(file_Input)
-    manifest_id = extract_manifest_info(file_Input)
-    num_samples = count_samples(file_Input)
+    metadata = extract_metadata(file_Input_path)
+    manifest_id = extract_manifest_info(file_Input_path)
+    num_samples = count_samples(file_Input_path)
         
     file_info = {
             'file_name': csv_file_name,
@@ -209,7 +215,7 @@ def one_single_file(file_path, output_dir, csv_file_name):
         }
         
     json_filename = os.path.splitext(csv_file_name)[0] + '.json'
-    json_path = os.path.join(output_dir, json_filename)
+    json_path = os.path.join(output_dir_path, json_filename)
         
     with open(json_path, 'w') as f:
         json.dump(file_info, f, indent=2)
@@ -244,19 +250,19 @@ def create_summary_table(results):
     return pd.DataFrame(summary_data)
 
 
-def save_results(summary_table, output_dir=None):
+def save_results(summary_table, output_dir_path):
     """
     Now only saves the master CSV summary table.
     """
-    if output_dir is None:
-        output_dir = '.'
-    
-    os.makedirs(output_dir, exist_ok=True)
-    
+    if output_dir_path is None:
+        output_dir_path = '.'
+
+    os.makedirs(output_dir_path, exist_ok=True)
+
     # Save CSV summary table
-    csv_output_path = os.path.join(output_dir, 'metadata_summary_table.csv')
+    csv_output_path = os.path.join(output_dir_path, 'metadata_BeadStudio_summary_table.csv')
     summary_table.to_csv(csv_output_path, index=False)
     print(f"\nSaved summary table to: {csv_output_path}")
-    
-    return csv_output_path
+    print(f"json output files saved to: {output_dir_path}")
 
+    return csv_output_path
