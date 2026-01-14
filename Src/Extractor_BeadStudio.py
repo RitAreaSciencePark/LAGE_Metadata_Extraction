@@ -3,6 +3,7 @@ import io
 import os
 import json
 import argparse  
+import re
 
 # File Validation Function
     # "file_Input_path" --> Full path to the input file    
@@ -80,6 +81,23 @@ def extract_metadata(file_Input_path):
     
     return metadata
 
+def extract_orid_from_filename(csv_file_name):
+    """
+    Extracts the ORID ID from a filename if present.
+
+    Parameters:
+        file_name (str): The filename to parse.
+
+    Returns:
+        dict: {'orid': str} if ORID is found, otherwise an empty dict.
+    """
+    # Regex pattern: look for ORID followed by digits 
+    pattern =  r"(ORID[0-9A-Za-z]+)(?:-|$)"
+
+    match = re.search(pattern, csv_file_name)
+    if match:
+        return  match.group(1)
+    return None
 
 def extract_manifest_info(file_Input_path):
     """
@@ -165,15 +183,20 @@ def process_all_csv_files(input_dir_path, output_dir_path):
         
         # Extract metadata
         metadata = extract_metadata(file_Input_path)
+        Orid_id = extract_orid_from_filename(csv_file_name)
+        if Orid_id:
+            metadata["ORID"] = Orid_id
         manifest_id = extract_manifest_info(file_Input_path)
         num_samples = count_samples(file_Input_path)
         sample_details = extract_sample_data(file_Input_path)
+        
 
         # Combine all information
 
         file_info = {
             'file_type': 'BeadStudio',
             'file_name': csv_file_name,
+            'file_path': file_Input_path,
             'metadata': metadata,
             'manifest_id': manifest_id,
             'number_of_samples': num_samples,
@@ -226,13 +249,18 @@ def one_single_file(input_file_dir_path, output_dir_path, csv_file_name):
     os.makedirs(output_dir_path, exist_ok=True)
 
     metadata = extract_metadata(file_Input_path)
+    Orid_id = extract_orid_from_filename(csv_file_name)
+    if Orid_id:
+            metadata["ORID"] = Orid_id
     manifest_id = extract_manifest_info(file_Input_path)
     num_samples = count_samples(file_Input_path)
     sample_details = extract_sample_data(file_Input_path)
-        
+
+    # Combine all information    
     file_info = {
             'file_type': 'BeadStudio',
             'file_name': csv_file_name,
+            'file_path': file_Input_path,
             'metadata': metadata,
             'manifest_id': manifest_id,
             'number_of_samples': num_samples,

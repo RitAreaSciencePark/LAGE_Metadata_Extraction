@@ -188,7 +188,7 @@ def main_Multi_file_Thermal():
 
 
 if __name__ == '__main__':
-    main_Multi_file_BeadStudio()        
+    main_Single_file_BeadStudio()        
 
 
 

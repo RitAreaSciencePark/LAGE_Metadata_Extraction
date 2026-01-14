@@ -2,6 +2,8 @@ import pandas as pd
 import os
 import json
 import re
+import argparse  
+
 
 def is_thermal_report(full_file_input_path):
     """
@@ -15,14 +17,56 @@ def is_thermal_report(full_file_input_path):
         return lines[0].startswith('Side') and "Time,Current Cycle" in lines[2]
     except Exception:
         return False
+    
+def extract_columns_data(full_file_input_path):
+    """
+    Extracts column names from the CSV file.
+    Returns a dictionary mapping column indices to column names.
+    """
+    try:
+        df = pd.read_csv(full_file_input_path, skiprows=2, nrows=0)
+        return {f"column {i+1}": col for i, col in enumerate(df.columns)}
+    except Exception as e:
+        print(f"Error extracting column data from {full_file_input_path}: {e}")
+        return {}
 
-def extract_metadata_from_filename(file_name):
+def extract_metadata_from_filename(csv_file_name):
     """
-    Parses Instrument, Side, and Date from the Thermal Report filename.
+    Parses Instrument, Side, and Date from a Thermal Report filename.
+
+    Parameters:
+        csv_file_name (str): Filename including extension.
+
+    Returns:
+        dict: {'instrument': str, 'side': str, 'date': str} if matched,
+              otherwise an empty dict.
     """
+    filename_root = os.path.splitext(csv_file_name)[0]
+
     pattern = r"^(?P<instrument>[^_]+)_(?P<side>[^_]+)_(?P<date>\d{4}-\d{2}-\d{2})"
-    match = re.match(pattern, file_name)
+
+    match = re.match(pattern, filename_root)
     return match.groupdict() if match else {}
+
+
+def extract_orid_from_filename(csv_file_name):
+    """
+    Extracts the ORID ID from a filename if present.
+
+    Parameters:
+        file_name (str): The filename to parse.
+
+    Returns:
+        dict: {'orid': str} if ORID is found, otherwise an empty dict.
+    """
+    # Regex pattern: look for ORID followed by digits 
+    pattern =  r"(ORID[0-9A-Za-z]+)(?:-|$)"
+
+    match = re.search(pattern, csv_file_name)
+    if match:
+        return  match.group(1)
+    return None
+
 
 def one_single_file(input_file_dir_path, output_dir_path, csv_file_name):
     """
@@ -49,15 +93,23 @@ def one_single_file(input_file_dir_path, output_dir_path, csv_file_name):
     # Load data (skip Side label and blank line)
     df = pd.read_csv(full_file_input_path, skiprows=2)
     row_count = len(df)
+    columns_details = extract_columns_data(full_file_input_path)
+
+    # Extract ORID ID for Thermal file name 
+    Orid_id = extract_orid_from_filename(csv_file_name)
+
         # Combine all information
 
     file_info = {
         'file_type': 'Thermal Report',
+        'ORID': Orid_id,
         'file_name': csv_file_name,
+        'file_path': full_file_input_path,
         'instrument_id': meta_from_name.get('instrument', 'N/A'),
         'run_side': meta_from_name.get('side', 'N/A'),
         'run_date': meta_from_name.get('date', 'N/A'),
-        'number_of_data_points': row_count
+        'number_of_data_points': row_count,
+        'columns_details': columns_details
     }
 
     # 3. Save JSON
@@ -94,12 +146,23 @@ def process_all_csv_files(input_dir_path, output_dir_path='output_Thermal_jsons'
         # Extract data
         meta_from_name = extract_metadata_from_filename(csv_file_name)
         df = pd.read_csv(full_file_input_path, skiprows=2)
+        row_count = len(df)
+        columns_details = extract_columns_data(full_file_input_path)
+
+         # Extract ORID ID for Thermal file name 
+        Orid_id = extract_orid_from_filename(csv_file_name)
+
         # Combine all information
         file_info = {
             'file_type': 'Thermal Report',
+            'ORID': Orid_id,
             'file_name': csv_file_name,
+            'file_path': full_file_input_path,
             'instrument_id': meta_from_name.get('instrument', 'N/A'),
-            'number_of_data_points': len(df)
+            'run_side': meta_from_name.get('side', 'N/A'),
+            'run_date': meta_from_name.get('date', 'N/A'),
+            'number_of_data_points': row_count,
+            'columns_details': columns_details
         }
 
         # Replace .csv with .json for the filename
