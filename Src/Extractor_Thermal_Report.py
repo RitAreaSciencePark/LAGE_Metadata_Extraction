@@ -122,7 +122,7 @@ def one_single_file(input_file_dir_path, output_dir_path, csv_file_name):
     return results
 
 
-def process_all_csv_files(input_dir_path, output_dir_path='output_Thermal_jsons'):
+def process_all_csv_files(input_dir_path, output_dir_path):
     """
     Processes all Thermal Reports in a folder and provides a batch summary.
     """

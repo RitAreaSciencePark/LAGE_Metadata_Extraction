@@ -165,8 +165,10 @@ def process_all_csv_files(input_dir_path, output_dir_path):
     
     # Create output directory if it doesn't exist
     os.makedirs(output_dir_path, exist_ok=True)
+
     # Get list of CSV files in directory
     csv_files = sorted([f for f in os.listdir(input_dir_path) if f.endswith('.csv')])
+
     # Get the total number of files for progress tracking
     total_files = len(csv_files)
     processed_count = 0
@@ -267,7 +269,9 @@ def one_single_file(input_file_dir_path, output_dir_path, csv_file_name):
             'number_of_samples': len(sample_details), # Count is now derived from the list length
             'samples': sample_details  # This adds the key-value pairs for every sample
         }
-        
+
+    # Save JSON
+    os.makedirs(output_dir_path, exist_ok=True)    
     json_filename = os.path.splitext(csv_file_name)[0] + '.json'
     json_path = os.path.join(output_dir_path, json_filename)
         
@@ -279,6 +283,7 @@ def one_single_file(input_file_dir_path, output_dir_path, csv_file_name):
     return results
 
 
+# --- 4. SUMMARY  ---
 
 def create_summary_table(results):
     """
