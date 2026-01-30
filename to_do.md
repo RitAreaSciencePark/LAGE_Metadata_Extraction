@@ -1,0 +1,4 @@
+- Update the read_me in order to explain what each code can do
+- implement the proposal_id (key): ORIDdddd (values)
+- implement script for searching json files based on sample_id and reconstruct history of a sample
+- check ro-crate tools and tutorial:  https://www.researchobject.org/packaging_data_with_ro-crate/
