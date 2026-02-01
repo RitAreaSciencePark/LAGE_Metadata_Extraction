@@ -1,10 +1,9 @@
 # LAGE_Metadata_Extraction
 
-
-## Metadata Extraction Pipeline
-
 This project provides a modular pipeline for extracting metadata and sample-level information from heterogeneous laboratory CSV files and converting them into standardized JSON outputs.
+
 ---
+
 ## Purpose & Design Principles
 
 Laboratory projects generate large volumes of CSV files across multiple instruments, and deeply nested directory structures. Manually identifying file types, extracting metadata, and maintaining traceability across runs quickly becomes error-prone and unscalable.
@@ -66,7 +65,7 @@ Each extractor module has the following structure:
 This script is a centralized manager designed to handle the complexity of scaling many different file types. Instead of hard-coding logic for every format, it uses a Registry Pattern combined with Validation Polling.
 
 
-#### Responsibilities
+#### What It Does
 
 - Automatically detects file types based on file content
 - Routes files to the appropriate extractor module
@@ -95,7 +94,7 @@ For each encountered file:
 - **Outputs**
 * Standardized JSON files containing: `metadata`, `samples`, `file_type`, project identifiers (e.g. ORID)
 
-**Output Structure** the generated JSON files are designed for integration with the **Sample History Extractor**.
+The generated JSON files are designed for integration with the **Sample History Extractor**.
 
 
 #### Usage
@@ -130,7 +129,7 @@ python path/to/Main_Auto_Processor.py   </path/to/input_file.csv>   </path/to/Ou
 This script builds a **chronological history** for a specific sample by aggregating all occurrences across generated JSON files.
 
 
-#### Responsibilities
+#### What It Does
 
 - Identifies all JSON entries associated with a sample
 
@@ -159,7 +158,7 @@ This script builds a **chronological history** for a specific sample by aggregat
 - **Outputs**
 
 * A unified history file: *History_<SampleID>.json*
----
+
 
 #### Usage
 
@@ -172,15 +171,14 @@ python path/to/Sample_History_Extractor.py  </path/to/Json/folder>  <Sample_id t
 ### Recursive ORID Extractor (**File:** `Extractor_Orid_Recursively.py`)
 
 This script scans an input directory **recursively**, Filters and processes only files associated with a specific project ORID (Origin ID), regardless of directory depth.
----
 
-#### Responsibilities
+
+#### What It Does
 
 - Recursively scans nested input directories
 - Selects files containing a specified ORID in their filename
 - Converts matching files into standardized JSON
 - Centralizes outputs into a single directory
----
 
 #### Why It’s Useful
 
@@ -200,7 +198,7 @@ This script scans an input directory **recursively**, Filters and processes only
 
 * JSON files for the specified ORID, stored in a single output directory
 
----
+
 
 #### Usage
 
