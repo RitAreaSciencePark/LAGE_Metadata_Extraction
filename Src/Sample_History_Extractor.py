@@ -49,7 +49,9 @@ def get_sample_history(json_dir, target_sample_id, output_dir):
         for sample_entry in samples_list:
             # We check for a match (case-insensitive for safety)
             # Use .get('Sample_ID') or .get('Sample_Name') based on your specific file headers
-            if str(sample_entry.get('Sample_ID')).lower() == str(target_sample_id).lower():
+            target = str(target_sample_id).lower()
+
+            if (str(sample_entry.get('Sample_ID')).lower() == target or str(sample_entry.get('Sample_Name')).lower() == target):
                 
                 # Create a record entry showing when/where this sample appeared
                 record = {
