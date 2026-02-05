@@ -1,7 +1,7 @@
 import os
 import argparse
 import re
-import Main_Auto_Processor  # Leverages your established auto-detection logic
+import Main_Auto_Processor 
 
 # --- 1. UTILITIES ---
 
@@ -9,6 +9,12 @@ def get_orid_from_filename(filename):
     """Extract ORID + first 4 digits from filename."""
     pattern = r"(ORID\d{4})"
     match = re.search(pattern, filename, re.IGNORECASE)
+    return match.group(1) if match else None
+
+def get_orid_from_foldername(dirname):
+    """Extract ORID + first 4 digits from folder name."""
+    pattern = r"(ORID\d{4})"
+    match = re.search(pattern, dirname, re.IGNORECASE)
     return match.group(1) if match else None
 
 # --- 2. RECURSIVE CRAWLER LOGIC ---
@@ -36,29 +42,41 @@ def process_recursive_by_orid(root_input_dir, target_orid, output_dir):
     # os.walk generates the file names in a directory tree
     # It handles 'infinite' nesting by visiting every branch
     for dirpath, dirnames, filenames in os.walk(root_input_dir):
-        # Filter for CSV files in the current folder
-        csv_files = [f for f in filenames if f.lower().endswith('.csv')]
+        # 1. Check if the CURRENT folder name matches the target ORID
+        current_folder_name = os.path.basename(dirpath)
+        folder_orid = get_orid_from_foldername(current_folder_name)
         
-        for file_name in csv_files:
-            file_orid = get_orid_from_filename(file_name)
-            
-            # Check if this file matches our target ORID
-            if file_orid and file_orid.upper() == target_orid.upper():
-                total_found_matching += 1
-                full_path = os.path.join(dirpath, file_name)
-                
-                print(f"\n🔍 FILE FOUND: {file_name}")
-                print(f"   LOCATION: {dirpath}")
-                
-                # 3. Use your Auto-Detector to identify and process the file
-                try:
-                    # process_single_path returns a list of results on success
-                    result = Main_Auto_Processor.process_single_path(full_path, output_dir)
-                    if result:
-                        successful_count += 1
-                except Exception as e:
-                    print(f"   ❌ ERROR processing {file_name}: {e}")
+        # Determine if we are inside a matching "ORID container"
+        is_inside_matching_folder = (folder_orid and folder_orid.upper() == target_orid.upper())
 
+        # 2. Iterate through files in this folder
+        for file_name in filenames:
+            if file_name.lower().endswith('.csv'):
+                file_orid = get_orid_from_filename(file_name)
+                
+                # A file is a match if:
+                # - The filename has the ORID 
+                # OR 
+                # - The parent folder has the ORID
+                is_file_match = (file_orid and file_orid.upper() == target_orid.upper())
+                
+                if is_inside_matching_folder or is_file_match:
+                    total_found_matching += 1
+                    full_path = os.path.join(dirpath, file_name)
+                    
+                    print(f"\n🎯 MATCH FOUND: {file_name}")
+                    if is_inside_matching_folder:
+                        print(f"   (Matched via folder: {current_folder_name})")
+                    
+                    try:
+                        # We still pass the FILE path to the processor 
+                        # because Main_Auto_Processor needs to read the CSV headers
+                        result = Main_Auto_Processor.process_single_path(full_path, output_dir)
+                        if result:
+                            successful_count += 1
+                    except Exception as e:
+                        print(f"   ❌ ERROR processing {file_name}: {e}")
+                        
     # --- 3. FINAL SUMMARY ---
     print("\n" + "=" * width)
     print("CRAWL SUMMARY".center(width))
