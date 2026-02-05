@@ -170,29 +170,33 @@ python path/to/Sample_History_Extractor.py  </path/to/Json/folder>  <Sample_id t
 
 ### Recursive ORID Extractor (**File:** `Extractor_Orid_Recursively.py`)
 
-This script scans an input directory **recursively**, Filters and processes only files associated with a specific project ORID (Origin ID), regardless of directory depth.
+Processes files associated with a specific project ORID, supporting both explicit filename labeling and directory-based inheritance, regardless of directory depth.
 
 
 #### What It Does
 
-- Recursively scans nested input directories
-- Selects files containing a specified ORID in their filename
-- Converts matching files into standardized JSON
-- Centralizes outputs into a single directory
+- Navigates through all nested subdirectories starting from the root input folder.
+- Dual-Layer Identification: Matches files based on two criteria:
+
+    - Direct Match: The ORID is present in the filename (e.g., ORID0036_data.csv).
+
+    - Contextual Match: The file is located inside a folder named after the ORID (e.g., ORID0036/20211011_QEIC21-03-10_MCU03_1-12.csv).
+- Passes all identified CSVs through the Main_Auto_Processor to generate standardized JSON metadata.
+- Flattens the resulting JSON files into a single target directory for easy access.
 
 #### Why It’s Useful
 
-- Handles fragmented project data across multiple folders
+- Captures research data where individual files have generic names (like 20211011_QEIC21-03-10_MCU03_1-12.csv) but are stored in project-specific folders.
 - Centralizes all project outputs in one location
-- Significantly improves Sample History extraction performance
+- Specifically optimized for fast Sample History extraction across large datasets.
 
 #### Inputs & Outputs
 
 - **Inputs**
 
-* Root input directory (recursively scanned)
+* Root Input Directory: The top-level folder to begin the recursive search.
 
-* ORID identifier (e.g. ORID0036)
+* ORID Identifier: The specific project code to filter for (e.g., ORID0036).
 
 - **Outputs**
 
@@ -208,6 +212,38 @@ python path/to/Extractor_Orid_Recursively.py  </path/to/input/folder>  <ORID Num
 ```
 ---
 
+### 4. RO-Crate Descriptor Generator (**File:** `Generate_Crate_Recursively.py`)
+
+Generates a formal [RO-Crate](https://www.researchobject.org/ro-crate/) metadata manifest (`ro-crate-metadata.json`) for all CSV data files within a project, regardless of directory depth.
+
+#### What It Does
+
+- **Recursive Scanning:** Automatically crawls through all subdirectories starting from a root folder to find CSV files.
+- **Structural Mapping:** Preserves the relative folder structure in the metadata, mapping exactly where each file is located within the project hierarchy.
+- **Organization Linking:** Formally defines the institutional hierarchy between **Area Science Park**, **RIT**, and the specific laboratories (**LAGE/LADE**).
+- **Provenance Tracking:** Links every detected file to the generator script to document how the metadata was produced.
+
+#### Why It’s Useful
+
+- **FAIR Compliance:** Makes lab data Findable, Accessible, Interoperable, and Reusable by providing machine-readable context.
+- **Standardization:** Uses the JSON-LD standard to describe research datasets, making them compatible with international data repositories.
+- **Relationship Mapping:** Clearly identifies the institutional owners and the software tools associated with the raw data.
+
+
+
+#### Inputs & Outputs
+
+- **Inputs**
+    - **Input Directory:** The top-level folder containing your raw CSV instrument data (scanned recursively).
+- **Outputs**
+    - **`ro-crate-metadata.json`:** A standardized descriptor file placed in the root of the input directory.
+
+#### Usage
+
+```bash
+python path/to/Crate_Generator.py </path/to/input_data_folder>
+
+---
 ##  Architecture Diagram
 
 ```

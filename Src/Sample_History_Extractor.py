@@ -23,11 +23,10 @@ def get_sample_history(json_dir, target_sample_id, output_dir):
     sample_history = []
     
     # 1. Gather all JSON files from the previous extractions
-    json_files = [f for f in os.listdir(json_dir) if f.endswith('.json')]
+    json_files = [f for f in os.listdir(json_dir) if f.endswith('.json') and not f.startswith('History_')]
     
     if not json_files:
-        print(f"No JSON files found in {json_dir}")
-        return
+        return print(f"No JSON files found in {json_dir}")
     
     print("-" * 60)
     print(f"Searching for Sample ID: {target_sample_id} in {len(json_files)} JSON files")
