@@ -9,15 +9,26 @@ import re
 
 def is_illumina_samplesheet(file_Input_path):
     """
-    Checks if the file is a valid Illumina Sample Sheet by looking for 
-    the keyword [Header] and IEMFileVersion in the top lines.
+    Broadened validation: Checks for the [Header] tag. 
     """
     try:
-        with open(file_Input_path, 'r') as f:
-            head = [next(f).lower() for _ in range(10)]
-        content = "".join(head)
-        return '[header]' in content and 'iemfileversion' in content
-    except Exception:
+        with open(file_Input_path, "r", encoding="utf-8") as f:
+            # Check first 10 lines for [Header]
+            lines = [f.readline().lower() for _ in range(20)]
+
+        content = "".join(lines)
+
+        if "[header]" not in content:
+            return False
+
+        header_block = content.split("[header]", 1)[1].split("[", 1)[0]
+
+        return (
+            "workflow,generatefastq" in header_block
+            and "chemistry,amplicon" in header_block
+        )
+
+    except (OSError, UnicodeDecodeError):
         return False
 
 # --- 2. EXTRACTION HELPERS ---
@@ -49,11 +60,13 @@ def extract_orid_from_filename(csv_file_name):
     """Extracts the ORID ID from the filename using the standard regex."""
     pattern = r"(ORID\d{4})"
     match = re.search(pattern, csv_file_name)
-    return match.group(1) if match else None
+    return match.group(1).upper() if match else None
 
 def get_csv_section(file_Input_path, section_name):
-    """Extracts a specific section (e.g., [Header], [Data]) into a DataFrame."""
-    with open(file_Input_path, 'r') as f:
+    """Extracts a specific section (e.g., [Header], [Data]) into a DataFrame.
+    Handles the common trailing commas found in Illumina exports.
+    """
+    with open(file_Input_path, 'r', encoding='utf-8') as f:
         lines = f.readlines()
     
     start_idx = -1
@@ -72,25 +85,35 @@ def get_csv_section(file_Input_path, section_name):
             break
             
     section_content = "".join(lines[start_idx + 1 : end_idx])
-    # Use skipinitialspace to handle potential trailing commas in CSV headers
-    return pd.read_csv(io.StringIO(section_content), skipinitialspace=True).dropna(axis=1, how='all')
+     # engine='python' and on_bad_lines handles rows with varying trailing commas
+    df = pd.read_csv(
+        io.StringIO(section_content), 
+        skipinitialspace=True, 
+        engine='python',
+        on_bad_lines='skip'
+    )
+    
+    # Drop columns that are entirely empty (common in Sample Sheets)
+    return df.dropna(axis=1, how='all')
+
 
 # --- 3. PROCESSING LOGIC ---
 
 def one_single_file(input_file_dir_path, output_dir_path, csv_file_name):
-    """Processes a single Illumina Sample Sheet and generates an enriched JSON."""
+    """Processes the provided Illumina Sample Sheet and generates an enriched JSON."""
      # Full path to the input file    
     file_Input_path = os.path.join(input_file_dir_path, csv_file_name)
 
      # 1. VALIDATION CHECK
     if not is_illumina_samplesheet(file_Input_path):
-        raise ValueError(f"Process aborted: {csv_file_name} is not a valid Illumina Sample Sheet.")
+        raise ValueError(f"Validation failed : {csv_file_name} is not a valid Illumina Sample Sheet.")
+    
     print(f"Illumina Sample Sheet file validation completed successfully. Extracting data from {csv_file_name}")
 
-    # 2. Extraction
+    # 2. Extraction of metadata and sample details
     os.makedirs(output_dir_path, exist_ok=True)
     results = []
-    # Metadata from [Header]
+    # Extraction of Metadata from [Header]
     header_df = get_csv_section(file_Input_path, '[Header]')
     metadata = {}
     if not header_df.empty:
@@ -99,9 +122,11 @@ def one_single_file(input_file_dir_path, output_dir_path, csv_file_name):
                 key = str(row.iloc[0]).lower().replace(' ', '_')
                 metadata[key] = row.iloc[1]
 
-    #  ORID and File Info
-    orid = extract_orid_from_filename(csv_file_name)
-    if orid: metadata["proposal_id"] = orid
+    #  Extraction of ORID and File Info
+    # We check filename first, then the 'Experiment Name' field inside the CSV
+    orid = extract_orid_from_filename(csv_file_name) or extract_orid_from_filename(str(metadata.get('experiment_name', '')))
+    if orid:
+        metadata["proposal_id"] = orid
 
     #  Detailed Sample Data from [Data]
     data_df = get_csv_section(file_Input_path, '[Data]')
@@ -121,9 +146,9 @@ def one_single_file(input_file_dir_path, output_dir_path, csv_file_name):
     os.makedirs(output_dir_path, exist_ok=True)
     json_path = os.path.join(output_dir_path, csv_file_name.replace('.csv', '.json'))
     with open(json_path, 'w') as f:
-        json.dump(file_info, f, indent=2)
+        json.dump(file_info, f, indent=4)
     results.append(file_info)
-    print(f"Saved Json output file to: {json_path}")
+    print(f"💾 Saved Json output file to: {json_path}")
     return results
 
 def process_all_csv_files(input_dir_path, output_dir_path):
