@@ -31,20 +31,27 @@ def detect_file_type(file_path):
 
     """
     # Each module must have an 'is_beadstudio_file' style function
-    # We look for the validation function generically
-    valid_function_names = [
-        'is_beadstudio_file', 
-        'is_thermal_report', 
-        'is_fm_generation_report', 
-        'is_illumina_samplesheet', 
-        'is_fm_autotilt_report'
-    ]
-    
-    for module in EXTRACTORS:
-        for func_name in valid_function_names:
-            validator = getattr(module, func_name, None)
-            if validator and validator(file_path):
-                return module
+    #Map the module to its specific validation function
+EXTRACTORS = [
+   
+    (Extractor_BeadStudio, "is_beadstudio_file"),
+    (Extractor_Thermal_Report, "is_thermal_report"),
+    (Extractor_FMGeneration, "is_fm_generation_report"),
+    (Extractor_IlluminaSampleSheet, "is_illumina_samplesheet"),
+    (Extractor_FMAutoTilt, "is_fm_autotilt_report")
+]
+
+# --- 2. THE AUTO-DETECTOR ---
+
+def detect_file_type(file_path):
+    """
+    Checks the file against every registered extractor's validation logic.     
+    Returns the module that successfully identifies the file.
+    """
+    for module, func_name in EXTRACTORS:
+        validator = getattr(module, func_name, None)
+        if validator and validator(file_path):
+            return module
     return None
 
 # --- 3. UNIFIED PROCESSING LOGIC ---
