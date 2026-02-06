@@ -6,20 +6,23 @@ import Main_Auto_Processor
 # --- 1. UTILITIES ---
 
 def get_orid_from_filename(filename):
-    """Extract ORID + first 4 digits from filename."""
+    """Find ORID + first 4 digits from filename,
+     Returns the ORID string or None."""
     pattern = r"(ORID\d{4})"
     match = re.search(pattern, filename, re.IGNORECASE)
-    return match.group(1) if match else None
+    return match.group(1).upper() if match else None
 
 def get_orid_from_foldername(dirname):
-    """Extract ORID + first 4 digits from folder name."""
+    """Find ORID + first 4 digits from folder name
+    Returns the upper-case ORID string or None."""
     pattern = r"(ORID\d{4})"
     match = re.search(pattern, dirname, re.IGNORECASE)
-    return match.group(1) if match else None
+    return match.group(1).upper() if match else None
+
 
 # --- 2. RECURSIVE CRAWLER LOGIC ---
 
-def process_recursive_by_orid(root_input_dir, target_orid, output_dir):
+def process_recursive_by_orid(input_dir, target_orid, output_dir):
     """
     Dives into all subdirectories of root_input_dir and processes 
     any CSV matching the target ORID using the Auto-Processor registry.
@@ -32,7 +35,7 @@ def process_recursive_by_orid(root_input_dir, target_orid, output_dir):
     print("FILE PROCESSING STARTED".center(width))
     print("=" * width)
     print(f"RECURSIVE SEARCH FOR ORID: {target_orid}")
-    print(f"ROOT DIRECTORY: {root_input_dir}")
+    print(f"ROOT DIRECTORY: {input_dir}")
     print("=" * width)
 
 
@@ -41,32 +44,30 @@ def process_recursive_by_orid(root_input_dir, target_orid, output_dir):
 
     # os.walk generates the file names in a directory tree
     # It handles 'infinite' nesting by visiting every branch
-    for dirpath, dirnames, filenames in os.walk(root_input_dir):
-        # 1. Check if the CURRENT folder name matches the target ORID
-        current_folder_name = os.path.basename(dirpath)
-        folder_orid = get_orid_from_foldername(current_folder_name)
-        
-        # Determine if we are inside a matching "ORID container"
-        is_inside_matching_folder = (folder_orid and folder_orid.upper() == target_orid.upper())
+    for dirpath, dirnames, filenames in os.walk(input_dir):
+        # 1.  Check if the target ORID exists ANYWHERE in the current directory path
+        # Example: 'post_run/ORID0036/CSVs' contains 'ORID0036'
+        path_orid = get_orid_from_foldername(dirpath)
+        #print(f"\nScanning folder: {dirpath}")
+        is_inside_target_hierarchy = (path_orid == target_orid.upper())
+        current_folder_name = os.path.basename(dirpath) # Get the name of the current folder (last part of the path) for logging purposes 
 
         # 2. Iterate through files in this folder
         for file_name in filenames:
             if file_name.lower().endswith('.csv'):
                 file_orid = get_orid_from_filename(file_name)
+                # Match if: 
+                # 1. The filename contains the ORID
+                # 2. OR any folder in the path contains the ORID
+                is_file_match = (file_orid == target_orid.upper())
                 
-                # A file is a match if:
-                # - The filename has the ORID 
-                # OR 
-                # - The parent folder has the ORID
-                is_file_match = (file_orid and file_orid.upper() == target_orid.upper())
-                
-                if is_inside_matching_folder or is_file_match:
+                if is_inside_target_hierarchy or is_file_match:
                     total_found_matching += 1
                     full_path = os.path.join(dirpath, file_name)
                     
                     print(f"\n🎯 MATCH FOUND: {file_name}")
-                    if is_inside_matching_folder:
-                        print(f"   (Matched via folder: {current_folder_name})")
+                    if is_inside_target_hierarchy and not is_file_match:
+                        print(f" Matched via folder: {current_folder_name}")
                     
                     try:
                         # We still pass the FILE path to the processor 

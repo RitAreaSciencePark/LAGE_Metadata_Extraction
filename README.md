@@ -170,37 +170,36 @@ python path/to/Sample_History_Extractor.py  </path/to/Json/folder>  <Sample_id t
 
 ### Recursive ORID Extractor (**File:** `Extractor_Orid_Recursively.py`)
 
-Processes files associated with a specific project ORID, supporting both explicit filename labeling and directory-based inheritance, regardless of directory depth.
+Processes files associated with a specific project ORID, supporting direct filename matching and deep directory inheritance.
 
 
 #### What It Does
 
-- Navigates through all nested subdirectories starting from the root input folder.
+- Navigates through all nested subdirectories starting from the input folder.
 - Dual-Layer Identification: Matches files based on two criteria:
 
-    - Direct Match: The ORID is present in the filename (e.g., ORID0036_data.csv).
+    1. Direct Filename Match: The ORID is present in the filename (e.g., ORID0036_data.csv).
 
-    - Contextual Match: The file is located inside a folder named after the ORID (e.g., ORID0036/20211011_QEIC21-03-10_MCU03_1-12.csv).
-- Passes all identified CSVs through the Main_Auto_Processor to generate standardized JSON metadata.
+    2. Multi-Level Inheritance: The file is located anywhere inside a folder structure labeled with the ORID. This allows the script to find files even when they are buried in sub-folders (e.g., post_run/ORID0036/CSVs/data.csv).
+- Passes all identified CSVs through the Main_Auto_Processor to validate headers and generate standardized JSON metadata.
 - Flattens the resulting JSON files into a single target directory for easy access.
 
 #### Why It’s Useful
 
-- Captures research data where individual files have generic names (like 20211011_QEIC21-03-10_MCU03_1-12.csv) but are stored in project-specific folders.
-- Centralizes all project outputs in one location
+- Ideal for structures where the ORID is defined at a high level (the "Project Folder") but the data is stored several levels deep in generic sub-folders like *CSVs/* or *Raw/*.
 - Specifically optimized for fast Sample History extraction across large datasets.
 
 #### Inputs & Outputs
 
 - **Inputs**
 
-* Root Input Directory: The top-level folder to begin the recursive search.
+* Input Directory: The top-level folder to begin the recursive search.
 
 * ORID Identifier: The specific project code to filter for (e.g., ORID0036).
 
 - **Outputs**
 
-* JSON files for the specified ORID, stored in a single output directory
+* JSON Manifests: JSON files for the specified ORID, stored in a single output directory
 
 
 
