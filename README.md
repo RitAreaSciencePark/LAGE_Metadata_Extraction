@@ -211,7 +211,7 @@ python path/to/Extractor_Orid_Recursively.py  </path/to/input/folder>  <ORID Num
 ```
 ---
 
-### 4. RO-Crate Descriptor Generator (**File:** `Generate_Crate_Recursively.py`)
+### 4. RO-Crate Descriptor Generator (**File:** `Crate_Generator.py`)
 
 Generates a formal [RO-Crate](https://www.researchobject.org/ro-crate/) metadata manifest (`ro-crate-metadata.json`) for all CSV data files within a project, regardless of directory depth.
 
@@ -241,8 +241,32 @@ Generates a formal [RO-Crate](https://www.researchobject.org/ro-crate/) metadata
 
 ```bash
 python path/to/Crate_Generator.py </path/to/input_data_folder>
-
+```
 ---
+
+### 5. RO-Crate Descriptor Generator (**File:** `Main_Rocrate.py`)
+
+Generates a formal RO-Crate metadata manifest (`ro-crate-metadata.json`) starting from the JSON files produced after CSV processing.  
+This script incorporates the full **Main_Auto_Processor** workflow, allowing it to process raw CSV files and automatically generate the RO-Crate descriptor from the resulting JSON outputs.
+
+It provides the same functionality as `Crate_Generator.py`, while integrating the end-to-end processing and packaging steps into a single executable pipeline.
+
+
+#### Inputs & Outputs
+
+- **Inputs**
+    - **Input Directory:** The top-level folder containing your raw CSV instrument data (scanned recursively).
+    - **Output Directory:** The designated path where standardized JSONs and the final RO-Crate will be generated.
+- **Outputs**
+    - **`ro-crate-metadata.json`:** A standardized descriptor file placed in the output directory.
+
+#### Usage
+
+```bash
+python path/to/Main_Rocrate.py </path/to/input_data_folder> </path/to/output_data_folder> --batch
+```
+---
+
 ##  Architecture Diagram
 
 ```
@@ -289,6 +313,7 @@ python path/to/Crate_Generator.py </path/to/input_data_folder>
 
 ```
 
+---
 
 ##  Workflow Diagram
 

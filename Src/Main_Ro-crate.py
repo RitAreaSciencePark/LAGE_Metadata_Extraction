@@ -5,6 +5,7 @@ import pandas as pd
 import re
 from rocrate.rocrate import ROCrate
 from rocrate.model.person import Person
+from rocrate.model.contextentity import ContextEntity
 import datetime
 
 # Import extractor modules
@@ -16,13 +17,14 @@ import Extractor_FMAutoTilt
 
 # --- 1. THE REGISTRY ---
 # We use a list here because order can matter for auto-detection
-
+#Map the module to its specific validation function
 EXTRACTORS = [
-    Extractor_BeadStudio,
-    Extractor_Thermal_Report,
-    Extractor_FMGeneration,
-    Extractor_IlluminaSampleSheet,
-    Extractor_FMAutoTilt
+   
+    (Extractor_BeadStudio, "is_beadstudio_file"),
+    (Extractor_Thermal_Report, "is_thermal_report"),
+    (Extractor_FMGeneration, "is_fm_generation_report"),
+    (Extractor_IlluminaSampleSheet, "is_illumina_samplesheet"),
+    (Extractor_FMAutoTilt, "is_fm_autotilt_report")
 ]
 
 # --- 2. THE AUTO-DETECTOR ---
@@ -32,20 +34,12 @@ def detect_file_type(file_path):
     Checks the file against every registered extractor's validation logic.     
     Returns the module that successfully identifies the file.
     """
-    valid_function_names = [
-        'is_beadstudio_file', 
-        'is_thermal_report', 
-        'is_fm_generation_report', 
-        'is_illumina_samplesheet', 
-        'is_fm_autotilt_report'
-    ]
-    
-    for module in EXTRACTORS:
-        for func_name in valid_function_names:
-            validator = getattr(module, func_name, None)
-            if validator and validator(file_path):
-                return module
+    for module, func_name in EXTRACTORS:
+        validator = getattr(module, func_name, None)
+        if validator and validator(file_path):
+            return module
     return None
+    
 
 # --- 3. UNIFIED PROCESSING LOGIC ---
 
@@ -129,31 +123,65 @@ def create_ro_crate(all_results, output_dir):
     Packages the extraction results into an RO-Crate (JSON-LD).
     """
     crate = ROCrate()
-    
-    # 1. Create the Author (Person Object)
-    # We create this first so we can link it as a citation later.
-    lage_team = crate.add(Person(crate, '#lage-team', properties={
-        "name": "LAGE Team",
-        "affiliation": "Area Science Park",
-        "department": "Research and Technology Institute",
-        "laboratory": "Laboratory of Genomics and Epigenomics (LAGE)",
-        
-    }))
+    # Adding proprieties to the root entity (the dataset itself)
+    crate.root_dataset["name"] = "LAGE Extracted Metadata Dataset"
+    crate.root_dataset["description"] = (
+                                    "Standardized metadata extracted from heterogeneous sequencing sample sheets. "
+                                    "This dataset transforms instrument-specific CSV files (Illumina, Nanopore, etc.) "
+                                    "into FAIR-compliant JSON structures to support integration with the DECOS platform."
+                                )
+    crate.root_dataset["about"] = "Standardization of Genomic Sequencing Metadata for FAIR Data Integration"
+    crate.root_dataset["license"] = "https://opensource.org/licenses/MIT"
+    crate.root_dataset["keywords"] = ["Genomics", "Metadata", "LAGE", "LADE"]
+    crate.root_dataset["datePublished"] = datetime.datetime.now().date().isoformat()
+    crate.root_dataset["dateCreated"] = datetime.date.today().isoformat()
+    crate.root_dataset["dateModified"] = datetime.date.today().isoformat()
 
     
+    # 1. Define the Context/ Affiliation (Area Science Park -> RIT -> LAGE/LADE) 
+    area_science_park = crate.add(
+        ContextEntity(crate, "#area-science-park", properties={
+            "@type": "Organization",
+            "name": "Area Science Park"
+        })
+    )
+
+    rit = crate.add(
+        ContextEntity(crate, "#rit", properties={
+            "@type": "Organization",
+            "name": "Research and Technology Institute (RIT)",
+            "parentOrganization": {"@id": area_science_park.id}
+        })
+    )
+
+    lade = crate.add(
+        ContextEntity(crate, "#lade", properties={
+            "@type": "Organization",
+            "name": "Laboratory of Data Engineering (LADE)",
+            "url": "https://www.areasciencepark.it/infrastrutture-di-ricerca/data-engineering-lade/",
+            "parentOrganization": {"@id": rit.id}
+        })
+    )
+    lage = crate.add(
+        ContextEntity(crate, "#lage", properties={
+            "@type": "Organization",
+            "name": "Laboratory of Genomics and Epigenomics (LAGE)",
+            "url": "https://www.areasciencepark.it/en/research-infrastructures/life-sciences/lage-genomics-and-epigenomics-laboratory/",
+            "parentOrganization": {"@id": rit.id}
+        })
+    )
+
 
     # 2. Define the Processor (SoftwareApplication) 
-    # NOTE: Using crate.add() with @type SoftwareApplication to avoid the attribute error
-    processor_script = crate.add(Person(crate, {
-        "@id": "#main-processor",
+    processor_script = crate.add(ContextEntity(crate, "#Main_Auto_Processor", properties={
         "@type": "SoftwareApplication",
         "name": "Main_Auto_Processor",
         "description": "Automated extractor for lab instrument reports",
+        "creator": {"@id": lade.id},
+        "license": "https://opensource.org/licenses/MIT",
         "url": "https://github.com/RitAreaSciencePark/LAGE_Metadata_Extraction/blob/main/Src/Main_Auto_Processor.py"
     }))
     
-    # LINK: Assign the Author created above to the Software
-    processor_script['author'] = lage_team
 
     # 3. Add the output files to the crate
     for result in all_results:
@@ -166,13 +194,12 @@ def create_ro_crate(all_results, output_dir):
 
         if os.path.exists(json_path):
             file_entity = crate.add_file(json_path, properties={
+                "name": json_file_name,
                 "description": f"Extracted metadata for {file_name}",
                 "encodingFormat": "application/json",
-                "datePublished": datetime.datetime.now().isoformat()
+                "wasGeneratedBy": {"@id": processor_script.id}  
             })
-            # LINK: Provenance - tell the crate this file was generated by the script
-            file_entity['wasGeneratedBy'] = processor_script
-
+           
     # 4. Add the Summary CSV
     summary_csv = os.path.join(output_dir, 'metadata_summary.csv')
     if os.path.exists(summary_csv):
