@@ -10,35 +10,20 @@ import Extractor_Thermal_Report
 import Extractor_FMGeneration
 import Extractor_IlluminaSampleSheet
 import Extractor_FMAutoTilt
+import Extractor_Nanopore    
 
 # --- 1. THE REGISTRY ---
 # We use a list here because order can matter for auto-detection
+#Map the module to its specific validation function
 
-EXTRACTORS = [
-    Extractor_BeadStudio,
-    Extractor_Thermal_Report,
-    Extractor_FMGeneration,
-    Extractor_IlluminaSampleSheet,
-    Extractor_FMAutoTilt
-]
-
-# --- 2. THE AUTO-DETECTOR ---
-
-def detect_file_type(file_path):
-    """
-    Checks the file against every registered extractor's validation logic.     
-    Returns the module that successfully identifies the file.
-
-    """
-    # Each module must have an 'is_beadstudio_file' style function
-    #Map the module to its specific validation function
 EXTRACTORS = [
    
     (Extractor_BeadStudio, "is_beadstudio_file"),
     (Extractor_Thermal_Report, "is_thermal_report"),
     (Extractor_FMGeneration, "is_fm_generation_report"),
     (Extractor_IlluminaSampleSheet, "is_illumina_samplesheet"),
-    (Extractor_FMAutoTilt, "is_fm_autotilt_report")
+    (Extractor_FMAutoTilt, "is_fm_autotilt_report"),
+    (Extractor_Nanopore, "is_nanopore_file")
 ]
 
 # --- 2. THE AUTO-DETECTOR ---
@@ -101,12 +86,15 @@ def main():
 
     all_results = []
     total_checked = 0
-
+    
+    # Define the extensions you want to allow
+    VALID_EXTENSIONS = ('.csv', '.txt', '.json', '.md')
+    
     if args.batch and os.path.isdir(args.input_path):
         # --- RECURSIVE LOGIC ---
         # os.walk travels through every sub-folder automatically
         for root, dirs, files in os.walk(args.input_path):
-            csv_files = [f for f in files if f.lower().endswith('.csv')]
+            csv_files = [f for f in files if f.lower().endswith(VALID_EXTENSIONS)]
             for f in csv_files:
                 total_checked += 1
                 full_path = os.path.join(root, f)

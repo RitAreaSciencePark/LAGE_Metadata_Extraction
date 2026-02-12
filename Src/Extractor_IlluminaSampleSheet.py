@@ -148,7 +148,7 @@ def one_single_file(input_file_dir_path, output_dir_path, csv_file_name):
     with open(json_path, 'w') as f:
         json.dump(file_info, f, indent=4)
     results.append(file_info)
-    print(f"💾 Saved Json output file to: {json_path}")
+    print(f"\n 💾 Saved Json output file to: {json_path}")
     return results
 
 def process_all_csv_files(input_dir_path, output_dir_path):

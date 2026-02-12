@@ -26,7 +26,7 @@ def is_beadstudio_file(file_Input_path):
             return False
             
     except Exception as e:
-        print(f"Error reading file for validation: {e}")
+        #print(f"Error reading file for validation: {e}")
         return False
     
 def get_csv_section(file_Input_path, section_name):
@@ -276,7 +276,7 @@ def one_single_file(input_file_dir_path, output_dir_path, csv_file_name):
         json.dump(file_info, f, indent=2)
             
     results.append(file_info)
-    print(f"Saved Json output file to: {json_path}")
+    print(f"\n 💾 Saved Json output file to: {json_path}")
     return results
 
 
