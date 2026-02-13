@@ -1,6 +1,7 @@
 import pandas as pd
 import io
 import os
+import csv
 import json
 import re
 
@@ -29,8 +30,10 @@ def is_nanopore_file(file_path):
             
         elif fname.endswith('.json') and 'report' in fname:
             return "json_report"
-        elif fname.endswith('.txt') and fname.startswith('final_summary'):
+        elif fname.endswith('.txt') and fname.startswith('final_summary') :
             return "final_summary"
+        elif fname.endswith('.txt') and fname.startswith('sequencing_summary'):
+            return "sequencing_summary"
         if fname.endswith('.md') and 'report' in fname:
                 return "report_in_markdown"
             
@@ -54,6 +57,65 @@ def extract_metadata_from_txt(path):
                         meta[k.strip().lower()] = v.strip()
     except Exception as e:
         print(f"❌ Error reading txt file {os.path.basename(path)}: {e}")
+    return meta
+
+
+def extract_metadata_from_Sequencing_txt(path):
+    """Parses Nanopore .txt sequencing summary file."""
+    meta = {
+        "file_name": os.path.basename(path),
+        "total_reads": 0,
+        "passed_filtering_count": 0,
+        "unique_samples": set(),
+        "unique_experiments": set(),
+        "unique_run_ids": set(),
+        "mean_qscore": 0.0,
+        "pore_types": set()
+    }
+    
+    try:
+        with open(path, 'r', encoding="utf-8") as f:
+            # Nanopore summary files use tab separation
+            reader = csv.DictReader(f, delimiter='\t') 
+            
+            qscore_sum = 0.0
+            
+            for row in reader:
+                meta["total_reads"] += 1 
+                
+                # 1. Track Quality Filtering
+                if row.get('passes_filtering', '').upper() == 'TRUE':
+                    meta["passed_filtering_count"] += 1 
+                # 2. Collect Unique Identifiers
+                if row.get('sample_id'):
+                    meta["unique_samples"].add(row['sample_id']) 
+                if row.get('experiment_id'):
+                    meta["unique_experiments"].add(row['experiment_id']) 
+                if row.get('run_id'):
+                    meta["unique_run_ids"].add(row['run_id']) 
+                if row.get('pore_type'):
+                    meta["pore_types"].add(row['pore_type']) 
+                
+                # 3. Accumulate Q-Scores for average
+                try:
+                    qscore_sum += float(row.get('mean_qscore_template', 0)) 
+                except (ValueError, TypeError):
+                    pass
+
+            # Finalize Calculations
+            if meta["total_reads"] > 0:
+                meta["mean_qscore"] = round(qscore_sum / meta["total_reads"], 2)
+            
+            # Convert sets to sorted lists for JSON/Crate compatibility
+            meta["unique_samples"] = sorted(list(meta["unique_samples"]))
+            meta["unique_experiments"] = sorted(list(meta["unique_experiments"]))
+            meta["unique_run_ids"] = sorted(list(meta["unique_run_ids"]))
+            meta["pore_types"] = sorted(list(meta["pore_types"]))
+
+    except Exception as e:
+        print(f"❌ Error reading txt file {os.path.basename(path)}: {e}")
+        return {}
+
     return meta
 
 def extract_pore_scan_stats(file_path):
@@ -129,11 +191,13 @@ def one_single_file(root_dir, output_dir, file_name):
 
         
         elif file_type == "final_summary":
-            # This now catches sequencing_summary.txt as well
             data_payload = {"metadata_Final_Summary": extract_metadata_from_txt(path_file)}
             # Try to grab run_id from summary if sample sheet was missing
             if General_record["run_id"] == "unknown":
-                General_record["run_id"] = data_payload["metadata_Final_Summary"].get("run_id", "unknown")
+                General_record["run_id"] =  data_payload["metadata_Final_Summary"].get("protocol_run_id") or data_payload["metadata_Final_Summary"].get("run_id")
+        
+        elif file_type == "sequencing_summary":
+            data_payload = {"metadata_Sequencing_Summary": extract_metadata_from_Sequencing_txt(path_file)}
 
         elif file_type == "pore_activity":
             df = pd.read_csv(path_file)
