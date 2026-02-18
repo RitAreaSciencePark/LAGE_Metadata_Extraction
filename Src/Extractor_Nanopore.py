@@ -39,7 +39,11 @@ def is_nanopore_file(file_path):
         if fname.endswith('.pod5'):
             return "pod5_file"
         if fname.endswith('.fastq.gz'):
-            return "fastq_file"     
+            return "fastq_file" 
+        if fname.endswith('.bam'):
+            return "bam_file"
+        if fname.endswith('.bam.bai'):
+            return "bam_index_file"    
     except Exception as e:
         # Log exactly which file failed and why
         #print(f" Validation failed for file: {fname} (Reason: {e})")

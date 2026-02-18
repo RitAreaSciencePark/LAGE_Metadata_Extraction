@@ -88,7 +88,7 @@ def main():
     total_checked = 0
     
     # Define the extensions you want to allow
-    VALID_EXTENSIONS = ('.csv', '.txt', '.json', '.md', '.pod5', '.fastq.gz')
+    VALID_EXTENSIONS = ('.csv', '.txt', '.json', '.md', '.pod5', '.fastq.gz', '.bam', '.bam.bai')
     
     if args.batch and os.path.isdir(args.input_path):
         # --- RECURSIVE LOGIC ---

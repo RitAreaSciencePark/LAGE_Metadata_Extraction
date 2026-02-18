@@ -235,7 +235,7 @@ def main():
     os.makedirs(args.output_dir, exist_ok=True)
     all_results = []
     detected_types = set()
-    VALID_EXTENSIONS = ('.csv', '.txt', '.json', '.md', '.pod5', '.fastq.gz')
+    VALID_EXTENSIONS = ('.csv', '.txt', '.json', '.md', '.pod5', '.fastq.gz', '.bam', '.bam.bai')
     if args.batch and os.path.isdir(args.input_path):
         for root, dirs, files in os.walk(args.input_path):
             for f in [f for f in files if f.lower().endswith(VALID_EXTENSIONS)]:

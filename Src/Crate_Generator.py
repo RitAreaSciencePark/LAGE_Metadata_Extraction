@@ -13,12 +13,16 @@ import Extractor_IlluminaSampleSheet
 import Extractor_FMAutoTilt
 import Extractor_Nanopore    
 
+#• BAM files: Binary alignments mapping sequence reads to reference genomes, providing insights into the alignment of reads.
+#• BAI files: Indexes of BAM files, used for efficient access and visualization of alignments.
 
 def generate_folder_rocrate(input_folder):
     # --- Specific Descriptions for RO-Crate Metadata ---
     FILE_DESCRIPTIONS = {
     "pod5_file": "Represent raw signal data captured by the Nanopore device, used for quality control and re-basecalling.",
     "fastq_file": "A text-based sequence storage format, containing both the sequence of DNA/RNA and its quality scores.",
+    "bam_file": "Binary format for storing aligned sequencing reads, containing both sequence and alignment information.",
+    "bam_index_file": "Index file for BAM files, enabling rapid access to specific regions within the BAM file for downstream analysis.",
     "sample_sheet": "Tabular data file containing sample identifiers and experimental metadata for downstream analysis.",
     "sequencing_summary": "Quantitative summary of the sequencing run, including read lengths and quality scores.",
     "json_report": "Machine-readable report containing instrument metadata and execution parameters.",
@@ -26,7 +30,7 @@ def generate_folder_rocrate(input_folder):
     "final_summary": "Text-based summary of the final basecalling and run metrics."
     }
     input_folder_name = os.path.basename(os.path.normpath(input_folder))
-    VALID_EXTENSIONS = ('.csv', '.txt', '.json', '.md', '.pod5', '.fastq.gz')
+    VALID_EXTENSIONS = ('.csv', '.txt', '.json', '.md', '.pod5', '.fastq.gz', '.bam', '.bam.bai')
 
     # --- MIME Type Mapping ---
     MIME_MAP = {
@@ -35,7 +39,9 @@ def generate_folder_rocrate(input_folder):
         '.md': 'text/markdown',
         '.json': 'application/json',
         '.pod5': 'application/octet-stream',  
-        '.fastq.gz': 'application/gzip'  
+        '.fastq.gz': 'application/gzip',  
+        '.bam': 'application/octet-stream',
+        '.bam.bai': 'application/octet-stream'
     }
     # ---  Pre-scan to identify types for the description ---
     print(f" Pre-scanning folder for file types in: {input_folder}")
@@ -48,7 +54,8 @@ def generate_folder_rocrate(input_folder):
             # Handle double extension for .fastq.gz
             if filename.lower().endswith('.fastq.gz'):
                 ext = '.fastq.gz'
-                
+            if filename.lower().endswith('.bam.bai'):
+                ext = '.bam.bai'
             if ext in VALID_EXTENSIONS:
                 # 1. Update Counts
                 extension_counts[ext] = extension_counts.get(ext, 0) + 1
@@ -201,7 +208,7 @@ def generate_folder_rocrate(input_folder):
             readable_size = get_readable_file_size(file_size_bytes)
             
             # Determine extension for MIME mapping
-            ext = ".fastq.gz" if filename.lower().endswith(".fastq.gz") else os.path.splitext(filename)[1].lower()
+            ext = ".fastq.gz" if filename.lower().endswith(".fastq.gz") else ".bam" if filename.lower().endswith(".bam") else ".bam.bai" if filename.lower().endswith(".bam.bai") else os.path.splitext(filename)[1].lower()
                 
             # Default values
             assigned_run = None
