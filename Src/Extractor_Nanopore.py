@@ -36,7 +36,10 @@ def is_nanopore_file(file_path):
             return "sequencing_summary"
         if fname.endswith('.md') and 'report' in fname:
                 return "report_in_markdown"
-            
+        if fname.endswith('.pod5'):
+            return "pod5_file"
+        if fname.endswith('.fastq.gz'):
+            return "fastq_file"     
     except Exception as e:
         # Log exactly which file failed and why
         #print(f" Validation failed for file: {fname} (Reason: {e})")

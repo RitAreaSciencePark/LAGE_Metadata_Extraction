@@ -40,6 +40,14 @@ def detect_file_type(file_path):
                 continue
     return None
 
+# -- GET HUMAN-READABLE FILE SIZE ---
+def get_readable_file_size(size_in_bytes):
+    for unit in ['B', 'KB', 'MB', 'GB']:
+        if size_in_bytes < 1024.0:
+            return f"{size_in_bytes:.2f} {unit}"
+        size_in_bytes /= 1024.0
+    return f"{size_in_bytes:.2f} TB"
+
 # --- 3. UNIFIED PROCESSING LOGIC ---
 def process_single_path(input_path, output_dir):
     module = detect_file_type(input_path)
@@ -65,6 +73,11 @@ def create_ro_crate(all_results, output_dir,input_path,detected_types):
     crate = ROCrate()
 
     input_folder_name = os.path.basename(os.path.normpath(input_path))
+    # ---  COUNT PRODUCED JSON FILES ---
+    # Count all JSONs in output (excluding the RO-Crate manifest itself)
+    json_files = [f for f in os.listdir(output_dir) if f.endswith('.json') and f != "ro-crate-metadata.json"]
+    json_count = 0
+    json_count = len(json_files)
 
     # Format the set into a clean string: "Nanopore, BeadStudio"
     types_str = ", ".join(detected_types) if detected_types else "Unknown"
@@ -144,8 +157,8 @@ def create_ro_crate(all_results, output_dir,input_path,detected_types):
 
     # Add properties to the Root Entity
     crate.root_dataset["name"] = f"LAGE Extracted Metadata Dataset for Repository: {input_folder_name}"
-    crate.root_dataset["description"] = ("This dataset contains standardized metadata derived from heterogeneous sequencing "
-    f"sample sheets ({types_str}), formatted as JSON files. "
+    crate.root_dataset["description"] = (f"This dataset contains {json_count} standardized JSON metadata files derived from "
+    f"heterogeneous {types_str} sequencing outputs."
     "It also includes the RO-Crate metadata describing the context of data generation, "
     "including the laboratory environment, the research institute, the instruments used, "
     "and the linkage to the original raw data.")
@@ -156,39 +169,51 @@ def create_ro_crate(all_results, output_dir,input_path,detected_types):
     crate.root_dataset["creator"] = {"@id": lade.id}
    
     
+
     # --- ADD CONSOLIDATED NANOPORE FILE ---
     # Since Extractor_Nanopore merges everything, we add this file specifically
     gen_json_name = "Generalized_metadata.json"
     gen_json_path = os.path.join(output_dir, gen_json_name)
     
     if os.path.exists(gen_json_path):
+        size = os.path.getsize(gen_json_path) # Get file size
+        # Convert to a human-readable string (e.g., "1.2 MB")
+        
         crate.add_file(gen_json_path, properties={
             "name": gen_json_name,
             "description": "Aggregated Nanopore run metadata, including pore activity, tracking ID, throughput, and other key metrics.",
+            #"contentSize": str(size),
+            "humanReadableSize": get_readable_file_size(size),  # Custom field for user convenience
             "creator": {"@id": lade.id},
             "encodingFormat": "application/json",
             "about": {"@id": instrument_nano.id},  # Link to the instrument that generated this metadata
             "wasGeneratedBy": {"@id": processor_script.id},
         })   
 
-    # --- ADD INDIVIDUAL FILES (ILLUMINA/BEADSTUDIO) ---
+    # --- 4. ADD INDIVIDUAL FILES ---
     for result in all_results:
-        data, type_label = result # This unpacks the tuple correctly
-        # result is a list from one_single_file, handle accordingly
-        if isinstance(data, list): 
-            data = data[0]
+        # result is (data, type_label)
+        data, type_label = result 
         
-        file_name = data.get('file_name')
-        if not file_name or file_name == gen_json_name:
+        # Extract data if it was wrapped in a list by the extractor
+        actual_data = data[0] if isinstance(data, list) else data
+        
+        # If it's Nanopore, the file_name is inside the metrics or we use a fallback
+        file_name = actual_data.get('file_name') or "Unknown_Source"
+        
+        if file_name == gen_json_name:
             continue
             
-        json_file_name = file_name.replace('.csv', '.json').replace('.txt', '.json')
+        json_file_name = file_name.replace('.csv', '.json').replace('.txt', '.json').replace('.md', '.json')
         json_path = os.path.join(output_dir, json_file_name)
 
         if os.path.exists(json_path) and json_path != gen_json_path:
+            size = os.path.getsize(json_path) # Get file size
             crate.add_file(json_path, properties={
                 "name": json_file_name,
                 "description": f"Extracted metadata for {file_name}",
+                #"contentSize": str(size),
+                "humanReadableSize": get_readable_file_size(size),  # Custom field for user convenience
                 "encodingFormat": "application/json",
                 "creator": {"@id": lade.id},
                 "wasGeneratedBy": {"@id": processor_script.id}  
@@ -197,7 +222,7 @@ def create_ro_crate(all_results, output_dir,input_path,detected_types):
     
 
     crate.write(output_dir)
-    print(f"\n📦 RO-Crate (ro-crate-metadata.json) generated in: {output_dir}")
+    print(f"\n📦 RO-Crate (ro-crate-metadata.json) generated with {json_count} JSON records in: {output_dir}")
 
 # --- 5. MAIN EXECUTION ---
 def main():
@@ -210,8 +235,7 @@ def main():
     os.makedirs(args.output_dir, exist_ok=True)
     all_results = []
     detected_types = set()
-    VALID_EXTENSIONS = ('.csv', '.txt', '.json', '.md')
-
+    VALID_EXTENSIONS = ('.csv', '.txt', '.json', '.md', '.pod5', '.fastq.gz')
     if args.batch and os.path.isdir(args.input_path):
         for root, dirs, files in os.walk(args.input_path):
             for f in [f for f in files if f.lower().endswith(VALID_EXTENSIONS)]:
