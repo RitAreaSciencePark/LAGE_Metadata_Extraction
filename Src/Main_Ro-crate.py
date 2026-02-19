@@ -8,6 +8,8 @@ import datetime
 from rocrate.rocrate import ROCrate
 from rocrate.model.person import Person
 from rocrate.model.contextentity import ContextEntity
+from rocrate.model.entity import Entity 
+
 
 # Import extractor modules
 import Extractor_BeadStudio
@@ -73,6 +75,7 @@ def create_ro_crate(all_results, output_dir,input_path,detected_types):
     crate = ROCrate()
 
     input_folder_name = os.path.basename(os.path.normpath(input_path))
+
     # ---  COUNT PRODUCED JSON FILES ---
     # Count all JSONs in output (excluding the RO-Crate manifest itself)
     json_files = [f for f in os.listdir(output_dir) if f.endswith('.json') and f != "ro-crate-metadata.json"]
@@ -153,6 +156,13 @@ def create_ro_crate(all_results, output_dir,input_path,detected_types):
     "url": "https://www.illumina.com/products/by-type/sequencing-systems/novaseq-6000.html"
     }))
     
+      # --- Define  Format Entities ---
+    json_format = crate.add(ContextEntity(crate, "#json-format", properties={
+        "@type": "File Format",
+        "name": "JSON",
+        "description": "JavaScript Object Notation (JSON) is a text-based data interchange format.",
+        "url": "https://www.json.org/json-en.html"
+    }))
        
 
     # Add properties to the Root Entity
@@ -167,28 +177,48 @@ def create_ro_crate(all_results, output_dir,input_path,detected_types):
     crate.root_dataset["keywords"] = ["Genomics", "Metadata", "LAGE", "LADE"]
     crate.root_dataset["license"] = "https://opensource.org/licenses/MIT"
     crate.root_dataset["creator"] = {"@id": lade.id}
-   
+    
+    # ---  Create the Folder (Dataset) Entity ---
+    folder_id = f"{input_folder_name}/" # Standard RO-Crate folder ID ends in /
+    folder_entity = crate.add(ContextEntity(crate, folder_id, properties={
+        "@type": "Dataset",
+        "name": input_folder_name,
+        "description":f"Main data directory containing extracted metadata from {types_str} instruments.",
+        "hasPart": [] # We will fill this with file references
+    }))
+
+    # Link the Folder to the Root
+    crate.root_dataset["hasPart"] = [{"@id": folder_id}]
+
+    total_folder_size = 0
+    folder_parts = []
+
     
 
     # --- ADD CONSOLIDATED NANOPORE FILE ---
     # Since Extractor_Nanopore merges everything, we add this file specifically
     gen_json_name = "Generalized_metadata.json"
     gen_json_path = os.path.join(output_dir, gen_json_name)
-    
+    file_size = os.path.getsize(gen_json_path) if os.path.exists(gen_json_path) else 0
+    total_folder_size += file_size
+
     if os.path.exists(gen_json_path):
         size = os.path.getsize(gen_json_path) # Get file size
         # Convert to a human-readable string (e.g., "1.2 MB")
         
-        crate.add_file(gen_json_path, properties={
+        gen_json_file= Entity(crate, identifier = gen_json_path, properties={
             "name": gen_json_name,
+            "@type": "File",
             "description": "Aggregated Nanopore run metadata, including pore activity, tracking ID, throughput, and other key metrics.",
-            #"contentSize": str(size),
             "humanReadableSize": get_readable_file_size(size),  # Custom field for user convenience
             "creator": {"@id": lade.id},
-            "encodingFormat": "application/json",
+            "encodingFormat": {"@id": json_format.id},
             "about": {"@id": instrument_nano.id},  # Link to the instrument that generated this metadata
             "wasGeneratedBy": {"@id": processor_script.id},
         })   
+        crate.add(gen_json_file)  
+         # Add this file's ID to the folder's list
+        folder_parts.append({"@id": gen_json_path})  
 
     # --- 4. ADD INDIVIDUAL FILES ---
     for result in all_results:
@@ -208,18 +238,25 @@ def create_ro_crate(all_results, output_dir,input_path,detected_types):
         json_path = os.path.join(output_dir, json_file_name)
 
         if os.path.exists(json_path) and json_path != gen_json_path:
-            size = os.path.getsize(json_path) # Get file size
-            crate.add_file(json_path, properties={
+            file_size = os.path.getsize(json_path) # Get file size
+            total_folder_size += file_size
+
+            json_file = Entity(crate, identifier = json_path, properties={
                 "name": json_file_name,
+                "@type": "File",
                 "description": f"Extracted metadata for {file_name}",
-                #"contentSize": str(size),
-                "humanReadableSize": get_readable_file_size(size),  # Custom field for user convenience
-                "encodingFormat": "application/json",
+                "humanReadableSize": get_readable_file_size(file_size), 
+                "encodingFormat": {"@id": json_format.id},
                 "creator": {"@id": lade.id},
                 "wasGeneratedBy": {"@id": processor_script.id}  
             })        
 
-    
+            crate.add(json_file)  
+             # Add this file's ID to the folder's list
+            folder_parts.append({"@id": json_path})
+     # --- Finalize Folder Properties ---
+    folder_entity["hasPart"] = folder_parts
+    folder_entity["humanReadableSize"] = get_readable_file_size(total_folder_size)        
 
     crate.write(output_dir)
     print(f"\n📦 RO-Crate (ro-crate-metadata.json) generated with {json_count} JSON records in: {output_dir}")
