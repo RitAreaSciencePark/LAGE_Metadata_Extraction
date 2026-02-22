@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026  Lesly TSOPTIO FOUGANG, Valerio PIOMPONI, Ornella AFFINITO, Laboratory of Data Engineering, Research and Technology Institute (RIT), Area Science Park, Trieste, Italy.
+#
+# SPDX-License-Identifier: MIT
+
 import os
 import argparse
 import re
