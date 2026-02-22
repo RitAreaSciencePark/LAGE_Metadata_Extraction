@@ -5,6 +5,7 @@ import sys
 from rocrate.rocrate import ROCrate
 from rocrate.model.contextentity import ContextEntity
 from rocrate.model.entity import Entity 
+from rocrate.model.dataset import Dataset
 
 # Import your extractor modules to use their validation logic
 import Extractor_BeadStudio
@@ -54,7 +55,7 @@ def generate_folder_rocrate(input_folder):
         # Alignment formats (community standard values, no official MIME yet)
         ".bam": "application/x-bam",
         ".bam.bai": "application/x-bam-index"
-}
+   }
 
     
 
@@ -70,12 +71,12 @@ def generate_folder_rocrate(input_folder):
             if filename.lower().endswith('.fastq.gz'):
                 ext = '.fastq.gz'
             if filename.lower().endswith('.bam.bai'):
-                ext = '.bam.bai'
+               ext = '.bam.bai'
             if ext in VALID_EXTENSIONS:
                 # 1. Update Counts
                 extension_counts[ext] = extension_counts.get(ext, 0) + 1
                 
-                # 2. Identify Instrument Labels (Your existing logic)
+                # 2. Identify Instrument Labels for Description
                 full_path = os.path.join(root, filename)
                 if Extractor_Nanopore.is_nanopore_file(full_path):
                     detected_labels.add("Nanopore")
@@ -271,19 +272,73 @@ def generate_folder_rocrate(input_folder):
         f"This dataset includes {file_summary_str}.",
         "hasPart": [] # We will fill this with file references (link folder to files ))
     }))
-
-    # Link the Folder to the Root
+    
+   # 1. Link the Main Folder to the Root Entity (./)
+    # This keeps the Root Entity perfectly clean with only 1 entry in hasPart.
     crate.root_dataset["hasPart"] = [{"@id": folder_id}]
+    
+    # Track entities and sizes
+    folder_entities = {".": folder_entity} #  "." points to the Main Folder
+    subfolder_sizes = {} # To track size per sub-directory
 
     total_folder_size = 0
-    folder_parts = []
-
-
-
-    # ---  Final Scan and Crate Assembly ---
     count = 0
+
+    # ------------------------------------------------------------------
+    # Helper: decide if a folder is a REAL dataset (leaf data directory)
+    # ------------------------------------------------------------------
+    def is_leaf_data_folder(current_root, dirs, files):
+        """
+        A folder is considered a Dataset ONLY if:
+        - it contains files
+        - none of its subdirectories also contain files
+        """
+
+        if not files:
+            return False  # empty folder → skip
+
+        # If any child directory also contains files,
+        # then this is just a structural container.
+        for d in dirs:
+            sub_path = os.path.join(current_root, d)
+
+            for _, _, sub_files in os.walk(sub_path):
+                if sub_files:
+                    return False
+                break  # only inspect that child level
+
+        return True
+    # ------------------------------------------------------------------
+
     
     for root, dirs, files in os.walk(input_folder):
+        rel_root = os.path.relpath(root, input_folder)
+        
+        # 2. HANDLE SUB-DIRECTORIES (Directly under the Main Folder)
+        if rel_root != "." and is_leaf_data_folder(root, dirs, files):
+            if rel_root not in folder_entities:
+                folder_name = os.path.basename(root)
+                # Create the intermediate folder as a Dataset
+                new_dataset = ContextEntity(crate, f"#{rel_root}", properties={
+                    "@type": "Dataset",
+                    "name": folder_name,
+                    "hasPart": []
+                })
+                folder_entities[rel_root] = crate.add(new_dataset)
+                
+                # LINK the Sub-Folder to the Main Folder (NOT the root)
+                main_parts = folder_entity.get("hasPart", [])
+                if not isinstance(main_parts, list): main_parts = [main_parts]
+                main_parts.append({"@id": f"#{rel_root}"})
+                folder_entity["hasPart"] = main_parts
+            
+            current_parent = folder_entities[rel_root]
+        else:
+            # We are either at root OR inside a structural container.
+            # Files found here belong to the main dataset.
+            current_parent = folder_entity
+
+        # Process Files
         for filename in files:
             # Skip the metadata file itself if it already exists
             if filename == "ro-crate-metadata.json":
@@ -293,10 +348,14 @@ def generate_folder_rocrate(input_folder):
             
             full_path = os.path.join(root, filename)
             rel_path = os.path.relpath(full_path, input_folder)
+
             # Get file size in bytes
             file_size_bytes = os.path.getsize(full_path)
             readable_size = get_readable_file_size(file_size_bytes)
             total_folder_size += file_size_bytes
+
+            # Track size for the specific parent folder
+            subfolder_sizes[rel_root] = subfolder_sizes.get(rel_root, 0) + file_size_bytes
 
             # Determine extension for MIME mapping
             ext = ".fastq.gz" if filename.lower().endswith(".fastq.gz") else ".bam" if filename.lower().endswith(".bam") else ".bam.bai" if filename.lower().endswith(".bam.bai") else os.path.splitext(filename)[1].lower()
@@ -350,15 +409,28 @@ def generate_folder_rocrate(input_folder):
                 print(f" File Identified & Assigned: {rel_path} -> {assigned_run.id}")
             else:
                 print(f" File non Identified  & non Assigned: {rel_path}")
+            # Register the file in the @graph    
             crate.add(file_props)    
 
-             # Add this file's ID to the folder's list
-            folder_parts.append({"@id": rel_path})
+            # 3. LINK FILE TO ITS DIRECT PARENT
+            p_parts = current_parent.get("hasPart", [])
+            if not isinstance(p_parts, list): p_parts = [p_parts]
+            p_parts.append({"@id": rel_path})
+            current_parent["hasPart"] = p_parts
             count += 1
+
     # --- Finalize Folder Properties ---
-    folder_entity["hasPart"] = folder_parts
-    folder_entity["humanReadableSize"] = get_readable_file_size(total_folder_size)
+   # folder_entity["hasPart"] = folder_parts
+    # Finalize Root Description with total size
+    crate.root_dataset["humanReadableSize"] = get_readable_file_size(total_folder_size)
+    # Inject individual sizes into subfolders
+    # Inject sizes ONLY for folders that were actually created as Dataset entities
+    for path, size in subfolder_sizes.items():
+        entity = folder_entities.get(path)
+        if entity:  # skip structural folders that were never created
+            entity["humanReadableSize"] = get_readable_file_size(size)
     crate.write(input_folder)
+
     print(f"\n ✅ Success! Processed {count} files.")
     print(f"Generated Crate ('ro-crate-metadata.json') in: {input_folder}.")
 
