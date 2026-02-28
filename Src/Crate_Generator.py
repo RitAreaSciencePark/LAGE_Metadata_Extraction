@@ -18,6 +18,9 @@ import Extractor_FMGeneration
 import Extractor_IlluminaSampleSheet
 import Extractor_FMAutoTilt
 import Extractor_Nanopore    
+import Extractor_SampleReport
+import Extractor_SampleSheet_xlsx
+import Extractor_NanoDrop_QC
 
  # Convert to a human-readable string (e.g., "1.2 MB")
 def get_readable_file_size(size_in_bytes):
@@ -42,7 +45,7 @@ def generate_folder_rocrate(input_folder):
     }
 
     input_folder_name = os.path.basename(os.path.normpath(input_folder))
-    VALID_EXTENSIONS = ('.csv', '.txt', '.json', '.md', '.pod5', '.fastq.gz', '.bam', '.bam.bai')
+    VALID_EXTENSIONS = ('.csv', '.txt', '.json', '.md', '.pod5', '.fastq.gz', '.bam', '.bam.bai', '.xlsx', '.pdf', '.jpeg', '.png')
 
     # --- MIME Type Mapping ---
     MIME_MAP = {
@@ -50,6 +53,9 @@ def generate_folder_rocrate(input_folder):
         '.txt': 'text/plain',
         '.md': 'text/markdown',
         '.json': 'application/json',
+        '.pdf': 'text/pdf',
+        '.jpeg': 'image/jpeg',
+        '.xlsx': 'text/xlsx',
         # Nanopore POD5 (no official MIME yet)
         ".pod5": "application/vnd.nanopore.pod5",
 
@@ -60,8 +66,6 @@ def generate_folder_rocrate(input_folder):
         ".bam": "application/x-bam",
         ".bam.bai": "application/x-bam-index"
    }
-
-    
 
     # ---  Pre-scan to identify types for the description ---
     print(f" Pre-scanning folder for file types in: {input_folder}")
@@ -78,16 +82,21 @@ def generate_folder_rocrate(input_folder):
                ext = '.bam.bai'
             if ext in VALID_EXTENSIONS:
                 # 1. Update Counts
-                extension_counts[ext] = extension_counts.get(ext, 0) + 1
-                
+                extension_counts[ext] = extension_counts.get(ext, 0) + 1   
                 # 2. Identify Instrument Labels for Description
                 full_path = os.path.join(root, filename)
                 if Extractor_Nanopore.is_nanopore_file(full_path):
-                    detected_labels.add("Nanopore")
+                    detected_labels.add("Sequencing phase: Oxford Nanopore PromethION")
                 elif Extractor_BeadStudio.is_beadstudio_file(full_path):
-                    detected_labels.add("BeadStudio")
-                elif Extractor_IlluminaSampleSheet.is_illumina_samplesheet(full_path):
-                    detected_labels.add("Illumina")
+                    detected_labels.add("Sequencing phase: Illumina iScan")
+                elif Extractor_IlluminaSampleSheet.is_illumina_samplesheet(full_path) or Extractor_FMAutoTilt.is_fm_autotilt_report(full_path) or Extractor_FMGeneration.is_fm_generation_report(full_path) or Extractor_Thermal_Report.is_thermal_report(full_path) or Extractor_SampleReport.is_samples_report(full_path):
+                    detected_labels.add("Sequencing phase: Illumina NovaSeq6000")
+                elif Extractor_NanoDrop_QC.is_nanodrop_export(full_path):
+                    detected_labels.add("Quality check phase: NanoDrop UV absorbance spectrum for each sample.")
+                elif Extractor_SampleReport.is_samples_report(full_path):
+                    detected_labels.add("Quality check phase: report oftechnical observations and anomalies detected (both before and after sequencing)")        
+                elif Extractor_SampleSheet_xlsx.is_lab_samplesheet(full_path):
+                    detected_labels.add("Acceptance phase: Samples and Plate scheme description")    
     total_files = sum(extension_counts.values())
     # --- Build the Dynamic File Summary String ---
     # Example: "15 .csv files, 450 .pod5 files, 2 .json files"
@@ -95,8 +104,8 @@ def generate_folder_rocrate(input_folder):
     for ext, count in extension_counts.items():
         file_summary_parts.append(f"{count} {ext} files")
     
-    file_summary_str = ", ".join(file_summary_parts) if file_summary_parts else "no relevant data files"
-    types_str = "/".join(detected_labels) if detected_labels else "Unknown Platform"
+    file_summary_str = ", ".join(file_summary_parts) if file_summary_parts else "Unknown data file"
+    types_str = ", ".join(detected_labels) if detected_labels else "Unknown Instrument Type"
 
     # ---- Initialize the RO-Crate ----
     crate = ROCrate()
@@ -182,9 +191,9 @@ def generate_folder_rocrate(input_folder):
     "url": "https://www.illumina.com/systems/array-scanners/iscan.html"
     }))
         # Define the microarray scanning activity associated with the iScan device
-    run_iscan = crate.add(ContextEntity(crate, "#iscan-microarray-activity", properties={
+    run_iscan = crate.add(ContextEntity(crate, "#iscan-sequencing-activity", properties={
         "@type": "CreateAction", 
-        "name": "Microarray Scanning", 
+        "name": "Illumina iScan Sequencing Run", 
         "instrument": {"@id": instrument_iscan.id}
     }))
 
@@ -197,12 +206,23 @@ def generate_folder_rocrate(input_folder):
     "url": "https://www.illumina.com/systems/sequencing-platforms/novaseq.html"
     }))
         # Define the sequencing activity associated with the NovaSeq device
-    run_novaseq = crate.add(ContextEntity(crate, "#illumina-sequencing-activity", properties={
+    run_novaseq = crate.add(ContextEntity(crate, "#novaseq-sequencing-activity", properties={
         "@type": "CreateAction", 
-        "name": "Illumina Sequencing Run", 
+        "name": "Illumina NovaSeq Sequencing Run", 
         "instrument": {"@id": instrument_novaseq.id}
     }))
-    
+     # Quality Control Activity (generic, not instrument-specific)
+    qc_activity = crate.add(ContextEntity(crate, "#quality-control-activity", properties={
+        "@type": "CreateAction",
+        "name": "Sample Quality Control",
+        "description": "Quality control process for samples before sequencing, which may include NanoDrop uv absorbance measurements, report of technical observations and anomalies detected (both before and after sequencing), and other QC steps."
+    })) 
+     # Acceptance phase activity for the SampleSheet
+    acceptance_activity = crate.add(ContextEntity(crate, "#acceptance-activity", properties={   
+        "@type": "CreateAction",    
+        "name": "Sample Acceptance Phase",
+        "description": "Initial phase where the researcher or client provides the samples and Plate scheme description before sequencing."
+    }))
          # --- Define  Format Entities ---
     json_format = crate.add(ContextEntity(crate, "#json-format", properties={
         "@type": "File Format",
@@ -238,7 +258,7 @@ def generate_folder_rocrate(input_folder):
     fastq_gz_format =crate.add(ContextEntity(crate, "#fastq-gz-format", properties={
         "@type": "File Format", 
         "name": "FASTQ GZipped",
-        "description": "Text-based format for storing biological sequences and quality scores.",
+        "description": "Text-based format for storing biological sequences and quality scores. They are generated during the post-sequencing basecalling step ost-run: data are demultiplexed and BCL files are converted into standard FASTQ file formats for downstream analysis.",
         "url":"https://knowledge.illumina.com/software/general/software-general-reference_material-list/000002211.html"
         }))
     bam_format = crate.add(ContextEntity(crate, "#bam-format", properties={
@@ -253,14 +273,42 @@ def generate_folder_rocrate(input_folder):
         "description": "Index file for rapid access to BAM alignment files.",
         "url":"https://en.wikipedia.org/wiki/BAI_(file_format)"
         }))
+    pdf_format = crate.add(ContextEntity(crate, "#pdf-format", properties={
+        "@type": "File Format",
+        "name": "PDF",              
+        "description": "Portable Document Format (PDF) is a file format used to present documents in a manner independent of application software, hardware, and operating systems.",
+        "url": "https://en.wikipedia.org/wiki/PDF"
+    }))
+    xlsx_format = crate.add(ContextEntity(crate, "#xlsx-format", properties={
+        "@type": "File Format",
+        "name": "Excel Spreadsheet (XLSX)",
+        "description": "Microsoft Excel Open XML Spreadsheet format.",
+        "url": "https://en.wikipedia.org/wiki/Microsoft_Excel#File_formats"
+    }))
+    jpeg_format = crate.add(ContextEntity(crate, "#jpeg-format", properties={   
+        "@type": "File Format",
+        "name": "JPEG Image",
+        "description": "Joint Photographic Experts Group (JPEG) is a commonly used method of lossy compression for digital images.",
+        "url": "https://en.wikipedia.org/wiki/JPEG"
+    }))
 
+    png_format = crate.add(ContextEntity(crate, "#png-format", properties={
+        "@type": "File Format",
+        "name": "PNG Image",
+        "description": "Portable Network Graphics (PNG) is a raster-graphics file-format that supports lossless data compression.",
+        "url": "https://en.wikipedia.org/wiki/Portable_Network_Graphics"
+    }))
 
     # Map MIME types to their corresponding Entity ID
     FORMAT_ENTITY_MAP = {
         'application/json': json_format.id,
         'text/csv': csv_format.id,
         'text/plain': txt_format.id,
+        'text/pdf': pdf_format.id,
+        'text/xlsx': xlsx_format.id,
         'text/markdown': md_format.id,
+        'image/jpeg': jpeg_format.id,
+        'image/png': png_format.id,
         'application/fastq': fastq_gz_format.id, 
         'application/vnd.nanopore.pod5': pod5_format.id,  
         'application/x-bam': bam_format.id,
@@ -378,9 +426,39 @@ def generate_folder_rocrate(input_folder):
                 assigned_run = run_iscan
             
             # Check for Illumina Sample Sheets (NovaSeq)
-            elif Extractor_IlluminaSampleSheet.is_illumina_samplesheet(full_path):
+            elif Extractor_IlluminaSampleSheet.is_illumina_samplesheet(full_path) or Extractor_FMAutoTilt.is_fm_autotilt_report(full_path) or Extractor_FMGeneration.is_fm_generation_report(full_path) or Extractor_Thermal_Report.is_thermal_report(full_path) or Extractor_SampleReport.is_samples_report(full_path) or Extractor_SampleReport.is_samples_report(full_path):
                 assigned_run = run_novaseq
+
+            # Check for NanoDrop QC exports
+            elif Extractor_NanoDrop_QC.is_nanodrop_export(full_path) or Extractor_SampleReport.is_samples_report(full_path):
+                assigned_run = qc_activity    
+
+            # check for SampleSheet.xlsx (Acceptance phase)
+            elif Extractor_SampleSheet_xlsx.is_lab_samplesheet(full_path):
+                assigned_run = acceptance_activity    
             
+            # Check for PDF files (general description, not instrument-specific)
+            elif ext == '.pdf':
+                assigned_run = qc_activity  
+                custom_description = "This file contains spectral curves from the Nano Drop UV Spectrometer obtained during the quality control phase."
+
+            # Check for JPEG files (general description, not instrument-specific)
+            elif ext == '.jpeg':
+                assigned_run = qc_activity
+                custom_description = "Visual representation related to sample quality control."    
+            
+            #  Check for PNG files (general description, not instrument-specific but often related to QC or documentation)
+            if ext == '.png':
+                if "NanoDrop" in filename:
+                    assigned_run = qc_activity
+                    custom_description = "NanoDrop absorbance curve image."
+                elif "Gel" in filename:
+                    assigned_run = qc_activity
+                    custom_description = "Electrophoresis gel image for DNA integrity check."
+                else:
+                    assigned_run = qc_activity
+                    custom_description = "Experimental image documentation."    
+
             #  Identify the specific subtype using your Nanopore Extractor
             nanopore_subtype = Extractor_Nanopore.is_nanopore_file(full_path)
 
@@ -435,7 +513,7 @@ def generate_folder_rocrate(input_folder):
             entity["humanReadableSize"] = get_readable_file_size(size)
     crate.write(input_folder)
 
-    print(f"\n ✅ Success! Processed {count} files.")
+    print(f"\n ✅ Processed {count} files successfully.")
     print(f"Generated Crate ('ro-crate-metadata.json') in: {input_folder}.")
 
 if __name__ == "__main__":

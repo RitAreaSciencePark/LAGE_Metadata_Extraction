@@ -68,7 +68,7 @@ def extract_orid_from_filename(csv_file_name):
 
 def get_csv_section(file_Input_path, section_name):
     """Extracts a specific section (e.g., [Header], [Data]) into a DataFrame.
-    Handles the common trailing commas found in Illumina exports.
+    Skips empty lines or lines consisting only of commas immediately following the section tag.
     """
     with open(file_Input_path, 'r', encoding='utf-8') as f:
         lines = f.readlines()
@@ -81,15 +81,35 @@ def get_csv_section(file_Input_path, section_name):
             
     if start_idx == -1:
         return pd.DataFrame()
-
+    
+    # Find where the section ends (next section or end of file)
     end_idx = len(lines)
     for i in range(start_idx + 1, len(lines)):
         if lines[i].startswith('['):
             end_idx = i
             break
-            
-    section_content = "".join(lines[start_idx + 1 : end_idx])
-     # engine='python' and on_bad_lines handles rows with varying trailing commas
+    # --- Clean the section content ---
+    # We skip lines that are empty or contain only commas/whitespace
+    # until we find the actual header of the section.
+    section_lines = lines[start_idx + 1 : end_idx]
+    cleaned_lines = []
+    found_data = False
+    
+    for line in section_lines:
+        # Check if the line has any actual content besides commas, quotes, or whitespace
+        if not found_data and not re.sub(r'[,\s"\']', '', line):
+            continue  # Skip leading empty/comma lines
+        
+        found_data = True
+        cleaned_lines.append(line)
+        
+    if not cleaned_lines:
+        return pd.DataFrame()
+
+    section_content = "".join(cleaned_lines)
+
+    # Read the cleaned content
+    # engine='python' and on_bad_lines handles rows with varying trailing commas
     df = pd.read_csv(
         io.StringIO(section_content), 
         skipinitialspace=True, 
@@ -138,8 +158,9 @@ def one_single_file(input_file_dir_path, output_dir_path, csv_file_name):
 
     # 3. Combine all information  and Build JSON file
     file_info = {
-        'file_type': 'Illumina Sample Sheet',
+        'file_type': 'Novaseq Illumina Sample Sheet',
         'file_name': csv_file_name,
+        'description': 'This file contains the sequencing configuration table, including run setup information and the list of samples with their corresponding indexes used for demultiplexing and read assignment.',
         'file_path': file_Input_path,
         'metadata': metadata,
         'number_of_samples': len(sample_details),

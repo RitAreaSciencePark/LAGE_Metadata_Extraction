@@ -42,7 +42,7 @@ def get_sample_history(json_dir, target_sample_id, output_dir):
             data = json.load(f)
             
         # 2. Check the 'samples' list we enriched earlier
-        # Note: Depending on your CSV headers, this might be 'Sample_ID' or 'Sample_Name'
+        # Note: Depending on the CSV headers, this might be 'Sample_ID' or 'Sample_Name'
         samples_list = data.get('samples', [])
         metadata = data.get('metadata', {})
 
@@ -60,7 +60,7 @@ def get_sample_history(json_dir, target_sample_id, output_dir):
                 record = {
                     "source_file": data.get('file_name'),
                     "file_type": data.get('file_type'),
-                    "extraction_metadata": data.get('metadata'),
+                    "extraction_metadata": data.get('metadata') or {}, # Include all metadata like date, manifest_id, etc.
                     "manifest_id": data.get('manifest_id'),
                     "sample_details": sample_entry # All the key-value pairs for this specific run
                 }
@@ -68,8 +68,7 @@ def get_sample_history(json_dir, target_sample_id, output_dir):
 
     # SORTING LOGIC: Organise from oldest (least recent) to newest (most recent)
     # This tells Python: "For every entry 'x', look inside 'metadata' and get 'date' to sort by"
-    sample_history.sort(key=lambda x: parse_flexible_date(x['extraction_metadata'].get('date', 'N/A')))         
-
+    sample_history.sort(key=lambda x: parse_flexible_date((x.get('extraction_metadata') or {}).get('date', 'N/A'))) # Handle cases where 'metadata' might be None
     # 3. Save the results if the sample was found
     if sample_history:
         os.makedirs(output_dir, exist_ok=True)

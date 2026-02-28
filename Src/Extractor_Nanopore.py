@@ -13,7 +13,7 @@ import re
 
 def is_nanopore_file(file_path):
     """
-    Identifies if a file belongs to the Nanopore run based on headers or known filenames.
+    Identifies if a file belongs to the Nanopore sequencing run based on headers or known filenames.
     """
     if not os.path.isfile(file_path):
         return False
@@ -52,6 +52,7 @@ def is_nanopore_file(file_path):
         # Log exactly which file failed and why
         #print(f" Validation failed for file: {fname} (Reason: {e})")
         return False
+
 
 # --- 2. EXTRACTION HELPERS ---
 
