@@ -54,7 +54,22 @@ def get_sample_history(json_dir, target_sample_id, output_dir):
             # Use .get('Sample_ID') or .get('Sample_Name') based on your specific file headers
             target = str(target_sample_id).lower()
 
-            if (str(sample_entry.get('Sample_ID')).lower() == target or str(sample_entry.get('Sample_Name')).lower() == target):
+            # The value from the JSON file
+            sample_ID_in_file = str(sample_entry.get('Sample_ID', '')).lower()
+            sample_name_in_file = str(sample_entry.get('Sample_Name', '')).lower()
+
+            # MATCHING STRATEGY: 
+            # 1. Exact match (A01 == A01)
+            # 2. Ends with (16s-A01 ends with A01)
+            # 3. Starts with (A01 is the start of A01-enriched)
+            is_match = (
+                sample_ID_in_file == target or 
+                sample_name_in_file == target or
+                sample_name_in_file.endswith("-" + target) or  # Matches "16s-a01" if target is "a01"
+                target.endswith("-" + sample_ID_in_file)      # Matches "a01" if target is "16s-a01"
+            )
+
+            if is_match:    
                 
                 # Create a record entry showing when/where this sample appeared
                 record = {
@@ -68,7 +83,12 @@ def get_sample_history(json_dir, target_sample_id, output_dir):
 
     # SORTING LOGIC: Organise from oldest (least recent) to newest (most recent)
     # This tells Python: "For every entry 'x', look inside 'metadata' and get 'date' to sort by"
-    sample_history.sort(key=lambda x: parse_flexible_date((x.get('extraction_metadata') or {}).get('date', 'N/A'))) # Handle cases where 'metadata' might be None
+    # Robust sorting:
+    sample_history.sort(key=lambda x: parse_flexible_date(
+        (x.get('extraction_metadata') or {}).get('date') or 
+        (x.get('sample_details') or {}).get('Date') or 'N/A'
+    ))
+    #sample_history.sort(key=lambda x: parse_flexible_date((x.get('extraction_metadata') or {}).get('date', 'N/A'))) # Handle cases where 'metadata' might be None
     # 3. Save the results if the sample was found
     if sample_history:
         os.makedirs(output_dir, exist_ok=True)
