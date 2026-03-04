@@ -42,8 +42,8 @@ def is_nanopore_file(file_path):
                 return "report_in_markdown"
         if fname.endswith('.pod5'):
             return "pod5_file"
-        if fname.endswith('.fastq.gz'):
-            return "fastq_file" 
+        #if fname.endswith('.fastq.gz'):
+         #   return "fastq_file" 
         if fname.endswith('.bam'):
             return "bam_file"
         if fname.endswith('.bam.bai'):
