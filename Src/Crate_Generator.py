@@ -72,6 +72,7 @@ def generate_folder_rocrate(input_folder):
 
     detected_labels = set()
     extension_counts = {} # Dictionary to store counts: {'.pod5': 10, '.csv': 2...}
+    global_sequencer_type = None # Track if we find NovaSeq or Nanopore anchors
     for root, dirs, files in os.walk(input_folder):
         for filename in files:
             ext = os.path.splitext(filename)[1].lower()
@@ -85,12 +86,17 @@ def generate_folder_rocrate(input_folder):
                 extension_counts[ext] = extension_counts.get(ext, 0) + 1   
                 # 2. Identify Instrument Labels for Description
                 full_path = os.path.join(root, filename)
+                # Identify Instrument Labels and set Global Flag
                 if Extractor_Nanopore.is_nanopore_file(full_path):
                     detected_labels.add("Sequencing phase: Oxford Nanopore PromethION")
+                    global_sequencer_type = "NANOPORE" # Anchor found
+                elif (Extractor_IlluminaSampleSheet.is_illumina_samplesheet(full_path) or 
+                    Extractor_SampleReport.is_samples_report(full_path)):
+                    detected_labels.add("Sequencing phase: Illumina NovaSeq6000")
+                    global_sequencer_type = "NOVASEQ" # Anchor found
                 elif Extractor_BeadStudio.is_beadstudio_file(full_path):
                     detected_labels.add("Sequencing phase: Illumina iScan")
-                elif Extractor_IlluminaSampleSheet.is_illumina_samplesheet(full_path) or Extractor_FMAutoTilt.is_fm_autotilt_report(full_path) or Extractor_FMGeneration.is_fm_generation_report(full_path) or Extractor_Thermal_Report.is_thermal_report(full_path) or Extractor_SampleReport.is_samples_report(full_path):
-                    detected_labels.add("Sequencing phase: Illumina NovaSeq6000")
+                    global_sequencer_type = "ISCAN" # Anchor found  
                 elif Extractor_NanoDrop_QC.is_nanodrop_export(full_path):
                     detected_labels.add("Quality check phase: NanoDrop UV absorbance spectrum for each sample.")
                 elif Extractor_SampleReport.is_samples_report(full_path):
@@ -121,6 +127,7 @@ def generate_folder_rocrate(input_folder):
     crate.root_dataset["datePublished"] = datetime.datetime.now().date().isoformat()
 
     # --- Organizations ---
+
     area_science_park = crate.add(
         ContextEntity(crate, "#area-science-park", properties={
             "@type": "Organization",
@@ -175,7 +182,7 @@ def generate_folder_rocrate(input_folder):
     "model": "Promethion 24/48",
     "url": "https://nanoporetech.com/products/promethion"
     }))
-        # Define the sequencing activity associated with the Nanopore device
+     # Define the sequencing activity associated with the Nanopore device
     run_nano = crate.add(ContextEntity(crate, "#nanopore-sequencing-activity", properties={
         "@type": "CreateAction",
         "name": "Nanopore Sequencing Run", 
@@ -190,7 +197,8 @@ def generate_folder_rocrate(input_folder):
     "model": "iScan 24/48",
     "url": "https://www.illumina.com/systems/array-scanners/iscan.html"
     }))
-        # Define the microarray scanning activity associated with the iScan device
+
+    # Define the microarray scanning activity associated with the iScan device
     run_iscan = crate.add(ContextEntity(crate, "#iscan-sequencing-activity", properties={
         "@type": "CreateAction", 
         "name": "Illumina iScan Sequencing Run", 
@@ -205,7 +213,8 @@ def generate_folder_rocrate(input_folder):
     "model": "NovaSeq 6000",
     "url": "https://www.illumina.com/systems/sequencing-platforms/novaseq.html"
     }))
-        # Define the sequencing activity associated with the NovaSeq device
+
+    # Define the sequencing activity associated with the NovaSeq device
     run_novaseq = crate.add(ContextEntity(crate, "#novaseq-sequencing-activity", properties={
         "@type": "CreateAction", 
         "name": "Illumina NovaSeq Sequencing Run", 
@@ -320,7 +329,7 @@ def generate_folder_rocrate(input_folder):
     folder_entity = crate.add(ContextEntity(crate, folder_id, properties={
         "@type": "Dataset",
         "name": input_folder_name,
-        "description":f"Main data directory containing sequencing outputs from {types_str} instruments. "
+        "description":f"Main data directory containing outputs from {types_str} instrument(s)."
         f"This dataset includes {file_summary_str}.",
         "hasPart": [] # We will fill this with file references (link folder to files ))
     }))
@@ -416,6 +425,17 @@ def generate_folder_rocrate(input_folder):
             assigned_run = None
             encoding = MIME_MAP.get(ext, 'application/octet-stream')
             format_id = FORMAT_ENTITY_MAP.get(encoding)
+
+            # --- NEW LOGIC: SMART FASTQ ASSIGNMENT ---
+            if ext == ".fastq.gz":
+                if global_sequencer_type == "NOVASEQ":
+                    assigned_run = run_novaseq
+                    custom_description = "Gzipped FASTQ files generated by the Illumina NovaSeq6000 platform."
+                elif global_sequencer_type == "NANOPORE":
+                    assigned_run = run_nano
+                    custom_description = "Gzipped FASTQ files generated by Oxford Nanopore PromethION basecalling."
+                else:
+                    custom_description = "Gzipped FASTQ sequence data (Sequencer not identified)."
             # --- VALIDATION LOGIC ---
             # Check for Nanopore
             if Extractor_Nanopore.is_nanopore_file(full_path):
@@ -502,7 +522,7 @@ def generate_folder_rocrate(input_folder):
             count += 1
 
     # --- Finalize Folder Properties ---
-   # folder_entity["hasPart"] = folder_parts
+    # folder_entity["hasPart"] = folder_parts
     # Finalize Root Description with total size
     crate.root_dataset["humanReadableSize"] = get_readable_file_size(total_folder_size)
     # Inject individual sizes into subfolders
