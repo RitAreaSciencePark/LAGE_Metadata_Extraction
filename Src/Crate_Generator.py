@@ -345,59 +345,39 @@ def generate_folder_rocrate(input_folder):
     total_folder_size = 0
     count = 0
 
-    # ------------------------------------------------------------------
-    # Helper: decide if a folder is a REAL dataset (leaf data directory)
-    # ------------------------------------------------------------------
-    def is_leaf_data_folder(current_root, dirs, files):
-        """
-        A folder is considered a Dataset ONLY if:
-        - it contains files
-        - none of its subdirectories also contain files
-        """
-
-        if not files:
-            return False  # empty folder → skip
-
-        # If any child directory also contains files,
-        # then this is just a structural container.
-        for d in dirs:
-            sub_path = os.path.join(current_root, d)
-
-            for _, _, sub_files in os.walk(sub_path):
-                if sub_files:
-                    return False
-                break  # only inspect that child level
-
-        return True
-    # ------------------------------------------------------------------
-
-    
+   
     for root, dirs, files in os.walk(input_folder):
         rel_root = os.path.relpath(root, input_folder)
         
         # 2. HANDLE SUB-DIRECTORIES (Directly under the Main Folder)
-        if rel_root != "." and is_leaf_data_folder(root, dirs, files):
+        if rel_root != "." and len(files) > 0 or len(dirs) >= 1: # Only create a Dataset entity if this subfolder contains files or further subfolders (avoid empty structural folders)
             if rel_root not in folder_entities:
                 folder_name = os.path.basename(root)
-                # Create the intermediate folder as a Dataset
-                new_dataset = ContextEntity(crate, f"#{rel_root}", properties={
+                #Folders in RO-Crate must end with /
+                current_folder_id = f"{rel_root}/" 
+                
+                new_dataset = crate.add(ContextEntity(crate, current_folder_id, properties={
                     "@type": "Dataset",
                     "name": folder_name,
+                    "description": f"Directory containing {folder_name} data.",
                     "hasPart": []
-                })
-                folder_entities[rel_root] = crate.add(new_dataset)
+                }))
+                folder_entities[rel_root] = new_dataset
                 
-                # LINK the Sub-Folder to the Main Folder (NOT the root)
-                main_parts = folder_entity.get("hasPart", [])
-                if not isinstance(main_parts, list): main_parts = [main_parts]
-                main_parts.append({"@id": f"#{rel_root}"})
-                folder_entity["hasPart"] = main_parts
-            
-            current_parent = folder_entities[rel_root]
-        else:
-            # We are either at root OR inside a structural container.
-            # Files found here belong to the main dataset.
-            current_parent = folder_entity
+                # ---LINK TO ACTUAL PARENT ---
+                parent_path = os.path.dirname(rel_root)
+                # If parent_path is empty, the parent is the root "."
+                actual_parent_key = parent_path if parent_path != "" else "."
+                
+                if actual_parent_key in folder_entities:
+                    parent_entity = folder_entities[actual_parent_key]
+                    p_parts = parent_entity.get("hasPart", [])
+                    if not isinstance(p_parts, list): p_parts = [p_parts]
+                    p_parts.append({"@id": current_folder_id})
+                    parent_entity["hasPart"] = p_parts
+
+        # Determine which entity should receive the files in this folder
+        current_parent_entity = folder_entities.get(rel_root, folder_entity)
 
         # Process Files
         for filename in files:
@@ -525,10 +505,10 @@ def generate_folder_rocrate(input_folder):
             crate.add(file_props)    
 
             # 3. LINK FILE TO ITS DIRECT PARENT
-            p_parts = current_parent.get("hasPart", [])
-            if not isinstance(p_parts, list): p_parts = [p_parts]
-            p_parts.append({"@id": rel_path})
-            current_parent["hasPart"] = p_parts
+            f_parts = current_parent_entity.get("hasPart", [])
+            if not isinstance(f_parts, list): f_parts = [f_parts]
+            f_parts.append({"@id": rel_path})
+            current_parent_entity["hasPart"] = f_parts
             count += 1
 
     # --- Finalize Folder Properties ---
