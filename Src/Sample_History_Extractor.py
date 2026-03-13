@@ -2,6 +2,10 @@
 #
 # SPDX-License-Identifier: MIT
 
+# SPDX-FileCopyrightText: 2026  Lesly TSOPTIO FOUGANG, Valerio PIOMPONI, Ornella AFFINITO, Laboratory of Data Engineering, Research and Technology Institute (RIT), Area Science Park, Trieste, Italy.
+#
+# SPDX-License-Identifier: MIT
+
 import os
 import json
 import argparse
@@ -37,49 +41,77 @@ def get_sample_history(json_dir, target_sample_id, output_dir):
 
     for json_file in json_files:
         file_path = os.path.join(json_dir, json_file)
-        
-        with open(file_path, 'r') as f:
-            data = json.load(f)
+        # We need to handle two types of JSON files:
+        # 1. The original metadata files from the FASTQ extraction (which contain a 'sample_id' field)
+        # 2. The enriched JSON files from the CSV extraction (which contain a 'samples' list)
+        # Let's first check if the file is a metadata file (e.g., ends with '_metadata.json') and handle it accordingly. If it's not, we assume it's an enriched JSON file from the CSV extraction.
+        if json_file.endswith('_metadata.json'):
+            # Handling of the original metadata files from the FASTQ extraction (which contain a 'sample_id' field)
+            with open(file_path, 'r') as f:
+                data = json.load(f)
+                target = str(target_sample_id).lower()
+                # The value from the JSON file
+                sample_id_in_fastqfile = data.get('sample_id', 'N/A').lower()
+                #sample_name_in_fastqfile = str(sample_entry.get('Sample_Name', '')).lower()
+                is_match = (
+                    sample_id_in_fastqfile == target or 
+                   # sample_name_in_fastqfile == target or
+                    #sample_name_in_fastqfile.endswith("-" + target) or  # Matches "16s-a01" if target is "a01"
+                    target.endswith("-" + sample_id_in_fastqfile) or     # Matches "a01" if target is "16s-a01"
+                    sample_id_in_fastqfile.endswith("-" + target)      # Matches "16s-a01" if target is "a01"
+                )
+
+                if is_match:    
+                    record = data
+                    sample_history.append(record)
+
+        else:
+            # . Handling of the enriched JSON files from the CSV extraction (which contain a 'samples' list)
+            with open(file_path, 'r') as f:
+                data = json.load(f)
             
-        # 2. Check the 'samples' list we enriched earlier
-        # Note: Depending on the CSV headers, this might be 'Sample_ID' or 'Sample_Name'
-        samples_list = data.get('samples', [])
-        metadata = data.get('metadata', {})
+            #  Check the 'samples' list we enriched earlier
+            # Note: Depending on the CSV headers, this might be 'Sample_ID' or 'Sample_Name'
+            samples_list = data.get('samples', [])
+            metadata = data.get('metadata', {})
 
-        # Extract the date string (e.g., '2024-06-19')
-        date_str = metadata.get('date', 'N/A') # Default date if missing
-        
-        for sample_entry in samples_list:
-            # We check for a match (case-insensitive for safety)
-            # Use .get('Sample_ID') or .get('Sample_Name') based on your specific file headers
-            target = str(target_sample_id).lower()
+            # Extract the date string (e.g., '2024-06-19')
+            date_str = metadata.get('date', 'N/A') # Default date if missing
+            
+            for sample_entry in samples_list:
+                # We check for a match (case-insensitive for safety)
+                # Use .get('Sample_ID') or .get('Sample_Name') based on your specific file headers
+                target = str(target_sample_id).lower()
 
-            # The value from the JSON file
-            sample_ID_in_file = str(sample_entry.get('Sample_ID', '')).lower()
-            sample_name_in_file = str(sample_entry.get('Sample_Name', '')).lower()
+                # The value from the JSON file
+                sample_ID_in_file = str(sample_entry.get('Sample_ID', '')).lower()
+                sample_name_in_file = str(sample_entry.get('Sample_Name', '')).lower()
 
-            # MATCHING STRATEGY: 
-            # 1. Exact match (A01 == A01)
-            # 2. Ends with (16s-A01 ends with A01)
-            # 3. Starts with (A01 is the start of A01-enriched)
-            is_match = (
-                sample_ID_in_file == target or 
-                sample_name_in_file == target or
-                sample_name_in_file.endswith("-" + target) or  # Matches "16s-a01" if target is "a01"
-                target.endswith("-" + sample_ID_in_file)      # Matches "a01" if target is "16s-a01"
-            )
+                # MATCHING STRATEGY: 
+                # 1. Exact match (A01 == A01)
+                # 2. Ends with (16s-A01 ends with A01)
+                # 3. Starts with (A01 is the start of A01-enriched)
+                is_match = (
+                    sample_ID_in_file == target or 
+                    sample_name_in_file == target or
+                    sample_name_in_file.endswith("-" + target) or  # Matches "16s-a01" if target is "a01"
+                    target.endswith("-" + sample_ID_in_file) or     # Matches "a01" if target is "16s-a01"
+                    sample_ID_in_file.endswith("-" + target) or     # Matches "16s-a01" if target is "a01"
+                    target.endswith("-" + sample_name_in_file)       # Matches "a01" if target is "16s-a01"
 
-            if is_match:    
-                
-                # Create a record entry showing when/where this sample appeared
-                record = {
-                    "source_file": data.get('file_name'),
-                    "file_type": data.get('file_type'),
-                    "extraction_metadata": data.get('metadata') or {}, # Include all metadata like date, manifest_id, etc.
-                    "manifest_id": data.get('manifest_id'),
-                    "sample_details": sample_entry # All the key-value pairs for this specific run
-                }
-                sample_history.append(record)
+                )
+
+                if is_match:    
+                    
+                    # Create a record entry showing when/where this sample appeared
+                    record = {
+                        "source_file": data.get('file_name'),
+                        "file_type": data.get('file_type'),
+                        "extraction_metadata": data.get('metadata') or {}, # Include all metadata like date, manifest_id, etc.
+                        "manifest_id": data.get('manifest_id'),
+                        "sample_details": sample_entry # All the key-value pairs for this specific run
+                    }
+                    sample_history.append(record)
 
     # SORTING LOGIC: Organise from oldest (least recent) to newest (most recent)
     # This tells Python: "For every entry 'x', look inside 'metadata' and get 'date' to sort by"
