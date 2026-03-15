@@ -2,15 +2,13 @@
 #
 # SPDX-License-Identifier: MIT
 
-# SPDX-FileCopyrightText: 2026  Lesly TSOPTIO FOUGANG, Valerio PIOMPONI, Ornella AFFINITO, Laboratory of Data Engineering, Research and Technology Institute (RIT), Area Science Park, Trieste, Italy.
-#
-# SPDX-License-Identifier: MIT
-
 import os
 import json
 import argparse
 from datetime import datetime
 
+
+# Flexible date parsing to handle various formats and missing values
 def parse_flexible_date(date_str):
     if not date_str or date_str == 'N/A':
         return datetime.min
@@ -23,6 +21,7 @@ def parse_flexible_date(date_str):
 
     return datetime.min
 
+#  Main function to extract sample history 
 def get_sample_history(json_dir, target_sample_id, output_dir):
     """
     Scans all JSON files in a directory to find every occurrence of a specific Sample ID.

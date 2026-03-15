@@ -376,7 +376,7 @@ def create_ro_crate(all_results, output_dir,input_path,detected_types):
                     "@type": "File",
                     "description": f"Standardized JSON metadata extracted from {file_name}",
                     "encodingFormat": {"@id": json_format.id},
-                    "creator": {"@id": lade.id}
+                    "creator": {"@id": lage.id}
                 }))
 
                 # Define the actual ZIP Archive as the primary data object
@@ -400,7 +400,7 @@ def create_ro_crate(all_results, output_dir,input_path,detected_types):
                     "description": f"Extracted metadata for {file_name}",
                     "humanReadableSize": get_readable_file_size(file_size), 
                     "encodingFormat": {"@id": json_format.id},
-                    "creator": {"@id": lade.id},
+                    "creator": {"@id": lage.id},
                     "wasGeneratedBy": {"@id": processor_script.id}  
                 }))       
 
