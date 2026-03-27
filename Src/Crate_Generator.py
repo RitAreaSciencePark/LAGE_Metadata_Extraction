@@ -5,6 +5,7 @@
 import argparse
 import os
 import datetime
+import json
 import sys
 from rocrate.rocrate import ROCrate
 from rocrate.model.contextentity import ContextEntity
@@ -193,6 +194,13 @@ def generate_folder_rocrate(input_folder):
         "license": "https://opensource.org/licenses/MIT",
         "url": "https://github.com/RitAreaSciencePark/LAGE_Metadata_Extraction/blob/main/Src/Crate_Generator.py"
 
+    }))
+    # Add the History Extractor Tool as a SoftwareApplication context
+    history_tool = crate.add(ContextEntity(crate, "#History_Extractor", properties={
+        "@type": "SoftwareApplication",
+        "name": "LAGE Sample History Extractor",
+        "description": "Logic used to reconstruct sample-centric provenance from fragmented metadata.",
+        "creator": {"@id": lade.id}
     }))
 
     # --- Instruments & Activities Definition ---
@@ -384,6 +392,8 @@ def generate_folder_rocrate(input_folder):
    # 1. Link the Main Folder to the Root Entity (./)
     # This keeps the Root Entity perfectly clean with only 1 entry in hasPart.
     crate.root_dataset["hasPart"] = [{"@id": folder_id}]
+    #crate.write(input_folder)
+
     
     # Track entities and sizes
     folder_entities = {".": folder_entity} #  "." points to the Main Folder
@@ -391,6 +401,9 @@ def generate_folder_rocrate(input_folder):
 
     total_folder_size = 0
     count = 0
+
+    # Track files we've already processed to avoid creating double entity for the same data duplicates (especially important for history sources)
+    seen_files = {}
 
    
     for root, dirs, files in os.walk(input_folder):
@@ -442,6 +455,86 @@ def generate_folder_rocrate(input_folder):
             readable_size = get_readable_file_size(file_size_bytes)
             total_folder_size += file_size_bytes
 
+            # --- 2. LOGIC: SPECIAL CASE FOR HISTORY FILES ---
+            if filename.startswith("History_") and filename.endswith(".json"):
+                target_sample_id = filename.replace("History_", "").replace(".json", "")
+                
+                try:
+                    with open(full_path, 'r') as hf:
+                        history_data = json.load(hf)
+                    
+                    num_entries = len(history_data)
+                    
+                    # 1. Add as a FILE (Positional argument 1 is rel_path)
+                    # This ensures the library finds the physical file on disk
+                    file_props = crate.add_file(full_path, dest_path=rel_path, properties={
+                        "name": filename,
+                        "description": (
+                            f"Provenance Dataset for Sample: <b>{target_sample_id}</b>. "
+                            f"This file aggregates <b>{num_entries}</b> experimental records."
+                        ),
+                        "creator": {"@id": lage.id},
+                        "datePublished": datetime.datetime.now().date().isoformat(),
+                        "encodingFormat": {"@id": json_format.id},
+                        "humanReadableSize": readable_size,
+                        "wasGeneratedBy": {"@id": history_tool.id},
+                    })
+                    # History file remove from the haspart root property (we will link the sources instead, and we will link the file to the folder as usual)
+                    root_parts = crate.root_dataset.get("hasPart", [])
+                    if isinstance(root_parts, list):
+                        root_parts = [p for p in root_parts if p.get("@id") != rel_path]
+                        crate.root_dataset["hasPart"] = root_parts
+                    # 2. Extract unique sources
+                    source_ids = []
+                    for entry in history_data:
+                        src_name = entry.get('source_file') or entry.get('file_name')
+                        if not src_name:
+                            continue
+
+                        ref_id = seen_files.get(src_name, src_name)
+                        ref = {"@id": ref_id}
+
+                        if any(s["@id"] == ref_id for s in source_ids):
+                            continue
+
+                        if src_name not in seen_files:
+                            crate.add(ContextEntity(crate, src_name, properties={
+                                "@type": "File",
+                                "name": src_name,
+                                "description": f"Metadata source for sample {target_sample_id}.",
+                                "creator": {"@id": lage.id},
+                                "datePublished": datetime.datetime.now().date().isoformat(),
+                                "encodingFormat": {"@id": json_format.id},
+                                "humanReadableSize": readable_size
+                            }))
+                            seen_files[src_name] = src_name
+
+                        source_ids.append(ref)
+
+                    file_props["derivedFrom"] = source_ids
+
+                    # 3. Add the properties to the file_props object
+                    #file_props["hasPart"] = source_ids
+                    file_props["derivedFrom"] = source_ids
+
+                    # 4. EXPLICIT LINKING TO FOLDER
+                    # Ensure current_parent_entity is the folder Dataset, NOT the root.
+                    f_parts = current_parent_entity.get("hasPart", [])
+                    # Ensure it's always a list before appending
+                    if not isinstance(f_parts, list):
+                        f_parts = [f_parts]
+                    
+                    # Check for duplicates before appending
+                    if {"@id": rel_path} not in f_parts:
+                        f_parts.append({"@id": rel_path})
+                    # Reassign back    
+                    current_parent_entity["hasPart"] = f_parts
+                    
+                    count += 1
+                    continue # Skip to next file
+
+                except Exception as e:
+                    print(f"Error processing history {filename}: {e}")
             # Track size for the specific parent folder
             subfolder_sizes[rel_root] = subfolder_sizes.get(rel_root, 0) + file_size_bytes
 
@@ -536,25 +629,35 @@ def generate_folder_rocrate(input_folder):
                     custom_description = "<i>Text-based file containing metadata and analysis outputs for data sharing.</i>"
                 else:
                     custom_description = f"<i>Validated {encoding} data file.</i>"
+
             # Build properties dictionary
-            file_props = Entity(crate,identifier=rel_path, properties= {
-                "name": filename,
-                "@type": "File",
-                "description": custom_description, # Integrated specific or generic description
-                "creator": {"@id": lage.id},
-                "encodingFormat": {"@id": format_id} if format_id else encoding,
-                "humanReadableSize": readable_size,  # Custom field for user convenience
-                "wasGeneratedBy": {"@id": ro_crate_script.id}
-            })  
-           
-            # Link to the specific Activity/Instrument if identified
-            if assigned_run:
-                file_props["actionProcess"] = {"@id": assigned_run.id}
-                print(f" File Identified & Assigned: {rel_path} -> {assigned_run.id}")
+            if filename in seen_files:
+                #  Already exists → reuse entity
+                file_id = seen_files[filename]
             else:
-                print(f" ⚠️ File not assigned: {rel_path}")
-            # Register the file in the @graph    
-            crate.add(file_props)    
+                #  Create new entity
+                file_id = rel_path
+
+                file_props = Entity(crate, identifier=file_id, properties={
+                    "name": filename,
+                    "@type": "File",
+                    "description": custom_description,
+                    "creator": {"@id": lage.id},
+                    "encodingFormat": {"@id": format_id} if format_id else encoding,
+                    "humanReadableSize": readable_size,
+                    "wasGeneratedBy": {"@id": ro_crate_script.id}
+                })
+
+                # Link to the specific Activity/Instrument if identified
+                if assigned_run:
+                    file_props["actionProcess"] = {"@id": assigned_run.id}
+                    print(f" File Identified & Assigned: {rel_path} -> {assigned_run.id}")
+                else:
+                    print(f" ⚠️ File not assigned: {rel_path}")
+                # Register the file in the @graph    
+                crate.add(file_props)  
+                # ✅ Register it
+                seen_files[filename] = file_id  
 
             # 3. LINK FILE TO ITS DIRECT PARENT
             f_parts = current_parent_entity.get("hasPart", [])
@@ -587,5 +690,4 @@ if __name__ == "__main__":
         generate_folder_rocrate(args.folder_path)  # pass actual detected types if available
     else:
         print(f"❌ Error: {args.folder_path} is not a valid directory.")
-
 

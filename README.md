@@ -20,6 +20,18 @@ This design ensures the pipeline remains **robust, extensible, and traceable**, 
 
 ---
 
+Modular Architecture: Specialized Extraction & Management
+
+- The **Central Manager** (Main_Auto_Processor.py): Operates as the "brain" of the pipeline, using a Registry Pattern and Validation Polling to automatically detect file types and route them to the correct extractor.
+- The **10-Module Extractor** Library: Powered by specialized modules like BeadStudio, Illumina Sample Sheet, Thermal Report, and FM Generation/AutoTilt, which normalize metadata into validated JSON structures.
+- **Utility & Lineage Modules**:
+   - Recursive ORID Extractor: Navigates deeply nested project folders to "flatten" complex data hierarchies.
+   - Sample History Extractor: Aggregates and chronologically orders metadata across multiple runs to preserve data lineage.
+- **FAIR Packaging** Modules:
+   - RO-Crate Descriptor Generator (Crate_Generator.py): A specialized module that recursively crawls project directories to map file locations and formally link the institutional hierarchy (Area Science Park, RIT, LAGE/LADE) into a standardized ro-crate-metadata.json manifest.
+  - Integrated Packaging Pipeline (Main_Rocrate.py): Provides a seamless end-to-end execution by incorporating the full processor workflow to generate both standardized JSONs and the final RO-Crate manifest in one step.
+
+
 ##  Modules Description
 
 Each extractor module has the following structure:
@@ -270,46 +282,51 @@ python path/to/Main_Rocrate.py </path/to/input_data_folder> </path/to/output_dat
 ##  Architecture Diagram
 
 ```
-                                            +--------------------------+
-                                            |  Terminal / CLI Input    |
-                                            |        (argparse)        |
-                                            +------------+-------------+
-                                                 |              |
-                                                 v              v
-                            +--------------------------+    +--------------------------+
-                            |  Main_Auto_Processor.py  |    |     Extractor_Orid_      |
-                                                                              
-                            |  (Logic Orchestrator)    |    |     Recursively.py       |                   
-                            +------------+-------------+    +--------------------------+
-                                         |                             |
-                                         v                             v
-                  +----+------++------+------+++------+------+++------++------+++------++------+++-----------+
-                  |                      |                      |                   |                        |
-                  v                      v                      v                   v                        v
-        +-----------------+    +-----------------+    +------+---------+     +------+------------+      +------+---------------+   
-        |Extractor_       |    |Extractor_       |    |Extractor_      |     |Extractor_         |      |Extractor_            |
-        |BeadStudio.py    |    |Thermal_Report.py|    |FMAutoTilt.py   |     |IlluminaSampleSheet|      |Extractor_FMGeneration|
-        +-----+-----------+    +-----+-----------+    +------+---------+     +------+------------+      +------+---------------+   
-                
-
-                    |                  |                     |                      |                    |
-                    v                  v                     v                      v                    v
-                    +------+------++------+------++------+------++------++------+------+ +------+--------+ 
-                                                           |                                             
-                                                           v                                             
-                                              +--------------------------+                 
-                                              |    Output: JSON files    |                 
-                                              +--------------------------+                 
-                                                            |
-                                                            v  
-                                              +--------------------------+                 
-                                              |Sample_History_Extractor.py|                 
-                                              +--------------------------+                 
-                                                            |
-                                                            v                                                                                 
-                                              +--------------------------+                 
-                                              |  Sample History files    |                 
-                                              +--------------------------+                 
+                                                                +--------------------------+
+                                                                |  Terminal / CLI Input    |--------------------------------------------------------------------------------------
+                                                                |        (argparse)        |                                                                                     |
+                                                                +------------+-------------+                                                                                     |   
+                                                                    |              |                                                                                             |
+                                                                    v              v                                                                                             |
+                                                +--------------------------+    +--------------------------+                                                 ----------------------------+
+                                                |  Main_Auto_Processor.py  |    |     Extractor_Orid_      |                                                 |   Crate_ Generator.py     |
+                                                                                                                                                             |                           |
+                                                |  (Logic Orchestrator)    |    |     Recursively.py       |                                                 +---------------------------+
+                                                +------------+-------------+    +--------------------------+                                                                     |
+                                                            |                             |                                                                                      |
+                                                            v                             v                                                                                      | 
+                  +----+------++------+------+++------+------+++------++------+++------++------+++-----------+------------------------++++------------+                          |
+                  |                      |                      |                   |                        |                                        |                          |
+                  v                      v                      v                   v                        v                                        v                          |
+        +-----------------+    +-----------------+    +------+---------+     +------+------------+      +------+---------------+      +-------------------------+                |
+        |Extractor_       |    |Extractor_       |    |Extractor_      |     |Extractor_         |      |                      |      | Extractor_Nanopore.py   |                | 
+        |BeadStudio.py    |    |Thermal_Report.py|    |FMAutoTilt.py   |     |IlluminaSampleSheet|      |Extractor_FMGeneration|      |                         |                |
+        +-----+-----------+    +-----+-----------+    +------+---------+     +------+------------+      +------+---------------+      +-------------------------+                | 
+                |                       |                                                                               |                            |                           |
+                |                       |                                                                               |                            |                           |
+                |                       |                                                                               |                            |                           |
+                v                       +------------------------------------|------------------------------------------+                            v                           |
+        +-----------------+                                +-----------------v-----------------+                                       +----------------------------+            | 
+        | Illumina iScan  |                                |     Illumina Novaseq 6000         |                                       |   PromethION 24 Nanopore   |            |     
+        +-----------------+                                +-----------------------------------+                                       +----------------------------+            |
+                    |                                                          |                                                                     |                           |
+                    v                                                          v                                                                     v                           |
+                    +------+------++------+------++------+------++------++------+------+ +------+--------+--------------------------------------------                           |   
+                                                                               |                                                                                                 |
+                                                                               v                                                                                                 v
+                                                            +---------------------------------------+                                                       +---------------------------+
+                                                            |    Output: Standardised JSON files    |                                                       |                           |
+                                                            +---------------------------------------+                                                       |  Ro-crate metadata.json   |
+                                                                               |                                                                            +---------------------------+            
+                                                                               v  
+                                                                +--------------------------+                 
+                                                                |Sample_History_Extractor.py|                 
+                                                                +--------------------------+                 
+                                                                               |
+                                                                               v                                                                               
+                                                                +--------------------------+                 
+                                                                |Json Sample History files |                 
+                                                                +--------------------------+                 
 
 ```
 

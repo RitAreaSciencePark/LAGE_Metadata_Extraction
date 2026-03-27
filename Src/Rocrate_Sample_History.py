@@ -168,7 +168,7 @@ def get_sample_history(json_dir, target_sample_id, output_dir):
         f"This dataset contains <b>{len(sample_history)}</b> JSON files from which the experimental "
         f"records for sample <b>{target_sample_id}</b> were extracted. It also includes the history file "
         f"<b>{history_filename}</b>, which aggregates these extracted records and organizes them "
-        f"from oldest to most recent."
+        f"from oldest to most recent"
         #The RO-Crate metadata file (<b>ro-crate-metadata.json</b>) further provides "
         f"information about the organizations and software involved in the extraction process, ensuring "
         f"that the data provenance is fully documented and traceable." )
