@@ -1,0 +1,12 @@
+Well,DIN,Conc. [ng/µl],Sample Description,Alert,Observations
+L1,,86.8,Ladder,!,Caution! Expired ScreenTape device; Ladder
+B1,5.6,82.3,1,!,Caution! Expired ScreenTape device
+C1,5.5,76.7,2,!,Caution! Expired ScreenTape device
+D1,3.1,16.4,3,!,Caution! Expired ScreenTape device
+E1,3.9,21.7,4,!,Caution! Expired ScreenTape device
+F1,5.7,17.0,6,!,Caution! Expired ScreenTape device
+L2,,84.3,Ladder,!,Caution! Expired ScreenTape device; Ladder
+G1,5.3,25.9,8,!,Caution! Expired ScreenTape device
+H1,4.5,7.62,9,!,Caution! Expired ScreenTape device; Sample concentration outside recommended range
+A2,6.6,13.4,10,!,Caution! Expired ScreenTape device
+B2,4.8,8.96,11,!,Caution! Expired ScreenTape device; Sample concentration outside recommended range
