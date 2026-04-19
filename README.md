@@ -1,24 +1,72 @@
-# LAGE_Metadata_Extraction
+# LAGE Metadata Extraction Pipeline
 
-This project provides a modular pipeline for extracting metadata and sample-level information from heterogeneous laboratory CSV files and converting them into standardized JSON outputs.
+## Overview
+
+Laboratory environments generate large volumes of heterogeneous data across multiple instruments and deeply nested directory structures. Extracting, standardizing, and tracking metadata manually is time-consuming, error-prone, and difficult to scale.
+
+This project provides a **modular and extensible pipeline** for automatically extracting contextual and sample-level metadata from laboratory files and converting them into standardized JSON outputs.
+
+The pipeline operates **after data generation**, focusing on metadata structuring, traceability, and interoperability.
 
 ---
 
-## Purpose & Design Principles
-
-Laboratory projects generate large volumes of CSV files across multiple instruments, and deeply nested directory structures. Manually identifying file types, extracting metadata, and maintaining traceability across runs quickly becomes error-prone and unscalable.
-
-This pipeline is designed to solve that problem by providing an **automated, format-aware extraction system** that:
+## Key Features
 
 - **Automatically identifies file types** based on file content, without requiring manual flags or user input  
 - **Processes single files or entire directory trees** (nested folders) using batch execution  
 - **Extracts both metadata and sample-level data** in a consistent and reproducible manner  
 - **Produces standardized JSON outputs** suitable for downstream analysis and integration  
 - **Enables data lineage and sample history tracking** across projects, manifests, and processing runs  
+-  **FAIR-compliant packaging using RO-Crate** (Findable, Accessible, Interoperable, Reusable)
+---
 
-This design ensures the pipeline remains **robust, extensible, and traceable**, even as new file types and experimental workflows are introduced.
+## Installation & Requirements
+
+To obtain a local copy:
+
+```Bash
+git clone https://github.com/RitAreaSciencePark/LAGE_Metadata_Extraction.git
+```
+
+Alternatively, the repository can be downloaded as a compressed archive. Its modular structure allows each component to be independently inspected, modified, or extended.
+
+### Operating System Compatibility
+
+The pipeline is platform-independent and has been designed to run on major operating systems, including:
+
+- Linux-based systems
+- macOS
+- Windows
+
+### Execution Requirements
+
+The pipeline is designed to run on standard computing environments. However, for efficient processing of large datasets, the following configuration is recommended.
+
+#### Hardware Requirements
+
+- Multi-core CPU (≥ 4 cores recommended)  
+- Minimum 8 GB RAM (16 GB recommended for large datasets)  
+- Sufficient storage for raw and processed data (SSD preferred)  
+
+#### Software Requirements
+
+Install dependencies after cloning the repository:
+
+```Bash
+ pip install -r requirements.txt
+```
+   
+## Conceptual Design
+
+The pipeline is built on three core principles:
+
+1. **Automation** — File types are detected dynamically without user input  
+2. **Modularity** — Each file format is handled by a dedicated extractor module  
+3. **Traceability** — Outputs preserve project identifiers and enable reconstruction of sample history  
 
 ---
+
+## Architecture
 
 Modular Architecture: Specialized Extraction & Management
 
@@ -32,47 +80,8 @@ Modular Architecture: Specialized Extraction & Management
   - Integrated Packaging Pipeline (Main_Rocrate.py): Provides a seamless end-to-end execution by incorporating the full processor workflow to generate both standardized JSONs and the final RO-Crate manifest in one step.
 
 
-##  Modules Description
 
-Each extractor module has the following structure:
-
-- is_valid_type(file_path): Logic to identify the file.
-
-- one_single_file(...): Logic to process one file.
-
-- process_all_csv_files(...): Logic to loop through a directory.
-
-- create_summary_table(results): Returns a pandas DataFrame for the CSV.
-
-
-**BeadStudio** (File: `Extractor_BeadStudio.py`)
-- Header and sample extraction
-- ORID and manifest enrichment
-
-**Thermal Report** (File: `Extractor_Thermal_Report.py`)
-- Column remapping
-- Filename-based metadata parsing
-- ORID extraction
-
-**FM Generation** (File: `Extractor_FM_Generation.py`)
-- Hierarchical metadata extraction
-- Sectioned data parsing (Green / Red / Overall)
-- Intensity and Z-position enrichment
-
-**Illumina Sample Sheet** (File: `Extractor_Illumina_Sample_Sheet.py`)
-- Section-based metadata parsing
-- Sequencing sample extraction
-- ORID filename mapping
-- Sample-project traceability
-
-**FM AutoTilt** (File: `Extractor_FMAutoTilt.py`)
-- Stack-header validation
-- Dynamic multi-section crawling
-- Coordinate and ORID enrichment
-
-
- 
-### Main_Auto_Processor (**File:** `Main_Auto_Processor.py`)
+### Central Manager: Main_Auto_Processor (**File:** `Main_Auto_Processor.py`)
 
 This script is a centralized manager designed to handle the complexity of scaling many different file types. Instead of hard-coding logic for every format, it uses a Registry Pattern combined with Validation Polling.
 
@@ -91,7 +100,7 @@ For each encountered file:
 
 1. **Validation**: Each extractor’s validation function is called.
 
-2. **Routing**: The first extractor returning `True` is selected to handle the extraction.
+2. **Routing**: The extractor returning `True` is selected to handle the extraction.
 
 3. **Extraction**: The module extracts metadata (headers) and data sections (rows), converting them into a structured format.
 
@@ -101,10 +110,10 @@ For each encountered file:
 #### Inputs & Outputs
 
 - **Inputs**
-* A single CSV file **or**
-* A directory containing CSV files or nested folders
+* A single  file **or**
+* A directory containing files or nested folders
 - **Outputs**
-* Standardized JSON files containing: `metadata`, `samples`, `file_type`, project identifiers (e.g. ORID)
+* Standardized JSON files containing: `samples informations`, `file_type`, project identifiers (e.g. ORID), etc.
 
 The generated JSON files are designed for integration with the **Sample History Extractor**.
 
@@ -113,11 +122,11 @@ The generated JSON files are designed for integration with the **Sample History 
 
 The script accepts the following command-line arguments via `argparse`:
 
- * input_path: Path to a single CSV file OR a directory containing multiple CSVs. The directory can also structured into infinite nesting (folders within folders within folders).
+ * input_path: Path to a single file OR a directory containing multiple files. The directory can also structured into infinite nesting (folders within folders within folders).
 
  * output_dir: The destination folder where JSON files will be saved.
 
- * --batch: (Optional) Flag to enable processing of all CSV files within the input_path directory.
+ * --batch:  Flag to enable processing of all files within the input_path directory.
 
 
 - **Entire directory (Batch Mode)**:
@@ -127,7 +136,7 @@ The script accepts the following command-line arguments via `argparse`:
 python Main_Auto_Processor.py  </path/to/Input/General_Folder>  </path/to/Output_json/folder>  --batch
 ```
 
-- **Single specific csv file**:
+- **Single specific file**:
 
 
 ```Bash
@@ -135,6 +144,49 @@ python Main_Auto_Processor.py  </path/to/Input/General_Folder>  </path/to/Output
 python path/to/Main_Auto_Processor.py   </path/to/input_file.csv>   </path/to/Output_json/folder> 
 ```
 ---
+
+
+## Extractor Modules
+
+### Extractor Modules Structure
+
+
+Each extractor module follows a consistent structure:
+
+- is_valid_type(file_path)  
+- one_single_file(...)  
+
+
+### Extractor Modules Description
+
+**BeadStudio (Extractor_BeadStudio.py)**  
+- Header and sample metadata extraction  
+- ORID and manifest enrichment  
+
+**Thermal Report (Extractor_Thermal_Report.py)**  
+- Column remapping  
+- Filename-based metadata parsing  
+- ORID extraction  
+
+**FM Generation (Extractor_FM_Generation.py)**  
+- Hierarchical metadata extraction  
+- Sectioned data parsing  
+- Intensity and positional enrichment  
+
+**Illumina Sample Sheet (Extractor_Illumina_Sample_Sheet.py)**  
+- Section-based parsing  
+- Sample extraction  
+- Sample–project traceability  
+
+**FM AutoTilt (Extractor_FMAutoTilt.py)**  
+- Stack validation  
+- Multi-section parsing  
+- Coordinate and ORID extraction  
+
+---
+
+## Advanced Modules
+
 
 ### Sample History Extractor (**File:** `Sample_History_Extractor.py`)
 
@@ -180,6 +232,7 @@ python path/to/Sample_History_Extractor.py  </path/to/Json/folder>  <Sample_id t
 ```
 ---
 
+
 ### Recursive ORID Extractor (**File:** `Extractor_Orid_Recursively.py`)
 
 Processes files associated with a specific project ORID, supporting direct filename matching and deep directory inheritance.
@@ -193,7 +246,7 @@ Processes files associated with a specific project ORID, supporting direct filen
     1. Direct Filename Match: The ORID is present in the filename (e.g., ORID0036_data.csv).
 
     2. Multi-Level Inheritance: The file is located anywhere inside a folder structure labeled with the ORID. This allows the script to find files even when they are buried in sub-folders (e.g., post_run/ORID0036/CSVs/data.csv).
-- Passes all identified CSVs through the Main_Auto_Processor to validate headers and generate standardized JSON metadata.
+- Passes all identified files through the Main_Auto_Processor to validate headers and generate standardized JSON metadata.
 - Flattens the resulting JSON files into a single target directory for easy access.
 
 #### Why It’s Useful
@@ -223,13 +276,15 @@ python path/to/Extractor_Orid_Recursively.py  </path/to/input/folder>  <ORID Num
 ```
 ---
 
-### 4. RO-Crate Descriptor Generator (**File:** `Crate_Generator.py`)
+## FAIR Data Packaging
 
-Generates a formal [RO-Crate](https://www.researchobject.org/ro-crate/) metadata manifest (`ro-crate-metadata.json`) for all CSV data files within a project, regardless of directory depth.
+### RO-Crate Generator (**File:** `Crate_Generator.py`)
+
+Generates a formal [RO-Crate](https://www.researchobject.org/ro-crate/) metadata manifest (`ro-crate-metadata.json`) for all files within a project folder, regardless of directory depth.
 
 #### What It Does
 
-- **Recursive Scanning:** Automatically crawls through all subdirectories starting from a root folder to find CSV files.
+- **Recursive Scanning:** Automatically crawls through all subdirectories starting from a root folder to find files.
 - **Structural Mapping:** Preserves the relative folder structure in the metadata, mapping exactly where each file is located within the project hierarchy.
 - **Organization Linking:** Formally defines the institutional hierarchy between **Area Science Park**, **RIT**, and the specific laboratories (**LAGE/LADE**).
 - **Provenance Tracking:** Links every detected file to the generator script to document how the metadata was produced.
@@ -256,10 +311,11 @@ python path/to/Crate_Generator.py </path/to/input_data_folder>
 ```
 ---
 
-### 5. RO-Crate Descriptor Generator (**File:** `Main_Rocrate.py`)
+### Integrated RO-Crate Pipeline (**File:** `Main_Rocrate.py`)
 
-Generates a formal RO-Crate metadata manifest (`ro-crate-metadata.json`) starting from the JSON files produced after CSV processing.  
-This script incorporates the full **Main_Auto_Processor** workflow, allowing it to process raw CSV files and automatically generate the RO-Crate descriptor from the resulting JSON outputs.
+
+Generates a formal RO-Crate metadata manifest (`ro-crate-metadata.json`) starting from the JSON files produced after files processing.  
+This script incorporates the full **Main_Auto_Processor** workflow, allowing it to process raw  files and automatically generate the RO-Crate descriptor from the resulting JSON outputs.
 
 It provides the same functionality as `Crate_Generator.py`, while integrating the end-to-end processing and packaging steps into a single executable pipeline.
 
@@ -279,83 +335,67 @@ python path/to/Main_Rocrate.py </path/to/input_data_folder> </path/to/output_dat
 ```
 ---
 
-##  Architecture Diagram
 
-```
-                                                                +--------------------------+
-                                                                |  Terminal / CLI Input    |--------------------------------------------------------------------------------------
-                                                                |        (argparse)        |                                                                                     |
-                                                                +------------+-------------+                                                                                     |   
-                                                                    |              |                                                                                             |
-                                                                    v              v                                                                                             |
-                                                +--------------------------+    +--------------------------+                                                 ----------------------------+
-                                                |  Main_Auto_Processor.py  |    |     Extractor_Orid_      |                                                 |   Crate_ Generator.py     |
-                                                                                                                                                             |                           |
-                                                |  (Logic Orchestrator)    |    |     Recursively.py       |                                                 +---------------------------+
-                                                +------------+-------------+    +--------------------------+                                                                     |
-                                                            |                             |                                                                                      |
-                                                            v                             v                                                                                      | 
-                  +----+------++------+------+++------+------+++------++------+++------++------+++-----------+------------------------++++------------+                          |
-                  |                      |                      |                   |                        |                                        |                          |
-                  v                      v                      v                   v                        v                                        v                          |
-        +-----------------+    +-----------------+    +------+---------+     +------+------------+      +------+---------------+      +-------------------------+                |
-        |Extractor_       |    |Extractor_       |    |Extractor_      |     |Extractor_         |      |                      |      | Extractor_Nanopore.py   |                | 
-        |BeadStudio.py    |    |Thermal_Report.py|    |FMAutoTilt.py   |     |IlluminaSampleSheet|      |Extractor_FMGeneration|      |                         |                |
-        +-----+-----------+    +-----+-----------+    +------+---------+     +------+------------+      +------+---------------+      +-------------------------+                | 
-                |                       |                                                                               |                            |                           |
-                |                       |                                                                               |                            |                           |
-                |                       |                                                                               |                            |                           |
-                v                       +------------------------------------|------------------------------------------+                            v                           |
-        +-----------------+                                +-----------------v-----------------+                                       +----------------------------+            | 
-        | Illumina iScan  |                                |     Illumina Novaseq 6000         |                                       |   PromethION 24 Nanopore   |            |     
-        +-----------------+                                +-----------------------------------+                                       +----------------------------+            |
-                    |                                                          |                                                                     |                           |
-                    v                                                          v                                                                     v                           |
-                    +------+------++------+------++------+------++------++------+------+ +------+--------+--------------------------------------------                           |   
-                                                                               |                                                                                                 |
-                                                                               v                                                                                                 v
-                                                            +---------------------------------------+                                                       +---------------------------+
-                                                            |    Output: Standardised JSON files    |                                                       |                           |
-                                                            +---------------------------------------+                                                       |  Ro-crate metadata.json   |
-                                                                               |                                                                            +---------------------------+            
-                                                                               v  
-                                                                +--------------------------+                 
-                                                                |Sample_History_Extractor.py|                 
-                                                                +--------------------------+                 
-                                                                               |
-                                                                               v                                                                               
-                                                                +--------------------------+                 
-                                                                |Json Sample History files |                 
-                                                                +--------------------------+                 
 
-```
+## Workflow Diagram
+
+<svg width="700" height="500" viewBox="0 0 700 500" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .box { fill: #f4f6f8; stroke: #2c3e50; stroke-width: 1.5; rx: 8; }
+    .text { font-family: Arial, sans-serif; font-size: 14px; fill: #2c3e50; text-anchor: middle; }
+    .arrow { stroke: #2c3e50; stroke-width: 1.5; marker-end: url(#arrowhead); }
+  </style>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/>
+    </marker>
+  </defs>
+
+  <rect class="box" x="200" y="20" width="300" height="50"/>
+  <text class="text" x="350" y="50">Input (Files / Directories)</text>
+
+  <rect class="box" x="200" y="100" width="300" height="50"/>
+  <text class="text" x="350" y="130">Automatic File Detection</text>
+
+  <rect class="box" x="200" y="180" width="300" height="50"/>
+  <text class="text" x="350" y="210">Metadata Extraction</text>
+
+  <rect class="box" x="200" y="260" width="300" height="50"/>
+  <text class="text" x="350" y="290">Standardized JSON Output</text>
+
+  <rect class="box" x="80" y="360" width="220" height="50"/>
+  <text class="text" x="190" y="390">Sample History</text>
+
+  <rect class="box" x="400" y="360" width="220" height="50"/>
+  <text class="text" x="510" y="390">RO-Crate Packaging</text>
+
+  <line class="arrow" x1="350" y1="70" x2="350" y2="100"/>
+  <line class="arrow" x1="350" y1="150" x2="350" y2="180"/>
+  <line class="arrow" x1="350" y1="230" x2="350" y2="260"/>
+  <line class="arrow" x1="350" y1="310" x2="190" y2="360"/>
+  <line class="arrow" x1="350" y1="310" x2="510" y2="360"/>
+</svg>
 
 ---
 
-##  Workflow Diagram
+## Design Advantages
 
- ```
-                                            [User provides file/folder paths] 
-                                                            |
-                                                            v
-                                            [Argparse validates input paths]
-                                                            |
-                                                            v
-                                            [Module validates CSV internal structure]
-                                                            |
-                                                            v
-                                            [Metadata -> JSON mapping per file]
+- Scalable for large datasets  
+- Extensible architecture  
+- Robust error handling  
+- Interoperable outputs (JSON, RO-Crate)  
+- Full traceability  
 
-                                                            |
-                                                            v
-                                            [Files saved to specified output path]
-                                                            |
-                                                            v
-                                                  [Sample history file]
 
- ```
+---
 
-##  License
+## Final Note
+
+This pipeline is intended for researchers, data engineers, and bioinformaticians working with complex laboratory datasets. It simplifies metadata extraction while ensuring reproducibility, traceability, and compliance with modern data standards.
+
+---
+
+## License
 
 MIT License
-
