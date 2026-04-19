@@ -339,43 +339,7 @@ python path/to/Main_Rocrate.py </path/to/input_data_folder> </path/to/output_dat
 
 ## Workflow Diagram
 
-<svg width="700" height="500" viewBox="0 0 700 500" xmlns="http://www.w3.org/2000/svg">
-  <style>
-    .box { fill: #f4f6f8; stroke: #2c3e50; stroke-width: 1.5; rx: 8; }
-    .text { font-family: Arial, sans-serif; font-size: 14px; fill: #2c3e50; text-anchor: middle; }
-    .arrow { stroke: #2c3e50; stroke-width: 1.5; marker-end: url(#arrowhead); }
-  </style>
-
-  <defs>
-    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/>
-    </marker>
-  </defs>
-
-  <rect class="box" x="200" y="20" width="300" height="50"/>
-  <text class="text" x="350" y="50">Input (Files / Directories)</text>
-
-  <rect class="box" x="200" y="100" width="300" height="50"/>
-  <text class="text" x="350" y="130">Automatic File Detection</text>
-
-  <rect class="box" x="200" y="180" width="300" height="50"/>
-  <text class="text" x="350" y="210">Metadata Extraction</text>
-
-  <rect class="box" x="200" y="260" width="300" height="50"/>
-  <text class="text" x="350" y="290">Standardized JSON Output</text>
-
-  <rect class="box" x="80" y="360" width="220" height="50"/>
-  <text class="text" x="190" y="390">Sample History</text>
-
-  <rect class="box" x="400" y="360" width="220" height="50"/>
-  <text class="text" x="510" y="390">RO-Crate Packaging</text>
-
-  <line class="arrow" x1="350" y1="70" x2="350" y2="100"/>
-  <line class="arrow" x1="350" y1="150" x2="350" y2="180"/>
-  <line class="arrow" x1="350" y1="230" x2="350" y2="260"/>
-  <line class="arrow" x1="350" y1="310" x2="190" y2="360"/>
-  <line class="arrow" x1="350" y1="310" x2="510" y2="360"/>
-</svg>
+![Workflow Diagram](Test/workflow.png)
 
 ---
 
