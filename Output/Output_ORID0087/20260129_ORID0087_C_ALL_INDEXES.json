@@ -1,0 +1,1749 @@
+{
+    "instrument_type": "Illumina_NovaSeq6000",
+    "phase_workflow": "Sequencing",
+    "file_name": "20260129_ORID0087_C_ALL_INDEXES.csv",
+    "file_path": "./Input/ORID0087/20260129_ORID0087_C_ALL_INDEXES.csv",
+    "file_description": "Illumina sequencing configuration file defining run parameters, index sequences, and sample-to-barcode mapping.",
+    "metadata": {
+        "experiment_name": "20260130_ORID0087_C",
+        "date": "20260130",
+        "workflow": "GenerateFASTQ",
+        "application": "FASTQ Only",
+        "instrument_type": "NovaSeq",
+        "assay": "Custom",
+        "index_adapters": "Custom",
+        "chemistry": "Amplicon",
+        "proposal_id": "ORID0087"
+    },
+    "number_of_samples": 192,
+    "samples": [
+        {
+            "Sample_ID": "16s-A01",
+            "Sample_Name": "16s-A01",
+            "I7_Index_ID": "UDP0193",
+            "index": "TCTCATGATA",
+            "I5_Index_ID": "UDP0193",
+            "index2": "TCCACGTGTT",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-B01",
+            "Sample_Name": "16s-B01",
+            "I7_Index_ID": "UDP0194",
+            "index": "CGAGGCCAAG",
+            "I5_Index_ID": "UDP0194",
+            "index2": "CCGGTAACAC",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-C01",
+            "Sample_Name": "16s-C01",
+            "I7_Index_ID": "UDP0195",
+            "index": "TTCACGAGAC",
+            "I5_Index_ID": "UDP0195",
+            "index2": "GTAACAATCT",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-D01",
+            "Sample_Name": "16s-D01",
+            "I7_Index_ID": "UDP0196",
+            "index": "GCGTGGATGG",
+            "I5_Index_ID": "UDP0196",
+            "index2": "CATTGGTCAA",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-E01",
+            "Sample_Name": "16s-E01",
+            "I7_Index_ID": "UDP0101",
+            "index": "ATATGCATGT",
+            "I5_Index_ID": "UDP0101",
+            "index2": "CCAGGCACCA",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-F01",
+            "Sample_Name": "16s-F01",
+            "I7_Index_ID": "UDP0198",
+            "index": "TAATTCTGCT",
+            "I5_Index_ID": "UDP0198",
+            "index2": "ATTGATGAGA",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-G01",
+            "Sample_Name": "16s-G01",
+            "I7_Index_ID": "UDP0199",
+            "index": "CGCACGACTG",
+            "I5_Index_ID": "UDP0199",
+            "index2": "CTGTTGGTCC",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-H01",
+            "Sample_Name": "16s-H01",
+            "I7_Index_ID": "UDP0200",
+            "index": "GAGGTTAGAC",
+            "I5_Index_ID": "UDP0200",
+            "index2": "GCAATACATT",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-A02",
+            "Sample_Name": "16s-A02",
+            "I7_Index_ID": "UDP0201",
+            "index": "AACCGAGTTC",
+            "I5_Index_ID": "UDP0201",
+            "index2": "TCCAGAGATC",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-B02",
+            "Sample_Name": "16s-B02",
+            "I7_Index_ID": "UDP0202",
+            "index": "TGTGATAACT",
+            "I5_Index_ID": "UDP0202",
+            "index2": "ATGGCGCCTG",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-C02",
+            "Sample_Name": "16s-C02",
+            "I7_Index_ID": "UDP0203",
+            "index": "AGTATGCTAC",
+            "I5_Index_ID": "UDP0203",
+            "index2": "GGTCTATTAA",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-D02",
+            "Sample_Name": "16s-D02",
+            "I7_Index_ID": "UDP0204",
+            "index": "GTAACTGAAG",
+            "I5_Index_ID": "UDP0204",
+            "index2": "TCGCGACTCC",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-E02",
+            "Sample_Name": "16s-E02",
+            "I7_Index_ID": "UDP0205",
+            "index": "TCCTCGGACT",
+            "I5_Index_ID": "UDP0205",
+            "index2": "CTCTGGCGTT",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-F02",
+            "Sample_Name": "16s-F02",
+            "I7_Index_ID": "UDP0206",
+            "index": "CTGGAACTGT",
+            "I5_Index_ID": "UDP0206",
+            "index2": "GTTAATTACG",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-G02",
+            "Sample_Name": "16s-G02",
+            "I7_Index_ID": "UDP0207",
+            "index": "GAATATGCGG",
+            "I5_Index_ID": "UDP0207",
+            "index2": "TCAGTCTCGT",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-H02",
+            "Sample_Name": "16s-H02",
+            "I7_Index_ID": "UDP0208",
+            "index": "GATCGGATAA",
+            "I5_Index_ID": "UDP0208",
+            "index2": "CGGCCGATAC",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-A03",
+            "Sample_Name": "16s-A03",
+            "I7_Index_ID": "UDP0209",
+            "index": "GCTAGACTAT",
+            "I5_Index_ID": "UDP0209",
+            "index2": "ATGTCGTATT",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-B03",
+            "Sample_Name": "16s-B03",
+            "I7_Index_ID": "UDP0210",
+            "index": "AGCTACTATA",
+            "I5_Index_ID": "UDP0210",
+            "index2": "GCCATATAAC",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-C03",
+            "Sample_Name": "16s-C03",
+            "I7_Index_ID": "UDP0211",
+            "index": "CCACCGGAGT",
+            "I5_Index_ID": "UDP0211",
+            "index2": "CATGGCAGGC",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-D03",
+            "Sample_Name": "16s-D03",
+            "I7_Index_ID": "UDP0212",
+            "index": "CTTACCGCAC",
+            "I5_Index_ID": "UDP0212",
+            "index2": "ATAGGTCTTA",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-E03",
+            "Sample_Name": "16s-E03",
+            "I7_Index_ID": "UDP0213",
+            "index": "TTAGGATATC",
+            "I5_Index_ID": "UDP0213",
+            "index2": "CCATGGTATA",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-F03",
+            "Sample_Name": "16s-F03",
+            "I7_Index_ID": "UDP0214",
+            "index": "TTATACGCGA",
+            "I5_Index_ID": "UDP0214",
+            "index2": "AACAGACGGC",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-G03",
+            "Sample_Name": "16s-G03",
+            "I7_Index_ID": "UDP0215",
+            "index": "CGCTTAGAAT",
+            "I5_Index_ID": "UDP0215",
+            "index2": "TATCACTCTG",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-H03",
+            "Sample_Name": "16s-H03",
+            "I7_Index_ID": "UDP0216",
+            "index": "CCGAAGCGCT",
+            "I5_Index_ID": "UDP0216",
+            "index2": "ATAGTTAGCA",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-A04",
+            "Sample_Name": "16s-A04",
+            "I7_Index_ID": "UDP0217",
+            "index": "CACTATCAAC",
+            "I5_Index_ID": "UDP0217",
+            "index2": "CATTAACTGA",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-B04",
+            "Sample_Name": "16s-B04",
+            "I7_Index_ID": "UDP0218",
+            "index": "TTGCTCTATT",
+            "I5_Index_ID": "UDP0218",
+            "index2": "TCAAGGTCAC",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-C04",
+            "Sample_Name": "16s-C04",
+            "I7_Index_ID": "UDP0219",
+            "index": "TTACAGTTAG",
+            "I5_Index_ID": "UDP0219",
+            "index2": "ATATGCATGT",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-D04",
+            "Sample_Name": "16s-D04",
+            "I7_Index_ID": "UDP0220",
+            "index": "CTAAGTACGC",
+            "I5_Index_ID": "UDP0220",
+            "index2": "TAGGTATGTT",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-E04",
+            "Sample_Name": "16s-E04",
+            "I7_Index_ID": "UDP0221",
+            "index": "TAGTTCGGTA",
+            "I5_Index_ID": "UDP0221",
+            "index2": "CTACACATGG",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-F04",
+            "Sample_Name": "16s-F04",
+            "I7_Index_ID": "UDP0222",
+            "index": "CTATTACTAC",
+            "I5_Index_ID": "UDP0222",
+            "index2": "GGAGAGACTC",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-G04",
+            "Sample_Name": "16s-G04",
+            "I7_Index_ID": "UDP0223",
+            "index": "TAGCATAACC",
+            "I5_Index_ID": "UDP0223",
+            "index2": "TGCGCATAGC",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-H04",
+            "Sample_Name": "16s-H04",
+            "I7_Index_ID": "UDP0224",
+            "index": "ACTCTATTGT",
+            "I5_Index_ID": "UDP0224",
+            "index2": "CATATGCGAT",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-A05",
+            "Sample_Name": "16s-A05",
+            "I7_Index_ID": "UDP0225",
+            "index": "TAGTGGAAGC",
+            "I5_Index_ID": "UDP0225",
+            "index2": "TATAGGTACT",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-B05",
+            "Sample_Name": "16s-B05",
+            "I7_Index_ID": "UDP0226",
+            "index": "CGCCATATCT",
+            "I5_Index_ID": "UDP0226",
+            "index2": "ATCTCCGGTC",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-C05",
+            "Sample_Name": "16s-C05",
+            "I7_Index_ID": "UDP0227",
+            "index": "GCTTCATATT",
+            "I5_Index_ID": "UDP0227",
+            "index2": "AGGCTGAACG",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-D05",
+            "Sample_Name": "16s-D05",
+            "I7_Index_ID": "UDP0228",
+            "index": "ACTAGCGCTA",
+            "I5_Index_ID": "UDP0228",
+            "index2": "GAGGAAGTAA",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-E05",
+            "Sample_Name": "16s-E05",
+            "I7_Index_ID": "UDP0229",
+            "index": "GCTCTTAACT",
+            "I5_Index_ID": "UDP0229",
+            "index2": "GGTGGACGTG",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-F05",
+            "Sample_Name": "16s-F05",
+            "I7_Index_ID": "UDP0230",
+            "index": "GTGGTATCTG",
+            "I5_Index_ID": "UDP0230",
+            "index2": "AGATAGTAGC",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-G05",
+            "Sample_Name": "16s-G05",
+            "I7_Index_ID": "UDP0231",
+            "index": "TGACGGCCGT",
+            "I5_Index_ID": "UDP0231",
+            "index2": "ATGGTTGACT",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-H05",
+            "Sample_Name": "16s-H05",
+            "I7_Index_ID": "UDP0232",
+            "index": "CAGTAATTAC",
+            "I5_Index_ID": "UDP0232",
+            "index2": "TACCGCCTCG",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-A06",
+            "Sample_Name": "16s-A06",
+            "I7_Index_ID": "UDP0233",
+            "index": "TACAAGACTT",
+            "I5_Index_ID": "UDP0233",
+            "index2": "TGAACACCTG",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-B06",
+            "Sample_Name": "16s-B06",
+            "I7_Index_ID": "UDP0234",
+            "index": "CTGTGGTGAC",
+            "I5_Index_ID": "UDP0234",
+            "index2": "CCTGTCTGTC",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-C06",
+            "Sample_Name": "16s-C06",
+            "I7_Index_ID": "UDP0235",
+            "index": "CTCCACTAAT",
+            "I5_Index_ID": "UDP0235",
+            "index2": "AACAAGTACA",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-D06",
+            "Sample_Name": "16s-D06",
+            "I7_Index_ID": "UDP0236",
+            "index": "ATAGTTAGCA",
+            "I5_Index_ID": "UDP0236",
+            "index2": "CTACTTAGAG",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-E06",
+            "Sample_Name": "16s-E06",
+            "I7_Index_ID": "UDP0237",
+            "index": "ATAGGTCTTA",
+            "I5_Index_ID": "UDP0237",
+            "index2": "CTGTGGTGAC",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-F06",
+            "Sample_Name": "16s-F06",
+            "I7_Index_ID": "UDP0238",
+            "index": "TTCTTAACCA",
+            "I5_Index_ID": "UDP0238",
+            "index2": "GGTATGTAGA",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-G06",
+            "Sample_Name": "16s-G06",
+            "I7_Index_ID": "UDP0239",
+            "index": "AAGGAAGAGT",
+            "I5_Index_ID": "UDP0239",
+            "index2": "GCCTAACGTG",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-H06",
+            "Sample_Name": "16s-H06",
+            "I7_Index_ID": "UDP0240",
+            "index": "GGAAGGAGAC",
+            "I5_Index_ID": "UDP0240",
+            "index2": "AGACTCACCA",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-A07",
+            "Sample_Name": "16s-A07",
+            "I7_Index_ID": "UDP0241",
+            "index": "TGAACGCGGA",
+            "I5_Index_ID": "UDP0241",
+            "index2": "TCCTTCGAAG",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-B07",
+            "Sample_Name": "16s-B07",
+            "I7_Index_ID": "UDP0242",
+            "index": "CCTGCAACCT",
+            "I5_Index_ID": "UDP0242",
+            "index2": "CTGACTCTAC",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-C07",
+            "Sample_Name": "16s-C07",
+            "I7_Index_ID": "UDP0243",
+            "index": "TTCATGGTTC",
+            "I5_Index_ID": "UDP0243",
+            "index2": "TGACAATGTC",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-D07",
+            "Sample_Name": "16s-D07",
+            "I7_Index_ID": "UDP0244",
+            "index": "ATCCTCTCAA",
+            "I5_Index_ID": "UDP0244",
+            "index2": "GCCTTGCGGA",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-E07",
+            "Sample_Name": "16s-E07",
+            "I7_Index_ID": "UDP0245",
+            "index": "CACTAGACCA",
+            "I5_Index_ID": "UDP0245",
+            "index2": "ATAAGGCAGT",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-F07",
+            "Sample_Name": "16s-F07",
+            "I7_Index_ID": "UDP0246",
+            "index": "ATTATCCACT",
+            "I5_Index_ID": "UDP0246",
+            "index2": "TACGTGCGTA",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-G07",
+            "Sample_Name": "16s-G07",
+            "I7_Index_ID": "UDP0247",
+            "index": "ATGGCGTGCC",
+            "I5_Index_ID": "UDP0247",
+            "index2": "ACTTCAAGCG",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-H07",
+            "Sample_Name": "16s-H07",
+            "I7_Index_ID": "UDP0248",
+            "index": "TCCAGAGATC",
+            "I5_Index_ID": "UDP0248",
+            "index2": "TGAAGTGCAG",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-A08",
+            "Sample_Name": "16s-A08",
+            "I7_Index_ID": "UDP0249",
+            "index": "ATGTCCAGCA",
+            "I5_Index_ID": "UDP0249",
+            "index2": "TTGTCCGCTG",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-B08",
+            "Sample_Name": "16s-B08",
+            "I7_Index_ID": "UDP0250",
+            "index": "CAACGTTCGG",
+            "I5_Index_ID": "UDP0250",
+            "index2": "ATGCGGATCC",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-C08",
+            "Sample_Name": "16s-C08",
+            "I7_Index_ID": "UDP0251",
+            "index": "GCGTATTAAT",
+            "I5_Index_ID": "UDP0251",
+            "index2": "CAACACCGCA",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-D08",
+            "Sample_Name": "16s-D08",
+            "I7_Index_ID": "UDP0252V2",
+            "index": "CCGAATCTGG",
+            "I5_Index_ID": "UDP0252V2",
+            "index2": "CTTGATTCAT",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-E08",
+            "Sample_Name": "16s-E08",
+            "I7_Index_ID": "UDP0253",
+            "index": "TCTCAATACC",
+            "I5_Index_ID": "UDP0253",
+            "index2": "CGCGAACGTC",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-F08",
+            "Sample_Name": "16s-F08",
+            "I7_Index_ID": "UDP0254",
+            "index": "AAGCATCTTG",
+            "I5_Index_ID": "UDP0254",
+            "index2": "TTGTTGAATG",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-G08",
+            "Sample_Name": "16s-G08",
+            "I7_Index_ID": "UDP0255",
+            "index": "TCAGTCTCGT",
+            "I5_Index_ID": "UDP0255",
+            "index2": "ATAATCCGTG",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-H08",
+            "Sample_Name": "16s-H08",
+            "I7_Index_ID": "UDP0256",
+            "index": "TGCAAGATAA",
+            "I5_Index_ID": "UDP0256",
+            "index2": "CCGTCCTCAA",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-A09",
+            "Sample_Name": "16s-A09",
+            "I7_Index_ID": "UDP0257",
+            "index": "GTAACAATCT",
+            "I5_Index_ID": "UDP0257",
+            "index2": "GTATACAGAG",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-B09",
+            "Sample_Name": "16s-B09",
+            "I7_Index_ID": "UDP0258V2",
+            "index": "CCATGGTATA",
+            "I5_Index_ID": "UDP0258V2",
+            "index2": "CTCCGCGAGA",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-C09",
+            "Sample_Name": "16s-C09",
+            "I7_Index_ID": "UDP0259",
+            "index": "TCATACCGTT",
+            "I5_Index_ID": "UDP0259",
+            "index2": "CTGCGTTACC",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-D09",
+            "Sample_Name": "16s-D09",
+            "I7_Index_ID": "UDP0260",
+            "index": "GGCGCCATTG",
+            "I5_Index_ID": "UDP0260",
+            "index2": "ATTGCGCGGT",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-E09",
+            "Sample_Name": "16s-E09",
+            "I7_Index_ID": "UDP0261",
+            "index": "AGCGAATTAG",
+            "I5_Index_ID": "UDP0261",
+            "index2": "TGTTCCGGCT",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-F09",
+            "Sample_Name": "16s-F09",
+            "I7_Index_ID": "UDP0262",
+            "index": "TTAGACCATG",
+            "I5_Index_ID": "UDP0262",
+            "index2": "CTTCCTAGGA",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-G09",
+            "Sample_Name": "16s-G09",
+            "I7_Index_ID": "UDP0263",
+            "index": "CACACAGTAT",
+            "I5_Index_ID": "UDP0263",
+            "index2": "TTAGGCTCAA",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-H09",
+            "Sample_Name": "16s-H09",
+            "I7_Index_ID": "UDP0264",
+            "index": "TCTTGTCGGC",
+            "I5_Index_ID": "UDP0264",
+            "index2": "ACACAGGTGG",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-A10",
+            "Sample_Name": "16s-A10",
+            "I7_Index_ID": "UDP0265",
+            "index": "TACCGCCTCG",
+            "I5_Index_ID": "UDP0265",
+            "index2": "GGTTGCGAGG",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-B10",
+            "Sample_Name": "16s-B10",
+            "I7_Index_ID": "UDP0266",
+            "index": "CTGTTATATC",
+            "I5_Index_ID": "UDP0266",
+            "index2": "ACAGCTATAC",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-C10",
+            "Sample_Name": "16s-C10",
+            "I7_Index_ID": "UDP0267",
+            "index": "TAACCGGCGA",
+            "I5_Index_ID": "UDP0267",
+            "index2": "CTAATGTAGC",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-D10",
+            "Sample_Name": "16s-D10",
+            "I7_Index_ID": "UDP0268",
+            "index": "AAGAGAGTCT",
+            "I5_Index_ID": "UDP0268",
+            "index2": "AAGATTCGTA",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-E10",
+            "Sample_Name": "16s-E10",
+            "I7_Index_ID": "UDP0269",
+            "index": "GTAGGCGAGC",
+            "I5_Index_ID": "UDP0269",
+            "index2": "TGCGCTCCTA",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-F10",
+            "Sample_Name": "16s-F10",
+            "I7_Index_ID": "UDP0270",
+            "index": "AACTTATCCT",
+            "I5_Index_ID": "UDP0270",
+            "index2": "ACGCCAGTAC",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-G10",
+            "Sample_Name": "16s-G10",
+            "I7_Index_ID": "UDP0271",
+            "index": "ATTATGTCTC",
+            "I5_Index_ID": "UDP0271",
+            "index2": "GCTCTTAACT",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-H10",
+            "Sample_Name": "16s-H10",
+            "I7_Index_ID": "UDP0272",
+            "index": "TATAACAGCT",
+            "I5_Index_ID": "UDP0272",
+            "index2": "TTATACGCGA",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-A11",
+            "Sample_Name": "16s-A11",
+            "I7_Index_ID": "UDP0273",
+            "index": "CCAATGATAC",
+            "I5_Index_ID": "UDP0273",
+            "index2": "CGGCACACTC",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-B11",
+            "Sample_Name": "16s-B11",
+            "I7_Index_ID": "UDP0274",
+            "index": "GAGGCCTATT",
+            "I5_Index_ID": "UDP0274",
+            "index2": "TCCGGACTAG",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-C11",
+            "Sample_Name": "16s-C11",
+            "I7_Index_ID": "UDP0275",
+            "index": "AGCTAAGCGG",
+            "I5_Index_ID": "UDP0275",
+            "index2": "GCGTATTAAT",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-D11",
+            "Sample_Name": "16s-D11",
+            "I7_Index_ID": "UDP0276",
+            "index": "CTTCCTAGGA",
+            "I5_Index_ID": "UDP0276",
+            "index2": "ATACTCTAGG",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-E11",
+            "Sample_Name": "16s-E11",
+            "I7_Index_ID": "UDP0277",
+            "index": "CGATCTGTGA",
+            "I5_Index_ID": "UDP0277",
+            "index2": "AGTCTTCCTA",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-F11",
+            "Sample_Name": "16s-F11",
+            "I7_Index_ID": "UDP0278",
+            "index": "GTGGACAAGT",
+            "I5_Index_ID": "UDP0278",
+            "index2": "AAGGCCACGG",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-G11",
+            "Sample_Name": "16s-G11",
+            "I7_Index_ID": "UDP0279",
+            "index": "AACAAGTACA",
+            "I5_Index_ID": "UDP0279",
+            "index2": "GGATATATCC",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-H11",
+            "Sample_Name": "16s-H11",
+            "I7_Index_ID": "UDP0280",
+            "index": "AGATTAAGTG",
+            "I5_Index_ID": "UDP0280",
+            "index2": "CCAAGAGGTG",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-A12",
+            "Sample_Name": "16s-A12",
+            "I7_Index_ID": "UDP0281",
+            "index": "TATCACTCTG",
+            "I5_Index_ID": "UDP0281",
+            "index2": "ATGTAACGTT",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-B12",
+            "Sample_Name": "16s-B12",
+            "I7_Index_ID": "UDP0282",
+            "index": "AGAATTCGCC",
+            "I5_Index_ID": "UDP0282",
+            "index2": "GAGCTTGCCG",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-C12",
+            "Sample_Name": "16s-C12",
+            "I7_Index_ID": "UDP0283",
+            "index": "CCTGACCACT",
+            "I5_Index_ID": "UDP0283",
+            "index2": "ATAGCCAAGA",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-D12",
+            "Sample_Name": "16s-D12",
+            "I7_Index_ID": "UDP0284",
+            "index": "AGCTGGAATG",
+            "I5_Index_ID": "UDP0284",
+            "index2": "CGCATTCCGT",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-E12",
+            "Sample_Name": "16s-E12",
+            "I7_Index_ID": "UDP0285",
+            "index": "TGATAACGAG",
+            "I5_Index_ID": "UDP0285",
+            "index2": "CCTGCGGAAC",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-F12",
+            "Sample_Name": "16s-F12",
+            "I7_Index_ID": "UDP0286",
+            "index": "CATAGTAAGG",
+            "I5_Index_ID": "UDP0286",
+            "index2": "GTAACTTGGT",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-G12",
+            "Sample_Name": "16s-G12",
+            "I7_Index_ID": "UDP0287",
+            "index": "ATTGGCTTCT",
+            "I5_Index_ID": "UDP0287",
+            "index2": "CTGCGAGCCA",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "16s-H12",
+            "Sample_Name": "16s-H12",
+            "I7_Index_ID": "UDP0288",
+            "index": "GTACCGATTA",
+            "I5_Index_ID": "UDP0288",
+            "index2": "AACGTTAGTT",
+            "Sample_Project": "ORID0087-02-16S"
+        },
+        {
+            "Sample_ID": "its-A01",
+            "Sample_Name": "its-A01",
+            "I7_Index_ID": "UDP0289V2",
+            "index": "AGATAGTAGC",
+            "I5_Index_ID": "UDP0289V2",
+            "index2": "ATGGCGTGCC",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-B01",
+            "Sample_Name": "its-B01",
+            "I7_Index_ID": "UDP0290V2",
+            "index": "ATTAGAAGAC",
+            "I5_Index_ID": "UDP0290V2",
+            "index2": "TCCAGCCTGC",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-C01",
+            "Sample_Name": "its-C01",
+            "I7_Index_ID": "UDP0291V2",
+            "index": "GCTCGCACAT",
+            "I5_Index_ID": "UDP0291V2",
+            "index2": "ATTAAGCCAT",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-D01",
+            "Sample_Name": "its-D01",
+            "I7_Index_ID": "UDP0292",
+            "index": "AATATTGCCA",
+            "I5_Index_ID": "UDP0292",
+            "index2": "GGTGTCACCG",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-E01",
+            "Sample_Name": "its-E01",
+            "I7_Index_ID": "UDP0293",
+            "index": "TCGTGCATTC",
+            "I5_Index_ID": "UDP0293",
+            "index2": "ATACCAACGC",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-F01",
+            "Sample_Name": "its-F01",
+            "I7_Index_ID": "UDP0294",
+            "index": "AAGATACACG",
+            "I5_Index_ID": "UDP0294",
+            "index2": "TGTTAGCACA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-G01",
+            "Sample_Name": "its-G01",
+            "I7_Index_ID": "UDP0295",
+            "index": "TGCAATGAAT",
+            "I5_Index_ID": "UDP0295",
+            "index2": "TTACTTCTGG",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-H01",
+            "Sample_Name": "its-H01",
+            "I7_Index_ID": "UDP0296",
+            "index": "CTATGAAGGA",
+            "I5_Index_ID": "UDP0296",
+            "index2": "CAGGTATAAG",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-A02",
+            "Sample_Name": "its-A02",
+            "I7_Index_ID": "UDP0297",
+            "index": "GAAGACTAGA",
+            "I5_Index_ID": "UDP0297",
+            "index2": "AAGTTCTAGT",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-B02",
+            "Sample_Name": "its-B02",
+            "I7_Index_ID": "UDP0298",
+            "index": "AGGAGTCGAG",
+            "I5_Index_ID": "UDP0298",
+            "index2": "GTAAGCCTAA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-C02",
+            "Sample_Name": "its-C02",
+            "I7_Index_ID": "UDP0299",
+            "index": "TTCACTCACT",
+            "I5_Index_ID": "UDP0299",
+            "index2": "TCTCATGATA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-D02",
+            "Sample_Name": "its-D02",
+            "I7_Index_ID": "UDP0300",
+            "index": "GGTCCGCTTC",
+            "I5_Index_ID": "UDP0300",
+            "index2": "CTTGTGTGAG",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-E02",
+            "Sample_Name": "its-E02",
+            "I7_Index_ID": "UDP0301V2",
+            "index": "TAGTGGCTTG",
+            "I5_Index_ID": "UDP0301V2",
+            "index2": "CCAAGTAACT",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-F02",
+            "Sample_Name": "its-F02",
+            "I7_Index_ID": "UDP0302",
+            "index": "ATTGAGGTCC",
+            "I5_Index_ID": "UDP0302",
+            "index2": "ATATAATCCG",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-G02",
+            "Sample_Name": "its-G02",
+            "I7_Index_ID": "UDP0303",
+            "index": "GGAGAGACTC",
+            "I5_Index_ID": "UDP0303",
+            "index2": "TCTGCTTCAA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-H02",
+            "Sample_Name": "its-H02",
+            "I7_Index_ID": "UDP0304",
+            "index": "CCGCTCCGTT",
+            "I5_Index_ID": "UDP0304",
+            "index2": "CTTCGCCGTA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-A03",
+            "Sample_Name": "its-A03",
+            "I7_Index_ID": "UDP0305",
+            "index": "ATACATCACA",
+            "I5_Index_ID": "UDP0305",
+            "index2": "TCAATGGAGA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-B03",
+            "Sample_Name": "its-B03",
+            "I7_Index_ID": "UDP0306",
+            "index": "TAGGTATGTT",
+            "I5_Index_ID": "UDP0306",
+            "index2": "CTTGGTCTCG",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-C03",
+            "Sample_Name": "its-C03",
+            "I7_Index_ID": "UDP0307",
+            "index": "CACCTAGCAC",
+            "I5_Index_ID": "UDP0307",
+            "index2": "ATGTCCAGCA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-D03",
+            "Sample_Name": "its-D03",
+            "I7_Index_ID": "UDP0308",
+            "index": "TTCAAGTATG",
+            "I5_Index_ID": "UDP0308",
+            "index2": "CGATACCATC",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-E03",
+            "Sample_Name": "its-E03",
+            "I7_Index_ID": "UDP0309",
+            "index": "TTAAGACAAG",
+            "I5_Index_ID": "UDP0309",
+            "index2": "CAATTAAGCC",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-F03",
+            "Sample_Name": "its-F03",
+            "I7_Index_ID": "UDP0310",
+            "index": "CACCTCTCTT",
+            "I5_Index_ID": "UDP0310",
+            "index2": "AGGAGTCGAG",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-G03",
+            "Sample_Name": "its-G03",
+            "I7_Index_ID": "UDP0311",
+            "index": "TTCTCGTGCA",
+            "I5_Index_ID": "UDP0311",
+            "index2": "CTCTGTGTAT",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-H03",
+            "Sample_Name": "its-H03",
+            "I7_Index_ID": "UDP0312",
+            "index": "GCTAGGAAGT",
+            "I5_Index_ID": "UDP0312",
+            "index2": "TCGTCCGAGA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-A04",
+            "Sample_Name": "its-A04",
+            "I7_Index_ID": "UDP0313",
+            "index": "TTAATAGCAC",
+            "I5_Index_ID": "UDP0313",
+            "index2": "CAGACGTGGT",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-B04",
+            "Sample_Name": "its-B04",
+            "I7_Index_ID": "UDP0314",
+            "index": "CATTCACGCT",
+            "I5_Index_ID": "UDP0314",
+            "index2": "TGAGTACAAC",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-C04",
+            "Sample_Name": "its-C04",
+            "I7_Index_ID": "UDP0315",
+            "index": "GGCACTAAGG",
+            "I5_Index_ID": "UDP0315",
+            "index2": "GTTGACCTGA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-D04",
+            "Sample_Name": "its-D04",
+            "I7_Index_ID": "UDP0316",
+            "index": "ATTCGGTACA",
+            "I5_Index_ID": "UDP0316",
+            "index2": "TCCTCGGACT",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-E04",
+            "Sample_Name": "its-E04",
+            "I7_Index_ID": "UDP0317",
+            "index": "ACTAATCTCC",
+            "I5_Index_ID": "UDP0317",
+            "index2": "AGATTAAGTG",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-F04",
+            "Sample_Name": "its-F04",
+            "I7_Index_ID": "UDP0318",
+            "index": "TGTGTTAGTA",
+            "I5_Index_ID": "UDP0318",
+            "index2": "TAACAGAGTA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-G04",
+            "Sample_Name": "its-G04",
+            "I7_Index_ID": "UDP0319",
+            "index": "CAACGACCTA",
+            "I5_Index_ID": "UDP0319",
+            "index2": "ATCGAGTCGC",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-H04",
+            "Sample_Name": "its-H04",
+            "I7_Index_ID": "UDP0320",
+            "index": "CGGTCGGCAT",
+            "I5_Index_ID": "UDP0320",
+            "index2": "CCTTGCCTAG",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-A05",
+            "Sample_Name": "its-A05",
+            "I7_Index_ID": "UDP0321",
+            "index": "TCGACGCTAG",
+            "I5_Index_ID": "UDP0321",
+            "index2": "TTCGAAGAGG",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-B05",
+            "Sample_Name": "its-B05",
+            "I7_Index_ID": "UDP0322",
+            "index": "CTCGTAGGCA",
+            "I5_Index_ID": "UDP0322",
+            "index2": "AAGAGGATGA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-C05",
+            "Sample_Name": "its-C05",
+            "I7_Index_ID": "UDP0323",
+            "index": "AAGTTCTAGT",
+            "I5_Index_ID": "UDP0323",
+            "index2": "TTATCTTACC",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-D05",
+            "Sample_Name": "its-D05",
+            "I7_Index_ID": "UDP0324",
+            "index": "CCAAGAGGTG",
+            "I5_Index_ID": "UDP0324",
+            "index2": "CTGGCTCGTT",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-E05",
+            "Sample_Name": "its-E05",
+            "I7_Index_ID": "UDP0325",
+            "index": "ATATCTGCTT",
+            "I5_Index_ID": "UDP0325",
+            "index2": "AGATTGTCTA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-F05",
+            "Sample_Name": "its-F05",
+            "I7_Index_ID": "UDP0326",
+            "index": "TGGATCTGGC",
+            "I5_Index_ID": "UDP0326",
+            "index2": "TTCAGCATTG",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-G05",
+            "Sample_Name": "its-G05",
+            "I7_Index_ID": "UDP0327",
+            "index": "TTGAATCCAA",
+            "I5_Index_ID": "UDP0327",
+            "index2": "ACACCGTGAC",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-H05",
+            "Sample_Name": "its-H05",
+            "I7_Index_ID": "UDP0328",
+            "index": "CACGGCTAGT",
+            "I5_Index_ID": "UDP0328",
+            "index2": "CTTGTACACC",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-A06",
+            "Sample_Name": "its-A06",
+            "I7_Index_ID": "UDP0329",
+            "index": "GAGCTTGCCG",
+            "I5_Index_ID": "UDP0329",
+            "index2": "CCTGCAACCT",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-B06",
+            "Sample_Name": "its-B06",
+            "I7_Index_ID": "UDP0330",
+            "index": "AGCTAGCTTC",
+            "I5_Index_ID": "UDP0330",
+            "index2": "CTCCGTATTA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-C06",
+            "Sample_Name": "its-C06",
+            "I7_Index_ID": "UDP0331",
+            "index": "CAATCCTTGT",
+            "I5_Index_ID": "UDP0331",
+            "index2": "TGCGTCTTCG",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-D06",
+            "Sample_Name": "its-D06",
+            "I7_Index_ID": "UDP0332",
+            "index": "CACCTGTTGC",
+            "I5_Index_ID": "UDP0332",
+            "index2": "ATGTGTCAAT",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-E06",
+            "Sample_Name": "its-E06",
+            "I7_Index_ID": "UDP0333",
+            "index": "CGTCACCTTG",
+            "I5_Index_ID": "UDP0333",
+            "index2": "CAATCGGCTG",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-F06",
+            "Sample_Name": "its-F06",
+            "I7_Index_ID": "UDP0334",
+            "index": "AATGACTGGT",
+            "I5_Index_ID": "UDP0334",
+            "index2": "ACGCGTGAGA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-G06",
+            "Sample_Name": "its-G06",
+            "I7_Index_ID": "UDP0335",
+            "index": "ATGATTCCGG",
+            "I5_Index_ID": "UDP0335",
+            "index2": "CACGTCAGAG",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-H06",
+            "Sample_Name": "its-H06",
+            "I7_Index_ID": "UDP0336",
+            "index": "TTAGGCTCAA",
+            "I5_Index_ID": "UDP0336",
+            "index2": "TTCCATTCGA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-A07",
+            "Sample_Name": "its-A07",
+            "I7_Index_ID": "UDP0337",
+            "index": "TGTAAGGTGG",
+            "I5_Index_ID": "UDP0337",
+            "index2": "CCAAGGCCTT",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-B07",
+            "Sample_Name": "its-B07",
+            "I7_Index_ID": "UDP0338",
+            "index": "CAACTGCAAC",
+            "I5_Index_ID": "UDP0338",
+            "index2": "GTTGCGTTCA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-C07",
+            "Sample_Name": "its-C07",
+            "I7_Index_ID": "UDP0339",
+            "index": "ACATGAGTGA",
+            "I5_Index_ID": "UDP0339",
+            "index2": "AGCTAAGCGG",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-D07",
+            "Sample_Name": "its-D07",
+            "I7_Index_ID": "UDP0340",
+            "index": "GCAACCAGTC",
+            "I5_Index_ID": "UDP0340",
+            "index2": "TTCCTCGGTG",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-E07",
+            "Sample_Name": "its-E07",
+            "I7_Index_ID": "UDP0341",
+            "index": "GAGCGACGAT",
+            "I5_Index_ID": "UDP0341",
+            "index2": "TGATTATACG",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-F07",
+            "Sample_Name": "its-F07",
+            "I7_Index_ID": "UDP0342",
+            "index": "CGAACGCACC",
+            "I5_Index_ID": "UDP0342",
+            "index2": "GTTCTGTCAT",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-G07",
+            "Sample_Name": "its-G07",
+            "I7_Index_ID": "UDP0343",
+            "index": "TCTTACGCCG",
+            "I5_Index_ID": "UDP0343",
+            "index2": "TGCAATGAAT",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-H07",
+            "Sample_Name": "its-H07",
+            "I7_Index_ID": "UDP0344",
+            "index": "AGCTGATGTC",
+            "I5_Index_ID": "UDP0344",
+            "index2": "CAGGACATGA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-A08",
+            "Sample_Name": "its-A08",
+            "I7_Index_ID": "UDP0345",
+            "index": "CTGAATTAGT",
+            "I5_Index_ID": "UDP0345",
+            "index2": "CGATCGAATT",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-B08",
+            "Sample_Name": "its-B08",
+            "I7_Index_ID": "UDP0346",
+            "index": "TAAGGAGGAA",
+            "I5_Index_ID": "UDP0346",
+            "index2": "AATGTCGGAA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-C08",
+            "Sample_Name": "its-C08",
+            "I7_Index_ID": "UDP0347",
+            "index": "AGCTTACACA",
+            "I5_Index_ID": "UDP0347",
+            "index2": "GGTCGTGCCA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-D08",
+            "Sample_Name": "its-D08",
+            "I7_Index_ID": "UDP0348",
+            "index": "AACCAGCCAC",
+            "I5_Index_ID": "UDP0348",
+            "index2": "GTGCTGTGGC",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-E08",
+            "Sample_Name": "its-E08",
+            "I7_Index_ID": "UDP0349",
+            "index": "CTTAAGTCGA",
+            "I5_Index_ID": "UDP0349",
+            "index2": "ACAACTACTG",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-F08",
+            "Sample_Name": "its-F08",
+            "I7_Index_ID": "UDP0350",
+            "index": "GCCTAACGTG",
+            "I5_Index_ID": "UDP0350",
+            "index2": "CTTGAGAGCT",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-G08",
+            "Sample_Name": "its-G08",
+            "I7_Index_ID": "UDP0351",
+            "index": "ACTTACTTCA",
+            "I5_Index_ID": "UDP0351",
+            "index2": "TAATTCCAGA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-H08",
+            "Sample_Name": "its-H08",
+            "I7_Index_ID": "UDP0352",
+            "index": "CGCATTCCGT",
+            "I5_Index_ID": "UDP0352",
+            "index2": "CTCCACTAAT",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-A09",
+            "Sample_Name": "its-A09",
+            "I7_Index_ID": "UDP0353",
+            "index": "GATATCACAC",
+            "I5_Index_ID": "UDP0353",
+            "index2": "ACATATAGTC",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-B09",
+            "Sample_Name": "its-B09",
+            "I7_Index_ID": "UDP0354",
+            "index": "AGCGCTGTGT",
+            "I5_Index_ID": "UDP0354",
+            "index2": "GTTCCGAACG",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-C09",
+            "Sample_Name": "its-C09",
+            "I7_Index_ID": "UDP0355",
+            "index": "TCACCGCGCT",
+            "I5_Index_ID": "UDP0355",
+            "index2": "CTAGTATCGA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-D09",
+            "Sample_Name": "its-D09",
+            "I7_Index_ID": "UDP0356",
+            "index": "GATAGCCTTG",
+            "I5_Index_ID": "UDP0356",
+            "index2": "CATTGTGGTA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-E09",
+            "Sample_Name": "its-E09",
+            "I7_Index_ID": "UDP0357",
+            "index": "CCTGGACGCA",
+            "I5_Index_ID": "UDP0357",
+            "index2": "TGGTATACCA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-F09",
+            "Sample_Name": "its-F09",
+            "I7_Index_ID": "UDP0358",
+            "index": "TTACGCACCT",
+            "I5_Index_ID": "UDP0358",
+            "index2": "CAACGAGAGC",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-G09",
+            "Sample_Name": "its-G09",
+            "I7_Index_ID": "UDP0359",
+            "index": "TCGTTGCTGC",
+            "I5_Index_ID": "UDP0359",
+            "index2": "TTCACGAGAC",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-H09",
+            "Sample_Name": "its-H09",
+            "I7_Index_ID": "UDP0360",
+            "index": "CGACAAGGAT",
+            "I5_Index_ID": "UDP0360",
+            "index2": "AGGTGGCCTT",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-A10",
+            "Sample_Name": "its-A10",
+            "I7_Index_ID": "UDP0361",
+            "index": "GTGTACCTTC",
+            "I5_Index_ID": "UDP0361",
+            "index2": "TAGCTCACAG",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-B10",
+            "Sample_Name": "its-B10",
+            "I7_Index_ID": "UDP0362",
+            "index": "ACCTGGCCAA",
+            "I5_Index_ID": "UDP0362",
+            "index2": "CGATCTGTGA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-C10",
+            "Sample_Name": "its-C10",
+            "I7_Index_ID": "UDP0363",
+            "index": "TGTCTGGCCT",
+            "I5_Index_ID": "UDP0363",
+            "index2": "ATTGGCTTCT",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-D10",
+            "Sample_Name": "its-D10",
+            "I7_Index_ID": "UDP0364",
+            "index": "AGTTAATGCT",
+            "I5_Index_ID": "UDP0364",
+            "index2": "CGGCTGCAGT",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-E10",
+            "Sample_Name": "its-E10",
+            "I7_Index_ID": "UDP0365",
+            "index": "GGTGAGTAAT",
+            "I5_Index_ID": "UDP0365",
+            "index2": "ACTAGATGTT",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-F10",
+            "Sample_Name": "its-F10",
+            "I7_Index_ID": "UDP0366",
+            "index": "TACTCTGCGC",
+            "I5_Index_ID": "UDP0366",
+            "index2": "CATAGTAAGG",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-G10",
+            "Sample_Name": "its-G10",
+            "I7_Index_ID": "UDP0367",
+            "index": "AGGTATGGCG",
+            "I5_Index_ID": "UDP0367",
+            "index2": "GTCTCGCCAC",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-H10",
+            "Sample_Name": "its-H10",
+            "I7_Index_ID": "UDP0368",
+            "index": "TCCAGCCTGC",
+            "I5_Index_ID": "UDP0368",
+            "index2": "TGGATCTGGC",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-A11",
+            "Sample_Name": "its-A11",
+            "I7_Index_ID": "UDP0369",
+            "index": "GCCATATAAC",
+            "I5_Index_ID": "UDP0369",
+            "index2": "GATATTGTGT",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-B11",
+            "Sample_Name": "its-B11",
+            "I7_Index_ID": "UDP0370",
+            "index": "AGTGCGAGTG",
+            "I5_Index_ID": "UDP0370",
+            "index2": "ATTACCTCCA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-C11",
+            "Sample_Name": "its-C11",
+            "I7_Index_ID": "UDP0371",
+            "index": "CTGAGCCGGT",
+            "I5_Index_ID": "UDP0371",
+            "index2": "TACGTGAAGG",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-D11",
+            "Sample_Name": "its-D11",
+            "I7_Index_ID": "UDP0372",
+            "index": "AACGGTCTAT",
+            "I5_Index_ID": "UDP0372",
+            "index2": "CCGCGTATAG",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-E11",
+            "Sample_Name": "its-E11",
+            "I7_Index_ID": "UDP0373",
+            "index": "GTTGCGTTCA",
+            "I5_Index_ID": "UDP0373",
+            "index2": "CAACTGCAAC",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-F11",
+            "Sample_Name": "its-F11",
+            "I7_Index_ID": "UDP0374",
+            "index": "CTTCAACCAC",
+            "I5_Index_ID": "UDP0374",
+            "index2": "AGGCGCATAA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-G11",
+            "Sample_Name": "its-G11",
+            "I7_Index_ID": "UDP0375",
+            "index": "TCTATTCAGT",
+            "I5_Index_ID": "UDP0375",
+            "index2": "TGTACTGAGA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-H11",
+            "Sample_Name": "its-H11",
+            "I7_Index_ID": "UDP0376",
+            "index": "CAAGACGTCC",
+            "I5_Index_ID": "UDP0376",
+            "index2": "TCCGTATACT",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-A12",
+            "Sample_Name": "its-A12",
+            "I7_Index_ID": "UDP0377",
+            "index": "TGAGTACAAC",
+            "I5_Index_ID": "UDP0377",
+            "index2": "GTCCAAGCGT",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-B12",
+            "Sample_Name": "its-B12",
+            "I7_Index_ID": "UDP0378",
+            "index": "CCGCGGTTCT",
+            "I5_Index_ID": "UDP0378",
+            "index2": "AATCTACTCC",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-C12",
+            "Sample_Name": "its-C12",
+            "I7_Index_ID": "UDP0379",
+            "index": "ATTGATACTG",
+            "I5_Index_ID": "UDP0379",
+            "index2": "GGAGCGTGTA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-D12",
+            "Sample_Name": "its-D12",
+            "I7_Index_ID": "UDP0380",
+            "index": "GGATTATGGA",
+            "I5_Index_ID": "UDP0380",
+            "index2": "CTCTATCGGA",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-E12",
+            "Sample_Name": "its-E12",
+            "I7_Index_ID": "UDP0381",
+            "index": "TGGTTCTCAT",
+            "I5_Index_ID": "UDP0381",
+            "index2": "CGGCCTTGAG",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-F12",
+            "Sample_Name": "its-F12",
+            "I7_Index_ID": "UDP0382",
+            "index": "TCAACCACGA",
+            "I5_Index_ID": "UDP0382",
+            "index2": "TATGAACTTG",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-G12",
+            "Sample_Name": "its-G12",
+            "I7_Index_ID": "UDP0383",
+            "index": "TATGAACTTG",
+            "I5_Index_ID": "UDP0383",
+            "index2": "CCTAAGGATT",
+            "Sample_Project": "ORID0087-02-ITS"
+        },
+        {
+            "Sample_ID": "its-H12",
+            "Sample_Name": "its-H12",
+            "I7_Index_ID": "UDP0384",
+            "index": "AGTGGTTAAG",
+            "I5_Index_ID": "UDP0384",
+            "index2": "GTATTCCACC",
+            "Sample_Project": "ORID0087-02-ITS"
+        }
+    ]
+}

@@ -105,10 +105,12 @@ def one_single_file(input_file_dir_path, output_dir_path, csv_file_name):
         # Combine all information
 
     file_info = {
-        'file_type': 'Thermal Report',
+        'instrument_type': 'Illumina_NovaSeq6000',
+        'phase_workflow': 'Sample_Reception',
         'ORID': Orid_id,
         'file_name': csv_file_name,
         'file_path': full_file_input_path,
+        'file_description': 'PCR thermal cycler report recording amplification parameters and run conditions.',
         'instrument_id': meta_from_name.get('instrument', 'N/A'),
         'run_side': meta_from_name.get('side', 'N/A'),
         'run_date': meta_from_name.get('date', 'N/A'),

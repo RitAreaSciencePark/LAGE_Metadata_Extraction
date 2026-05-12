@@ -57,11 +57,12 @@ def one_single_file(input_dir, output_dir, file_name):
 
     # Build final metadata object
     file_info = {
+        "instrument_type": "Agilent TapeStation",
+        "phase_workflow": "Pre_Sequencing_QC",
         "file_type": "Post-extraction/Pre-sequencing Quality Control Report",
         "file_name": file_name,
-        "description": "Automated genomic DNA quality assessment using Agilent TapeStation ScreenTape.",
+        "file_description": "Agilent TapeStation electrophoresis report containing per-sample DIN scores and DNA integrity assessments.",
         "file_path": input_path,
-        "instrument": "Agilent TapeStation",
         "software": software_version,
         "qc_metrics": {
             "din_threshold": ">= 7.0 (High Integrity)",

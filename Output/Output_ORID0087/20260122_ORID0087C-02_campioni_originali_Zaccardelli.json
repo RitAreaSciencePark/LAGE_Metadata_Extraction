@@ -1,0 +1,591 @@
+{
+    "instrument_type": "NanoDrop UV Spectrophotometer",
+    "phase_workflow": "Pre_Sequencing_QC",
+    "file_type": "Experimental Sample Sheet related to the quality control of the samples before the sequencing step",
+    "file_name": "20260122_ORID0087C-02_campioni_originali_Zaccardelli.csv",
+    "file_path": "./Input/ORID0087/QualityCheckBeforeRun/20260122_ORID0087C-02_campioni_originali_Zaccardelli.csv",
+    "file_description": " NanoDrop UV absorbance export containing per-sample DNA concentration and purity ratios.",
+    "quality_thresholds": {
+        "ideal_260_280": "~1.8 (Pure DNA)",
+        "ideal_260_230": "2.0-2.2 (Low contamination)"
+    },
+    "total_samples": 96,
+    "samples": [
+        {
+            "Sample_ID": "A01",
+            "concentration_ng_ul": 147.485,
+            "ratio_260_280": 1.79,
+            "ratio_260_230": 1.66
+        },
+        {
+            "Sample_ID": "B01",
+            "concentration_ng_ul": 166.775,
+            "ratio_260_280": 1.75,
+            "ratio_260_230": 1.77
+        },
+        {
+            "Sample_ID": "C01",
+            "concentration_ng_ul": 223.07,
+            "ratio_260_280": 1.75,
+            "ratio_260_230": 1.0
+        },
+        {
+            "Sample_ID": "D01",
+            "concentration_ng_ul": 140.285,
+            "ratio_260_280": 1.76,
+            "ratio_260_230": 1.27
+        },
+        {
+            "Sample_ID": "E01",
+            "concentration_ng_ul": 384.66,
+            "ratio_260_280": 1.78,
+            "ratio_260_230": 1.44
+        },
+        {
+            "Sample_ID": "F01",
+            "concentration_ng_ul": 389.355,
+            "ratio_260_280": 1.77,
+            "ratio_260_230": 1.21
+        },
+        {
+            "Sample_ID": "G01",
+            "concentration_ng_ul": 371.465,
+            "ratio_260_280": 1.79,
+            "ratio_260_230": 0.96
+        },
+        {
+            "Sample_ID": "H01",
+            "concentration_ng_ul": 249.24,
+            "ratio_260_280": 1.79,
+            "ratio_260_230": 1.13
+        },
+        {
+            "Sample_ID": "A02",
+            "concentration_ng_ul": 356.84,
+            "ratio_260_280": 1.79,
+            "ratio_260_230": 1.57
+        },
+        {
+            "Sample_ID": "B02",
+            "concentration_ng_ul": 452.01,
+            "ratio_260_280": 1.77,
+            "ratio_260_230": 2.08
+        },
+        {
+            "Sample_ID": "C02",
+            "concentration_ng_ul": 306.215,
+            "ratio_260_280": 1.78,
+            "ratio_260_230": 2.02
+        },
+        {
+            "Sample_ID": "D02",
+            "concentration_ng_ul": 434.795,
+            "ratio_260_280": 1.76,
+            "ratio_260_230": 2.04
+        },
+        {
+            "Sample_ID": "E02",
+            "concentration_ng_ul": 310.14,
+            "ratio_260_280": 1.74,
+            "ratio_260_230": 1.66
+        },
+        {
+            "Sample_ID": "F02",
+            "concentration_ng_ul": 306.37,
+            "ratio_260_280": 1.74,
+            "ratio_260_230": 1.62
+        },
+        {
+            "Sample_ID": "G02",
+            "concentration_ng_ul": 357.355,
+            "ratio_260_280": 1.77,
+            "ratio_260_230": 0.35
+        },
+        {
+            "Sample_ID": "H02",
+            "concentration_ng_ul": 393.735,
+            "ratio_260_280": 1.79,
+            "ratio_260_230": 1.83
+        },
+        {
+            "Sample_ID": "A03",
+            "concentration_ng_ul": 322.77,
+            "ratio_260_280": 1.76,
+            "ratio_260_230": 1.66
+        },
+        {
+            "Sample_ID": "B03",
+            "concentration_ng_ul": 320.945,
+            "ratio_260_280": 1.75,
+            "ratio_260_230": 1.22
+        },
+        {
+            "Sample_ID": "C03",
+            "concentration_ng_ul": 398.59,
+            "ratio_260_280": 1.75,
+            "ratio_260_230": 2.06
+        },
+        {
+            "Sample_ID": "D03",
+            "concentration_ng_ul": 398.26,
+            "ratio_260_280": 1.77,
+            "ratio_260_230": 0.7
+        },
+        {
+            "Sample_ID": "E03",
+            "concentration_ng_ul": 426.295,
+            "ratio_260_280": 1.79,
+            "ratio_260_230": 1.17
+        },
+        {
+            "Sample_ID": "F03",
+            "concentration_ng_ul": 339.87,
+            "ratio_260_280": 1.79,
+            "ratio_260_230": 1.42
+        },
+        {
+            "Sample_ID": "G03",
+            "concentration_ng_ul": 359.45,
+            "ratio_260_280": 1.8,
+            "ratio_260_230": 1.91
+        },
+        {
+            "Sample_ID": "H03",
+            "concentration_ng_ul": 501.865,
+            "ratio_260_280": 1.82,
+            "ratio_260_230": 1.32
+        },
+        {
+            "Sample_ID": "A04",
+            "concentration_ng_ul": 461.33,
+            "ratio_260_280": 1.79,
+            "ratio_260_230": 0.62
+        },
+        {
+            "Sample_ID": "B04",
+            "concentration_ng_ul": 356.79,
+            "ratio_260_280": 1.76,
+            "ratio_260_230": 1.68
+        },
+        {
+            "Sample_ID": "C04",
+            "concentration_ng_ul": 239.5,
+            "ratio_260_280": 1.78,
+            "ratio_260_230": 1.15
+        },
+        {
+            "Sample_ID": "D04",
+            "concentration_ng_ul": 373.985,
+            "ratio_260_280": 1.77,
+            "ratio_260_230": 1.35
+        },
+        {
+            "Sample_ID": "E04",
+            "concentration_ng_ul": 630.84,
+            "ratio_260_280": 1.78,
+            "ratio_260_230": 1.5
+        },
+        {
+            "Sample_ID": "F04",
+            "concentration_ng_ul": 158.195,
+            "ratio_260_280": 1.79,
+            "ratio_260_230": 1.58
+        },
+        {
+            "Sample_ID": "G04",
+            "concentration_ng_ul": 600.82,
+            "ratio_260_280": 1.79,
+            "ratio_260_230": 2.03
+        },
+        {
+            "Sample_ID": "H04",
+            "concentration_ng_ul": 209.175,
+            "ratio_260_280": 1.85,
+            "ratio_260_230": 0.76
+        },
+        {
+            "Sample_ID": "A05",
+            "concentration_ng_ul": 456.08,
+            "ratio_260_280": 1.78,
+            "ratio_260_230": 1.49
+        },
+        {
+            "Sample_ID": "B05",
+            "concentration_ng_ul": 426.52,
+            "ratio_260_280": 1.76,
+            "ratio_260_230": 1.58
+        },
+        {
+            "Sample_ID": "C05",
+            "concentration_ng_ul": 365.45,
+            "ratio_260_280": 1.75,
+            "ratio_260_230": 1.23
+        },
+        {
+            "Sample_ID": "D05",
+            "concentration_ng_ul": 318.725,
+            "ratio_260_280": 1.76,
+            "ratio_260_230": 2.05
+        },
+        {
+            "Sample_ID": "E05",
+            "concentration_ng_ul": 235.84,
+            "ratio_260_280": 1.73,
+            "ratio_260_230": 1.83
+        },
+        {
+            "Sample_ID": "F05",
+            "concentration_ng_ul": 297.25,
+            "ratio_260_280": 1.73,
+            "ratio_260_230": 1.47
+        },
+        {
+            "Sample_ID": "G05",
+            "concentration_ng_ul": 242.985,
+            "ratio_260_280": 1.75,
+            "ratio_260_230": 0.97
+        },
+        {
+            "Sample_ID": "H05",
+            "concentration_ng_ul": 290.69,
+            "ratio_260_280": 1.78,
+            "ratio_260_230": 1.17
+        },
+        {
+            "Sample_ID": "A06",
+            "concentration_ng_ul": 103.815,
+            "ratio_260_280": 1.81,
+            "ratio_260_230": 0.95
+        },
+        {
+            "Sample_ID": "B06",
+            "concentration_ng_ul": 132.485,
+            "ratio_260_280": 1.72,
+            "ratio_260_230": 1.76
+        },
+        {
+            "Sample_ID": "C06",
+            "concentration_ng_ul": 106.12,
+            "ratio_260_280": 1.76,
+            "ratio_260_230": 1.68
+        },
+        {
+            "Sample_ID": "D06",
+            "concentration_ng_ul": 87.605,
+            "ratio_260_280": 1.72,
+            "ratio_260_230": 0.49
+        },
+        {
+            "Sample_ID": "E06",
+            "concentration_ng_ul": 628.37,
+            "ratio_260_280": 1.78,
+            "ratio_260_230": 2.08
+        },
+        {
+            "Sample_ID": "F06",
+            "concentration_ng_ul": 671.23,
+            "ratio_260_280": 1.78,
+            "ratio_260_230": 2.08
+        },
+        {
+            "Sample_ID": "G06",
+            "concentration_ng_ul": 678.795,
+            "ratio_260_280": 1.78,
+            "ratio_260_230": 1.3
+        },
+        {
+            "Sample_ID": "H06",
+            "concentration_ng_ul": 913.9,
+            "ratio_260_280": 1.79,
+            "ratio_260_230": 1.65
+        },
+        {
+            "Sample_ID": "A07",
+            "concentration_ng_ul": 339.01,
+            "ratio_260_280": 1.77,
+            "ratio_260_230": 0.6
+        },
+        {
+            "Sample_ID": "B07",
+            "concentration_ng_ul": 550.825,
+            "ratio_260_280": 1.77,
+            "ratio_260_230": 2.21
+        },
+        {
+            "Sample_ID": "C07",
+            "concentration_ng_ul": 310.945,
+            "ratio_260_280": 1.75,
+            "ratio_260_230": 1.3
+        },
+        {
+            "Sample_ID": "D07",
+            "concentration_ng_ul": 677.46,
+            "ratio_260_280": 1.77,
+            "ratio_260_230": 1.6
+        },
+        {
+            "Sample_ID": "E07",
+            "concentration_ng_ul": 445.08,
+            "ratio_260_280": 1.75,
+            "ratio_260_230": 0.78
+        },
+        {
+            "Sample_ID": "F07",
+            "concentration_ng_ul": 592.015,
+            "ratio_260_280": 1.73,
+            "ratio_260_230": 1.73
+        },
+        {
+            "Sample_ID": "G07",
+            "concentration_ng_ul": 478.425,
+            "ratio_260_280": 1.77,
+            "ratio_260_230": 1.6
+        },
+        {
+            "Sample_ID": "H07",
+            "concentration_ng_ul": 244.22,
+            "ratio_260_280": 1.78,
+            "ratio_260_230": 0.71
+        },
+        {
+            "Sample_ID": "A08",
+            "concentration_ng_ul": 204.21,
+            "ratio_260_280": 1.75,
+            "ratio_260_230": 2.15
+        },
+        {
+            "Sample_ID": "B08",
+            "concentration_ng_ul": 209.64,
+            "ratio_260_280": 1.72,
+            "ratio_260_230": 1.76
+        },
+        {
+            "Sample_ID": "C08",
+            "concentration_ng_ul": 223.105,
+            "ratio_260_280": 1.75,
+            "ratio_260_230": 1.61
+        },
+        {
+            "Sample_ID": "D08",
+            "concentration_ng_ul": 192.66,
+            "ratio_260_280": 1.73,
+            "ratio_260_230": 0.36
+        },
+        {
+            "Sample_ID": "E08",
+            "concentration_ng_ul": 116.095,
+            "ratio_260_280": 1.78,
+            "ratio_260_230": 1.71
+        },
+        {
+            "Sample_ID": "F08",
+            "concentration_ng_ul": 71.155,
+            "ratio_260_280": 1.76,
+            "ratio_260_230": 0.23
+        },
+        {
+            "Sample_ID": "G08",
+            "concentration_ng_ul": 129.915,
+            "ratio_260_280": 1.78,
+            "ratio_260_230": 1.17
+        },
+        {
+            "Sample_ID": "H08",
+            "concentration_ng_ul": 95.545,
+            "ratio_260_280": 1.9,
+            "ratio_260_230": 0.44
+        },
+        {
+            "Sample_ID": "A09",
+            "concentration_ng_ul": 453.87,
+            "ratio_260_280": 1.79,
+            "ratio_260_230": 1.16
+        },
+        {
+            "Sample_ID": "B09",
+            "concentration_ng_ul": 263.6,
+            "ratio_260_280": 1.76,
+            "ratio_260_230": 2.03
+        },
+        {
+            "Sample_ID": "C09",
+            "concentration_ng_ul": 121.65,
+            "ratio_260_280": 1.76,
+            "ratio_260_230": 1.15
+        },
+        {
+            "Sample_ID": "D09",
+            "concentration_ng_ul": 428.33,
+            "ratio_260_280": 1.78,
+            "ratio_260_230": 2.07
+        },
+        {
+            "Sample_ID": "E09",
+            "concentration_ng_ul": 793.35,
+            "ratio_260_280": 1.79,
+            "ratio_260_230": 2.0
+        },
+        {
+            "Sample_ID": "F09",
+            "concentration_ng_ul": 405.28,
+            "ratio_260_280": 1.76,
+            "ratio_260_230": 1.19
+        },
+        {
+            "Sample_ID": "G09",
+            "concentration_ng_ul": 471.505,
+            "ratio_260_280": 1.78,
+            "ratio_260_230": 1.65
+        },
+        {
+            "Sample_ID": "H09",
+            "concentration_ng_ul": 191.245,
+            "ratio_260_280": 1.83,
+            "ratio_260_230": 0.55
+        },
+        {
+            "Sample_ID": "A10",
+            "concentration_ng_ul": 515.75,
+            "ratio_260_280": 1.77,
+            "ratio_260_230": 1.33
+        },
+        {
+            "Sample_ID": "B10",
+            "concentration_ng_ul": 641.745,
+            "ratio_260_280": 1.77,
+            "ratio_260_230": 2.09
+        },
+        {
+            "Sample_ID": "C10",
+            "concentration_ng_ul": 404.195,
+            "ratio_260_280": 1.77,
+            "ratio_260_230": 0.98
+        },
+        {
+            "Sample_ID": "D10",
+            "concentration_ng_ul": 538.07,
+            "ratio_260_280": 1.77,
+            "ratio_260_230": 2.05
+        },
+        {
+            "Sample_ID": "E10",
+            "concentration_ng_ul": 395.825,
+            "ratio_260_280": 1.75,
+            "ratio_260_230": 0.82
+        },
+        {
+            "Sample_ID": "F10",
+            "concentration_ng_ul": 432.505,
+            "ratio_260_280": 1.75,
+            "ratio_260_230": 1.31
+        },
+        {
+            "Sample_ID": "G10",
+            "concentration_ng_ul": 432.685,
+            "ratio_260_280": 1.75,
+            "ratio_260_230": 1.33
+        },
+        {
+            "Sample_ID": "H10",
+            "concentration_ng_ul": 580.385,
+            "ratio_260_280": 1.78,
+            "ratio_260_230": 1.15
+        },
+        {
+            "Sample_ID": "A11",
+            "concentration_ng_ul": 168.445,
+            "ratio_260_280": 1.8,
+            "ratio_260_230": 1.78
+        },
+        {
+            "Sample_ID": "B11",
+            "concentration_ng_ul": 178.26,
+            "ratio_260_280": 1.77,
+            "ratio_260_230": 1.6
+        },
+        {
+            "Sample_ID": "C11",
+            "concentration_ng_ul": 166.685,
+            "ratio_260_280": 1.75,
+            "ratio_260_230": 0.66
+        },
+        {
+            "Sample_ID": "D11",
+            "concentration_ng_ul": 183.22,
+            "ratio_260_280": 1.78,
+            "ratio_260_230": 1.64
+        },
+        {
+            "Sample_ID": "E11",
+            "concentration_ng_ul": 367.245,
+            "ratio_260_280": 1.73,
+            "ratio_260_230": 1.47
+        },
+        {
+            "Sample_ID": "F11",
+            "concentration_ng_ul": 405.145,
+            "ratio_260_280": 1.73,
+            "ratio_260_230": 1.91
+        },
+        {
+            "Sample_ID": "G11",
+            "concentration_ng_ul": 362.48,
+            "ratio_260_280": 1.74,
+            "ratio_260_230": 0.81
+        },
+        {
+            "Sample_ID": "H11",
+            "concentration_ng_ul": 366.86,
+            "ratio_260_280": 1.77,
+            "ratio_260_230": 0.84
+        },
+        {
+            "Sample_ID": "A12",
+            "concentration_ng_ul": 70.92,
+            "ratio_260_280": 1.7,
+            "ratio_260_230": 1.0
+        },
+        {
+            "Sample_ID": "B12",
+            "concentration_ng_ul": 153.98,
+            "ratio_260_280": 1.7,
+            "ratio_260_230": 1.07
+        },
+        {
+            "Sample_ID": "C12",
+            "concentration_ng_ul": 274.02,
+            "ratio_260_280": 1.7,
+            "ratio_260_230": 1.55
+        },
+        {
+            "Sample_ID": "D12",
+            "concentration_ng_ul": 167.075,
+            "ratio_260_280": 1.64,
+            "ratio_260_230": 0.39
+        },
+        {
+            "Sample_ID": "E12",
+            "concentration_ng_ul": 334.195,
+            "ratio_260_280": 1.72,
+            "ratio_260_230": 1.67
+        },
+        {
+            "Sample_ID": "F12",
+            "concentration_ng_ul": 383.385,
+            "ratio_260_280": 1.72,
+            "ratio_260_230": 1.68
+        },
+        {
+            "Sample_ID": "G12",
+            "concentration_ng_ul": 361.355,
+            "ratio_260_280": 1.73,
+            "ratio_260_230": 1.68
+        },
+        {
+            "Sample_ID": "H12",
+            "concentration_ng_ul": 363.12,
+            "ratio_260_280": 1.75,
+            "ratio_260_230": 1.23
+        }
+    ]
+}

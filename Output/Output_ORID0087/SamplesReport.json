@@ -1,0 +1,23 @@
+{
+    "instrument_type": "None - this file is generated manually by the researcher or client",
+    "phase_workflow": "Pre_Sequencing_QC",
+    "file_type": "Samples Report",
+    "file_name": "SamplesReport.csv",
+    "file_path": "./Input/ORID0087/QualityCheckBeforeRun/SamplesReport.csv",
+    "file_description": "Laboratory sample report recording technical observations and anomalies detected during pre- and post-sequencing stages.",
+    "total_samples": 3,
+    "samples": [
+        {
+            "Sample_ID": "16s-E01",
+            "Notes": "Incorrect index sequences"
+        },
+        {
+            "Sample_ID": "16s-H01",
+            "Notes": "Low volume (see attached photos IMG_9075.jpeg e IMG_9076.jpeg). Dr. Zaccardelli was informed and approved proceeding with sequencing."
+        },
+        {
+            "Sample_ID": "16s-B02",
+            "Notes": "Incorrect index sequences"
+        }
+    ]
+}

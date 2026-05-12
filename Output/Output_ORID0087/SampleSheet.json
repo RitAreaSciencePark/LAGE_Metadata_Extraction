@@ -1,0 +1,697 @@
+{
+    "instrument_type": "None - this file is generated manually by the researcher or client",
+    "phase_workflow": "Sample_Reception",
+    "file_name": "SampleSheet.xlsx",
+    "file_path": "./Input/ORID0087/SampleSheet.xlsx",
+    "file_type": "Experimental Sample Sheet (SampleSheet.xlsx) related to the samples and Plate scheme description ",
+    "file_description": "Reception sample sheet providing sample identifiers, preparation types, and plate layout.",
+    "total_samples": 96,
+    "metadata": {
+        "preparations_detected": [
+            "Compost",
+            "CTA",
+            "CTNA",
+            "Tecukana liquid L7",
+            "Tecukana liquid L8",
+            "Tecukana liquid L9"
+        ],
+        "treatments_detected": [
+            "None",
+            "Sugar 20 g/L"
+        ]
+    },
+    "samples": [
+        {
+            "Sample code": 1,
+            "Sample_ID": "A01",
+            "Type of preparation": "Compost",
+            "Treatment": "None",
+            "Replicate": 1
+        },
+        {
+            "Sample code": 2,
+            "Sample_ID": "B01",
+            "Type of preparation": "Compost",
+            "Treatment": "None",
+            "Replicate": 2
+        },
+        {
+            "Sample code": 3,
+            "Sample_ID": "C01",
+            "Type of preparation": "Compost",
+            "Treatment": "None",
+            "Replicate": 3
+        },
+        {
+            "Sample code": 4,
+            "Sample_ID": "D01",
+            "Type of preparation": "Compost",
+            "Treatment": "None",
+            "Replicate": 4
+        },
+        {
+            "Sample code": 5,
+            "Sample_ID": "E01",
+            "Type of preparation": "CTA",
+            "Treatment": "None",
+            "Replicate": 1
+        },
+        {
+            "Sample code": 6,
+            "Sample_ID": "F01",
+            "Type of preparation": "CTA",
+            "Treatment": "None",
+            "Replicate": 2
+        },
+        {
+            "Sample code": 7,
+            "Sample_ID": "G01",
+            "Type of preparation": "CTA",
+            "Treatment": "None",
+            "Replicate": 3
+        },
+        {
+            "Sample code": 8,
+            "Sample_ID": "H01",
+            "Type of preparation": "CTA",
+            "Treatment": "None",
+            "Replicate": 4
+        },
+        {
+            "Sample code": 9,
+            "Sample_ID": "A02",
+            "Type of preparation": "CTNA",
+            "Treatment": "None",
+            "Replicate": 1
+        },
+        {
+            "Sample code": 10,
+            "Sample_ID": "B02",
+            "Type of preparation": "CTNA",
+            "Treatment": "None",
+            "Replicate": 2
+        },
+        {
+            "Sample code": 11,
+            "Sample_ID": "C02",
+            "Type of preparation": "CTNA",
+            "Treatment": "None",
+            "Replicate": 3
+        },
+        {
+            "Sample code": 12,
+            "Sample_ID": "D02",
+            "Type of preparation": "CTNA",
+            "Treatment": "None",
+            "Replicate": 4
+        },
+        {
+            "Sample code": 13,
+            "Sample_ID": "E02",
+            "Type of preparation": "CTA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 1
+        },
+        {
+            "Sample code": 14,
+            "Sample_ID": "F02",
+            "Type of preparation": "CTA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 2
+        },
+        {
+            "Sample code": 15,
+            "Sample_ID": "A03",
+            "Type of preparation": "CTA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 3
+        },
+        {
+            "Sample code": 16,
+            "Sample_ID": "B03",
+            "Type of preparation": "CTA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 4
+        },
+        {
+            "Sample code": 17,
+            "Sample_ID": "G02",
+            "Type of preparation": "CTNA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 1
+        },
+        {
+            "Sample code": 18,
+            "Sample_ID": "H02",
+            "Type of preparation": "CTNA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 2
+        },
+        {
+            "Sample code": 19,
+            "Sample_ID": "C03",
+            "Type of preparation": "CTNA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 3
+        },
+        {
+            "Sample code": 20,
+            "Sample_ID": "D03",
+            "Type of preparation": "CTNA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 4
+        },
+        {
+            "Sample code": 21,
+            "Sample_ID": "E03",
+            "Type of preparation": "Compost",
+            "Treatment": "None",
+            "Replicate": 1
+        },
+        {
+            "Sample code": 22,
+            "Sample_ID": "F03",
+            "Type of preparation": "Compost",
+            "Treatment": "None",
+            "Replicate": 2
+        },
+        {
+            "Sample code": 23,
+            "Sample_ID": "G03",
+            "Type of preparation": "Compost",
+            "Treatment": "None",
+            "Replicate": 3
+        },
+        {
+            "Sample code": 24,
+            "Sample_ID": "H03",
+            "Type of preparation": "Compost",
+            "Treatment": "None",
+            "Replicate": 4
+        },
+        {
+            "Sample code": 25,
+            "Sample_ID": "A04",
+            "Type of preparation": "CTA",
+            "Treatment": "None",
+            "Replicate": 1
+        },
+        {
+            "Sample code": 26,
+            "Sample_ID": "B04",
+            "Type of preparation": "CTA",
+            "Treatment": "None",
+            "Replicate": 2
+        },
+        {
+            "Sample code": 27,
+            "Sample_ID": "C04",
+            "Type of preparation": "CTA",
+            "Treatment": "None",
+            "Replicate": 3
+        },
+        {
+            "Sample code": 28,
+            "Sample_ID": "D04",
+            "Type of preparation": "CTA",
+            "Treatment": "None",
+            "Replicate": 4
+        },
+        {
+            "Sample code": 29,
+            "Sample_ID": "E04",
+            "Type of preparation": "CTNA",
+            "Treatment": "None",
+            "Replicate": 1
+        },
+        {
+            "Sample code": 30,
+            "Sample_ID": "F04",
+            "Type of preparation": "CTNA",
+            "Treatment": "None",
+            "Replicate": 2
+        },
+        {
+            "Sample code": 31,
+            "Sample_ID": "G04",
+            "Type of preparation": "CTNA",
+            "Treatment": "None",
+            "Replicate": 3
+        },
+        {
+            "Sample code": 32,
+            "Sample_ID": "H04",
+            "Type of preparation": "CTNA",
+            "Treatment": "None",
+            "Replicate": 4
+        },
+        {
+            "Sample code": 33,
+            "Sample_ID": "A05",
+            "Type of preparation": "CTA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 1
+        },
+        {
+            "Sample code": 34,
+            "Sample_ID": "B05",
+            "Type of preparation": "CTA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 2
+        },
+        {
+            "Sample code": 35,
+            "Sample_ID": "C05",
+            "Type of preparation": "CTA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 3
+        },
+        {
+            "Sample code": 36,
+            "Sample_ID": "D05",
+            "Type of preparation": "CTA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 4
+        },
+        {
+            "Sample code": 37,
+            "Sample_ID": "E05",
+            "Type of preparation": "CTNA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 1
+        },
+        {
+            "Sample code": 38,
+            "Sample_ID": "F05",
+            "Type of preparation": "CTNA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 2
+        },
+        {
+            "Sample code": 39,
+            "Sample_ID": "G05",
+            "Type of preparation": "CTNA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 3
+        },
+        {
+            "Sample code": 40,
+            "Sample_ID": "H05",
+            "Type of preparation": "CTNA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 4
+        },
+        {
+            "Sample code": 41,
+            "Sample_ID": "A06",
+            "Type of preparation": "Compost",
+            "Treatment": "None",
+            "Replicate": 1
+        },
+        {
+            "Sample code": 42,
+            "Sample_ID": "B06",
+            "Type of preparation": "Compost",
+            "Treatment": "None",
+            "Replicate": 2
+        },
+        {
+            "Sample code": 43,
+            "Sample_ID": "C06",
+            "Type of preparation": "Compost",
+            "Treatment": "None",
+            "Replicate": 3
+        },
+        {
+            "Sample code": 44,
+            "Sample_ID": "D06",
+            "Type of preparation": "Compost",
+            "Treatment": "None",
+            "Replicate": 4
+        },
+        {
+            "Sample code": 45,
+            "Sample_ID": "E06",
+            "Type of preparation": "CTA",
+            "Treatment": "None",
+            "Replicate": 1
+        },
+        {
+            "Sample code": 46,
+            "Sample_ID": "F06",
+            "Type of preparation": "CTA",
+            "Treatment": "None",
+            "Replicate": 2
+        },
+        {
+            "Sample code": 47,
+            "Sample_ID": "G06",
+            "Type of preparation": "CTA",
+            "Treatment": "None",
+            "Replicate": 3
+        },
+        {
+            "Sample code": 48,
+            "Sample_ID": "H06",
+            "Type of preparation": "CTA",
+            "Treatment": "None",
+            "Replicate": 4
+        },
+        {
+            "Sample code": 49,
+            "Sample_ID": "A07",
+            "Type of preparation": "CTNA",
+            "Treatment": "None",
+            "Replicate": 1
+        },
+        {
+            "Sample code": 50,
+            "Sample_ID": "B07",
+            "Type of preparation": "CTNA",
+            "Treatment": "None",
+            "Replicate": 2
+        },
+        {
+            "Sample code": 51,
+            "Sample_ID": "C07",
+            "Type of preparation": "CTNA",
+            "Treatment": "None",
+            "Replicate": 3
+        },
+        {
+            "Sample code": 52,
+            "Sample_ID": "D07",
+            "Type of preparation": "CTNA",
+            "Treatment": "None",
+            "Replicate": 4
+        },
+        {
+            "Sample code": 53,
+            "Sample_ID": "E07",
+            "Type of preparation": "CTA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 1
+        },
+        {
+            "Sample code": 54,
+            "Sample_ID": "F07",
+            "Type of preparation": "CTA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 2
+        },
+        {
+            "Sample code": 55,
+            "Sample_ID": "G07",
+            "Type of preparation": "CTA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 3
+        },
+        {
+            "Sample code": 56,
+            "Sample_ID": "H07",
+            "Type of preparation": "CTA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 4
+        },
+        {
+            "Sample code": 57,
+            "Sample_ID": "A08",
+            "Type of preparation": "CTNA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 1
+        },
+        {
+            "Sample code": 58,
+            "Sample_ID": "B08",
+            "Type of preparation": "CTNA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 2
+        },
+        {
+            "Sample code": 59,
+            "Sample_ID": "C08",
+            "Type of preparation": "CTNA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 3
+        },
+        {
+            "Sample code": 60,
+            "Sample_ID": "D08",
+            "Type of preparation": "CTNA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 4
+        },
+        {
+            "Sample code": 61,
+            "Sample_ID": "E08",
+            "Type of preparation": "Compost",
+            "Treatment": "None",
+            "Replicate": 1
+        },
+        {
+            "Sample code": 62,
+            "Sample_ID": "F08",
+            "Type of preparation": "Compost",
+            "Treatment": "None",
+            "Replicate": 2
+        },
+        {
+            "Sample code": 63,
+            "Sample_ID": "G08",
+            "Type of preparation": "Compost",
+            "Treatment": "None",
+            "Replicate": 3
+        },
+        {
+            "Sample code": 64,
+            "Sample_ID": "H08",
+            "Type of preparation": "Compost",
+            "Treatment": "None",
+            "Replicate": 4
+        },
+        {
+            "Sample code": 65,
+            "Sample_ID": "A09",
+            "Type of preparation": "CTA",
+            "Treatment": "None",
+            "Replicate": 1
+        },
+        {
+            "Sample code": 66,
+            "Sample_ID": "B09",
+            "Type of preparation": "CTA",
+            "Treatment": "None",
+            "Replicate": 2
+        },
+        {
+            "Sample code": 67,
+            "Sample_ID": "C09",
+            "Type of preparation": "CTA",
+            "Treatment": "None",
+            "Replicate": 3
+        },
+        {
+            "Sample code": 68,
+            "Sample_ID": "D09",
+            "Type of preparation": "CTA",
+            "Treatment": "None",
+            "Replicate": 4
+        },
+        {
+            "Sample code": 69,
+            "Sample_ID": "E09",
+            "Type of preparation": "CTNA",
+            "Treatment": "None",
+            "Replicate": 1
+        },
+        {
+            "Sample code": 70,
+            "Sample_ID": "F09",
+            "Type of preparation": "CTNA",
+            "Treatment": "None",
+            "Replicate": 2
+        },
+        {
+            "Sample code": 71,
+            "Sample_ID": "G09",
+            "Type of preparation": "CTNA",
+            "Treatment": "None",
+            "Replicate": 3
+        },
+        {
+            "Sample code": 72,
+            "Sample_ID": "H09",
+            "Type of preparation": "CTNA",
+            "Treatment": "None",
+            "Replicate": 4
+        },
+        {
+            "Sample code": 73,
+            "Sample_ID": "A10",
+            "Type of preparation": "CTA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 1
+        },
+        {
+            "Sample code": 74,
+            "Sample_ID": "B10",
+            "Type of preparation": "CTA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 2
+        },
+        {
+            "Sample code": 75,
+            "Sample_ID": "C10",
+            "Type of preparation": "CTA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 3
+        },
+        {
+            "Sample code": 76,
+            "Sample_ID": "D10",
+            "Type of preparation": "CTA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 4
+        },
+        {
+            "Sample code": 77,
+            "Sample_ID": "E10",
+            "Type of preparation": "CTNA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 1
+        },
+        {
+            "Sample code": 78,
+            "Sample_ID": "F10",
+            "Type of preparation": "CTNA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 2
+        },
+        {
+            "Sample code": 79,
+            "Sample_ID": "G10",
+            "Type of preparation": "CTNA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 3
+        },
+        {
+            "Sample code": 80,
+            "Sample_ID": "H10",
+            "Type of preparation": "CTNA",
+            "Treatment": "Sugar 20 g/L",
+            "Replicate": 4
+        },
+        {
+            "Sample code": 81,
+            "Sample_ID": "A11",
+            "Type of preparation": "Compost",
+            "Treatment": "None",
+            "Replicate": 1
+        },
+        {
+            "Sample code": 82,
+            "Sample_ID": "B11",
+            "Type of preparation": "Compost",
+            "Treatment": "None",
+            "Replicate": 2
+        },
+        {
+            "Sample code": 83,
+            "Sample_ID": "C11",
+            "Type of preparation": "Compost",
+            "Treatment": "None",
+            "Replicate": 3
+        },
+        {
+            "Sample code": 84,
+            "Sample_ID": "D11",
+            "Type of preparation": "Compost",
+            "Treatment": "None",
+            "Replicate": 4
+        },
+        {
+            "Sample code": 89,
+            "Sample_ID": "E11",
+            "Type of preparation": "Tecukana liquid L7",
+            "Treatment": "None",
+            "Replicate": 1
+        },
+        {
+            "Sample code": 90,
+            "Sample_ID": "F11",
+            "Type of preparation": "Tecukana liquid L7",
+            "Treatment": "None",
+            "Replicate": 2
+        },
+        {
+            "Sample code": 91,
+            "Sample_ID": "G11",
+            "Type of preparation": "Tecukana liquid L7",
+            "Treatment": "None",
+            "Replicate": 3
+        },
+        {
+            "Sample code": 92,
+            "Sample_ID": "H11",
+            "Type of preparation": "Tecukana liquid L7",
+            "Treatment": "None",
+            "Replicate": 4
+        },
+        {
+            "Sample code": 93,
+            "Sample_ID": "A12",
+            "Type of preparation": "Tecukana liquid L8",
+            "Treatment": "None",
+            "Replicate": 1
+        },
+        {
+            "Sample code": 94,
+            "Sample_ID": "B12",
+            "Type of preparation": "Tecukana liquid L8",
+            "Treatment": "None",
+            "Replicate": 2
+        },
+        {
+            "Sample code": 95,
+            "Sample_ID": "C12",
+            "Type of preparation": "Tecukana liquid L8",
+            "Treatment": "None",
+            "Replicate": 3
+        },
+        {
+            "Sample code": 96,
+            "Sample_ID": "D12",
+            "Type of preparation": "Tecukana liquid L8",
+            "Treatment": "None",
+            "Replicate": 4
+        },
+        {
+            "Sample code": 97,
+            "Sample_ID": "E12",
+            "Type of preparation": "Tecukana liquid L9",
+            "Treatment": "None",
+            "Replicate": 1
+        },
+        {
+            "Sample code": 99,
+            "Sample_ID": "F12",
+            "Type of preparation": "Tecukana liquid L9",
+            "Treatment": "None",
+            "Replicate": 2
+        },
+        {
+            "Sample code": 99,
+            "Sample_ID": "G12",
+            "Type of preparation": "Tecukana liquid L9",
+            "Treatment": "None",
+            "Replicate": 3
+        },
+        {
+            "Sample code": 100,
+            "Sample_ID": "H12",
+            "Type of preparation": "Tecukana liquid L9",
+            "Treatment": "None",
+            "Replicate": 4
+        }
+    ]
+}

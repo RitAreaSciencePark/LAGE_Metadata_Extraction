@@ -158,10 +158,11 @@ def one_single_file(input_file_dir_path, output_dir_path, csv_file_name):
 
     # 3. Combine all information  and Build JSON file
     file_info = {
-        'file_type': 'Novaseq Illumina Sample Sheet',
+        'instrument_type': 'Illumina_NovaSeq6000',
+        'phase_workflow': 'Sequencing',
         'file_name': csv_file_name,
-        'description': 'This file contains the sequencing configuration table, including run setup information and the list of samples with their corresponding indexes used for demultiplexing and read assignment.',
         'file_path': file_Input_path,
+        'file_description': 'Illumina sequencing configuration file defining run parameters, index sequences, and sample-to-barcode mapping.',
         'metadata': metadata,
         'number_of_samples': len(sample_details),
         'samples': sample_details  # Enriched dictionary structure for traceability

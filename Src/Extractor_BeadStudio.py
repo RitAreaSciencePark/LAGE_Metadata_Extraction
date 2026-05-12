@@ -199,9 +199,11 @@ def process_all_csv_files(input_dir_path, output_dir_path):
         # Combine all information
 
         file_info = {
-            'file_type': 'BeadStudio',
+            'instrument_type': 'Illumina_iScan',
+            'phase_workflow': 'sequencing',
             'file_name': csv_file_name,
             'file_path': file_Input_path,
+            'file_description': 'BeadStudio sample sheet containing array scanning configuration and per-sample metadata.',
             'metadata': metadata,
             'manifest_id': manifest_id,
             'number_of_samples': len(sample_details), # Count is now derived from the list length
@@ -262,9 +264,10 @@ def one_single_file(input_file_dir_path, output_dir_path, csv_file_name):
 
     # 3. Combine all information    
     file_info = {
-            'file_type': 'BeadStudio',
+            'instrument_type': 'Illumina_iScan',
             'file_name': csv_file_name,
             'file_path': file_Input_path,
+            'phase_workflow': 'sequencing',
             'metadata': metadata,
             'manifest_id': manifest_id,
             'number_of_samples': len(sample_details), # Count is now derived from the list length
@@ -280,7 +283,7 @@ def one_single_file(input_file_dir_path, output_dir_path, csv_file_name):
         json.dump(file_info, f, indent=2)
             
     results.append(file_info)
-    print(f"\n 💾 Saved Json output file to: {json_path}")
+    print(f"\n ✅ Saved Json output file to: {json_path}")
     return results
 
 

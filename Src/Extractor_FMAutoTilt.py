@@ -112,9 +112,12 @@ def one_single_file(input_dir_path, output_dir_path, csv_file_name):
 
     # 3. BCombine all information and Build JSON file
     file_info = {
+        'instrument_type': 'Illumina_NovaSeq6000',
+        'phase_workflow': 'Sequencing',
         'file_type': 'FM-AutoTilt Report',
         'file_name': csv_file_name,
         'file_path': full_input_path,
+        'file_description': 'Illumina NovaSeq6000 AutoTilt calibration report recording flow cell angular alignment corrections.',
         'metadata': file_metadata,
         **sections  # Merges all dynamically found sections
     }
@@ -162,11 +165,13 @@ def create_summary_table(results):
         sections = [k for k in result.keys() if k not in ['file_name', 'file_type', 'file_path', 'metadata']]
         
         summary_data.append({
-            'File Name': result['file_name'],
-            'Instrument ID': meta.get('instrument_id', 'N/A'),
-            'Date': meta.get('date', 'N/A'),
-            'ORID': meta.get('orid', 'N/A'),
-            'Num Sections': len(sections)
+            'instrument Type': "Illumina_NovaSeq6000",
+            'file_type': 'CSV sheet',
+            'file Name': result['file_name'],
+            'instrument ID': meta.get('instrument_id', 'N/A'),
+            'date': meta.get('date', 'N/A'),
+            'oRID': meta.get('orid', 'N/A'),
+            'num Sections': len(sections)
         })
     return pd.DataFrame(summary_data)
 

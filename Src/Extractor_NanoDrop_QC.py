@@ -44,10 +44,12 @@ def one_single_file(input_dir, output_dir, file_name):
 
     # 4. Build final metadata object
     file_info = {
+        'instrument_type': 'NanoDrop UV Spectrophotometer',
+        "phase_workflow": "Pre_Sequencing_QC",
         "file_type": "Experimental Sample Sheet related to the quality control of the samples before the sequencing step",
         "file_name": file_name,
-        "description": " This file is the export of the NanoDrop UV absorbance spectrum for each sample.",
         "file_path": input_path,
+        "file_description": " NanoDrop UV absorbance export containing per-sample DNA concentration and purity ratios.",
         "quality_thresholds": {
             "ideal_260_280": "~1.8 (Pure DNA)",
             "ideal_260_230": "2.0-2.2 (Low contamination)"

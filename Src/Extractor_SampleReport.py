@@ -32,10 +32,12 @@ def one_single_file(input_dir, output_dir, file_name):
 
     # 3. Wrap in a standard metadata structure
     metadata = {
-        "file type": "Samples Report",
+        "instrument_type": "None - this file is generated manually by the researcher or client",
+        "phase_workflow": "Pre_Sequencing_QC",
+        "file_type": "Samples Report",
         "file_name": file_name,
         "file_path": input_path,
-        "description": "This file contains a table created to document technical observations and anomalies detected (both before and after sequencing) exclusively for samples in which issues were identified, in order to track potential criticalities and record operational decisions made during the workflow.",
+        "file_description": "Laboratory sample report recording technical observations and anomalies detected during pre- and post-sequencing stages.",
         "total_samples": len(df),
         "samples": data_records
     }

@@ -1,0 +1,880 @@
+{
+  "instrument_type": "Illumina_iScan",
+  "file_name": "20250723_ORID0036-17_Neuromed_EPIC_PT29.csv",
+  "file_path": "./Input/20250219_ORID0036_NEUROMED_EPIC/CSVs/20250723_ORID0036-17_Neuromed_EPIC_PT29.csv",
+  "phase_workflow": "sequencing",
+  "metadata": {
+    "project_name": "ORID0036-17_Neuromed_PT29",
+    "experiment_name": "ORID0036-17_Neuromed_PT29",
+    "date": "20250723",
+    "proposal_id": "ORID0036"
+  },
+  "manifest_id": "EPIC-8v2-0_A2.bpm",
+  "number_of_samples": 96,
+  "samples": [
+    {
+      "Sample_Name": "201657",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920123,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920123,
+      "Sentrix_Position": "R01C01"
+    },
+    {
+      "Sample_Name": "212629",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920123,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920123,
+      "Sentrix_Position": "R02C01"
+    },
+    {
+      "Sample_Name": "241657",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920123,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920123,
+      "Sentrix_Position": "R03C01"
+    },
+    {
+      "Sample_Name": "252629",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920123,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920123,
+      "Sentrix_Position": "R04C01"
+    },
+    {
+      "Sample_Name": "401253",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920123,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920123,
+      "Sentrix_Position": "R05C01"
+    },
+    {
+      "Sample_Name": "206640",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920123,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920123,
+      "Sentrix_Position": "R06C01"
+    },
+    {
+      "Sample_Name": "405076",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920123,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920123,
+      "Sentrix_Position": "R07C01"
+    },
+    {
+      "Sample_Name": "246640",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920123,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920123,
+      "Sentrix_Position": "R08C01"
+    },
+    {
+      "Sample_Name": "202081",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920115,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920115,
+      "Sentrix_Position": "R01C01"
+    },
+    {
+      "Sample_Name": "218116",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920115,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920115,
+      "Sentrix_Position": "R02C01"
+    },
+    {
+      "Sample_Name": "242081",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920115,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920115,
+      "Sentrix_Position": "R03C01"
+    },
+    {
+      "Sample_Name": "202320",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920115,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920115,
+      "Sentrix_Position": "R04C01"
+    },
+    {
+      "Sample_Name": "410886",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920115,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920115,
+      "Sentrix_Position": "R05C01"
+    },
+    {
+      "Sample_Name": "205754",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920115,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920115,
+      "Sentrix_Position": "R06C01"
+    },
+    {
+      "Sample_Name": "240574",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920115,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920115,
+      "Sentrix_Position": "R07C01"
+    },
+    {
+      "Sample_Name": "245754",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920115,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920115,
+      "Sentrix_Position": "R08C01"
+    },
+    {
+      "Sample_Name": "217691",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920105,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920105,
+      "Sentrix_Position": "R01C01"
+    },
+    {
+      "Sample_Name": "410028",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920105,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920105,
+      "Sentrix_Position": "R02C01"
+    },
+    {
+      "Sample_Name": "401313",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920105,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920105,
+      "Sentrix_Position": "R03C01"
+    },
+    {
+      "Sample_Name": "240307",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920105,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920105,
+      "Sentrix_Position": "R04C01"
+    },
+    {
+      "Sample_Name": "207106",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920105,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920105,
+      "Sentrix_Position": "R05C01"
+    },
+    {
+      "Sample_Name": "202385",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920105,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920105,
+      "Sentrix_Position": "R06C01"
+    },
+    {
+      "Sample_Name": "247106",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920105,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920105,
+      "Sentrix_Position": "R07C01"
+    },
+    {
+      "Sample_Name": "242385",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920105,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920105,
+      "Sentrix_Position": "R08C01"
+    },
+    {
+      "Sample_Name": "204707",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920016,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920016,
+      "Sentrix_Position": "R01C01"
+    },
+    {
+      "Sample_Name": "203809",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920016,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920016,
+      "Sentrix_Position": "R02C01"
+    },
+    {
+      "Sample_Name": "244707",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920016,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920016,
+      "Sentrix_Position": "R03C01"
+    },
+    {
+      "Sample_Name": "243809",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920016,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920016,
+      "Sentrix_Position": "R04C01"
+    },
+    {
+      "Sample_Name": "206534",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920016,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920016,
+      "Sentrix_Position": "R05C01"
+    },
+    {
+      "Sample_Name": "218966",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920016,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920016,
+      "Sentrix_Position": "R06C01"
+    },
+    {
+      "Sample_Name": "246534",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920016,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920016,
+      "Sentrix_Position": "R07C01"
+    },
+    {
+      "Sample_Name": "208879",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920016,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920016,
+      "Sentrix_Position": "R08C01"
+    },
+    {
+      "Sample_Name": "POOLW",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920004,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920004,
+      "Sentrix_Position": "R01C01"
+    },
+    {
+      "Sample_Name": "211309",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920004,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920004,
+      "Sentrix_Position": "R02C01"
+    },
+    {
+      "Sample_Name": "POOLM",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920004,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920004,
+      "Sentrix_Position": "R03C01"
+    },
+    {
+      "Sample_Name": "251309",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920004,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920004,
+      "Sentrix_Position": "R04C01"
+    },
+    {
+      "Sample_Name": "219012",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920004,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920004,
+      "Sentrix_Position": "R05C01"
+    },
+    {
+      "Sample_Name": "204013",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920004,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920004,
+      "Sentrix_Position": "R06C01"
+    },
+    {
+      "Sample_Name": "211490",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920004,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920004,
+      "Sentrix_Position": "R07C01"
+    },
+    {
+      "Sample_Name": "244013",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920004,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920004,
+      "Sentrix_Position": "R08C01"
+    },
+    {
+      "Sample_Name": "206692",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920061,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920061,
+      "Sentrix_Position": "R01C01"
+    },
+    {
+      "Sample_Name": "202022",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920061,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920061,
+      "Sentrix_Position": "R02C01"
+    },
+    {
+      "Sample_Name": "246692",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920061,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920061,
+      "Sentrix_Position": "R03C01"
+    },
+    {
+      "Sample_Name": "212893",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920061,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920061,
+      "Sentrix_Position": "R04C01"
+    },
+    {
+      "Sample_Name": "206080",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920061,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920061,
+      "Sentrix_Position": "R05C01"
+    },
+    {
+      "Sample_Name": "207951",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920061,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920061,
+      "Sentrix_Position": "R06C01"
+    },
+    {
+      "Sample_Name": "246080",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920061,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920061,
+      "Sentrix_Position": "R07C01"
+    },
+    {
+      "Sample_Name": "247951",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920061,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920061,
+      "Sentrix_Position": "R08C01"
+    },
+    {
+      "Sample_Name": "201570",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920038,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920038,
+      "Sentrix_Position": "R01C01"
+    },
+    {
+      "Sample_Name": "207401",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920038,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920038,
+      "Sentrix_Position": "R02C01"
+    },
+    {
+      "Sample_Name": "241570",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920038,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920038,
+      "Sentrix_Position": "R03C01"
+    },
+    {
+      "Sample_Name": "214099",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920038,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920038,
+      "Sentrix_Position": "R04C01"
+    },
+    {
+      "Sample_Name": "411210",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920038,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920038,
+      "Sentrix_Position": "R05C01"
+    },
+    {
+      "Sample_Name": "202668",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920038,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920038,
+      "Sentrix_Position": "R06C01"
+    },
+    {
+      "Sample_Name": "241337",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920038,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920038,
+      "Sentrix_Position": "R07C01"
+    },
+    {
+      "Sample_Name": "242668",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920038,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920038,
+      "Sentrix_Position": "R08C01"
+    },
+    {
+      "Sample_Name": "209308",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920003,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920003,
+      "Sentrix_Position": "R01C01"
+    },
+    {
+      "Sample_Name": "410812",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920003,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920003,
+      "Sentrix_Position": "R02C01"
+    },
+    {
+      "Sample_Name": "212355",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920003,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920003,
+      "Sentrix_Position": "R03C01"
+    },
+    {
+      "Sample_Name": "240928",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920003,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920003,
+      "Sentrix_Position": "R04C01"
+    },
+    {
+      "Sample_Name": "203436",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920003,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920003,
+      "Sentrix_Position": "R05C01"
+    },
+    {
+      "Sample_Name": "207920",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920003,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920003,
+      "Sentrix_Position": "R06C01"
+    },
+    {
+      "Sample_Name": "243436",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920003,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920003,
+      "Sentrix_Position": "R07C01"
+    },
+    {
+      "Sample_Name": "247920",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920003,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920003,
+      "Sentrix_Position": "R08C01"
+    },
+    {
+      "Sample_Name": "217034",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920114,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920114,
+      "Sentrix_Position": "R01C01"
+    },
+    {
+      "Sample_Name": "210226",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920114,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920114,
+      "Sentrix_Position": "R02C01"
+    },
+    {
+      "Sample_Name": "257034",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920114,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920114,
+      "Sentrix_Position": "R03C01"
+    },
+    {
+      "Sample_Name": "250226",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920114,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920114,
+      "Sentrix_Position": "R04C01"
+    },
+    {
+      "Sample_Name": "201080",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920114,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920114,
+      "Sentrix_Position": "R05C01"
+    },
+    {
+      "Sample_Name": "212940",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920114,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920114,
+      "Sentrix_Position": "R06C01"
+    },
+    {
+      "Sample_Name": "241080",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920114,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920114,
+      "Sentrix_Position": "R07C01"
+    },
+    {
+      "Sample_Name": "202927",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920114,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920114,
+      "Sentrix_Position": "R08C01"
+    },
+    {
+      "Sample_Name": "202143",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920093,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920093,
+      "Sentrix_Position": "R01C01"
+    },
+    {
+      "Sample_Name": "202824",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920093,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920093,
+      "Sentrix_Position": "R02C01"
+    },
+    {
+      "Sample_Name": "205695",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920093,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920093,
+      "Sentrix_Position": "R03C01"
+    },
+    {
+      "Sample_Name": "242824",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920093,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920093,
+      "Sentrix_Position": "R04C01"
+    },
+    {
+      "Sample_Name": "203104",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920093,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920093,
+      "Sentrix_Position": "R05C01"
+    },
+    {
+      "Sample_Name": "206072",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920093,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920093,
+      "Sentrix_Position": "R06C01"
+    },
+    {
+      "Sample_Name": "243104",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920093,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920093,
+      "Sentrix_Position": "R07C01"
+    },
+    {
+      "Sample_Name": "246072",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920093,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920093,
+      "Sentrix_Position": "R08C01"
+    },
+    {
+      "Sample_Name": "203054",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920112,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920112,
+      "Sentrix_Position": "R01C01"
+    },
+    {
+      "Sample_Name": "206679",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920112,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920112,
+      "Sentrix_Position": "R02C01"
+    },
+    {
+      "Sample_Name": "243054",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920112,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920112,
+      "Sentrix_Position": "R03C01"
+    },
+    {
+      "Sample_Name": "403376",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920112,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920112,
+      "Sentrix_Position": "R04C01"
+    },
+    {
+      "Sample_Name": "410602",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920112,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920112,
+      "Sentrix_Position": "R05C01"
+    },
+    {
+      "Sample_Name": "210785",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920112,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920112,
+      "Sentrix_Position": "R06C01"
+    },
+    {
+      "Sample_Name": "240731",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920112,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920112,
+      "Sentrix_Position": "R07C01"
+    },
+    {
+      "Sample_Name": "250785",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920112,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920112,
+      "Sentrix_Position": "R08C01"
+    },
+    {
+      "Sample_Name": "218098",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920145,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920145,
+      "Sentrix_Position": "R01C01"
+    },
+    {
+      "Sample_Name": "206930",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920145,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920145,
+      "Sentrix_Position": "R02C01"
+    },
+    {
+      "Sample_Name": "215621",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920145,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920145,
+      "Sentrix_Position": "R03C01"
+    },
+    {
+      "Sample_Name": "246930",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920145,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920145,
+      "Sentrix_Position": "R04C01"
+    },
+    {
+      "Sample_Name": "217188",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920145,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920145,
+      "Sentrix_Position": "R05C01"
+    },
+    {
+      "Sample_Name": "401253",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920145,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920145,
+      "Sentrix_Position": "R06C01"
+    },
+    {
+      "Sample_Name": "202557",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920145,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920145,
+      "Sentrix_Position": "R07C01"
+    },
+    {
+      "Sample_Name": "405076",
+      "Sample_Plate": NaN,
+      "Sample_Well": NaN,
+      "Sample_Group": 208789920145,
+      "Pool_ID": NaN,
+      "Sentrix_ID": 208789920145,
+      "Sentrix_Position": "R08C01"
+    }
+  ]
+}

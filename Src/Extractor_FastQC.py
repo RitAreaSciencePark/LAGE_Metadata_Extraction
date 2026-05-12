@@ -126,12 +126,15 @@ def one_single_file(input_dir, output_dir, file_name):
                     fastq_md5 = calculate_md5(potential_path)
 
             metadata_json = {
-                "sample_id": sample_id,
+                "instrument_type": "FastQC_Babraham_Software",
+                "phase_workflow": "Post_Sequencing_QC",
                 "file_name": file_name,
                 "file_type": "fastqc quality control",
                 "file_path": zip_path,
+                "file_description": "FastQC quality control report archive containing per-read quality metrics derived from a FASTQ file.",
                 "tool": {"name": "FastQC", "version": raw_metrics.get('version')},
                 "encoding": raw_metrics.get('encoding'),
+                "sample_id": sample_id,
                 "total_sequences": raw_metrics.get('total_sequences'),
                 "sequence_length": raw_metrics.get('sequence_length'),
                 "gc_percent": raw_metrics.get('gc_percent'),

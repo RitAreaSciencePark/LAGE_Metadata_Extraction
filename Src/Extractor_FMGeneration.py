@@ -185,10 +185,13 @@ def process_all_csv_files(input_dir_path, output_dir_path):
             all_extracted_parts = extract_all_sections(file_Input_path)
 
             file_info = {
+                "instrument_type": "Illumina_NovaSeq6000",
                 "file_type": "FM-Generation Report",
+                "phase_workflow": "Sequencing",
                 "orid": orid_id,
                 "file_name": csv_file_name,
                 "file_path": file_Input_path,
+                "file_description":"Illumina NovaSeq6000 focus model generation report produced during pre-run optical calibration."
                 **all_extracted_parts
             }
 
