@@ -4,15 +4,6 @@
 #
 # SPDX-License-Identifier: MIT
 #
-# Changelog:
-#   - Added normalise_date() to convert instrument-native date formats
-#     to ISO 8601 (YYYY-MM-DD) across all extractor outputs.
-#   - Platform name normalisation is handled directly inside each
-#     extractor module using the canonical PLATFORM_VOCAB names.
-#   - NaN/null handling deferred to future development — requires
-#     fixes inside individual extractor modules.
-#   - Replaced long if/elif chain for type labels with TYPE_LABELS dict.
-#   - Removed unused imports (pandas, re, math).
 
 import argparse
 import os
@@ -161,11 +152,19 @@ def main():
     print(f"OUTPUT PATH : {args.output_dir}")
     print("=" * width)
 
+    os.makedirs(args.output_dir, exist_ok=True)
+
     all_results   = []
     total_checked = 0
 
     if args.batch and os.path.isdir(args.input_path):
+        output_dir_abs = os.path.realpath(args.output_dir)
         for root, dirs, files in os.walk(args.input_path):
+            # Prevent walking into the output dir when it lives inside the input
+            dirs[:] = [
+                d for d in dirs
+                if os.path.realpath(os.path.join(root, d)) != output_dir_abs
+            ]
             files_to_process = [
                 f for f in files
                 if f.lower().endswith(VALID_EXTENSIONS)

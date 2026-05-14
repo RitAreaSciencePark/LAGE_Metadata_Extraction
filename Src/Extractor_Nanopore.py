@@ -171,7 +171,22 @@ def extract_metadata_from_md(file_path):
 #  UNIFIED RECORD INITIALISATION
 # ============================================================
 
-def _empty_record(output_path):
+def _extract_sample_key(root_dir):
+    """
+    Derives the sample directory name from the file path.
+    Nanopore experiment folders follow a YYYYMMDD_ prefix convention;
+    the directory immediately beneath such a folder is the sample name
+    (e.g. 'Pich31-12-24', 'LIS14-11-24').
+    Falls back to 'unknown' if the pattern is not found.
+    """
+    parts = os.path.normpath(root_dir).split(os.sep)
+    for i, part in enumerate(parts):
+        if re.match(r'^\d{8}_', part) and i + 1 < len(parts):
+            return parts[i + 1]
+    return "unknown"
+
+
+def _empty_record(output_path, output_filename):
     """
     Returns a fresh General_record conforming to the unified
     JSON output schema. Called both at first creation and as
@@ -180,12 +195,13 @@ def _empty_record(output_path):
     return {
         "instrument_type":  "Oxford_Nanopore_PromethION",
         "sequencing_phase": "Sequencing",
-        "file_name":        "Generalized_metadata.json",
+        "file_name":        output_filename,
         "file_path":        output_path,
         "file_description": "Consolidated Nanopore run metadata "
                             "aggregated from MinKNOW output files "
                             "across the sequencing run",
         "run_id":           "unknown",
+        "sample_id":        "unknown",
         "metadata":         {},
         "samples":          [],
         "files_processed":  []
@@ -204,9 +220,11 @@ def one_single_file(root_dir, output_dir, file_name):
     """
     os.makedirs(output_dir, exist_ok=True)
 
-    path_file           = os.path.join(root_dir, file_name)
-    file_type           = is_nanopore_file(path_file)
-    General_output_path = os.path.join(output_dir, "Generalized_metadata.json")
+    path_file    = os.path.join(root_dir, file_name)
+    file_type    = is_nanopore_file(path_file)
+    sample_key   = _extract_sample_key(root_dir)
+    output_fname = f"Nanopore_{sample_key}_Generalized_metadata.json"
+    General_output_path = os.path.join(output_dir, output_fname)
 
     # ----------------------------------------------------------------
     # 1. Initialise or load existing master record
@@ -216,9 +234,9 @@ def one_single_file(root_dir, output_dir, file_name):
             try:
                 General_record = json.load(f)
             except Exception:
-                General_record = _empty_record(General_output_path)
+                General_record = _empty_record(General_output_path, output_fname)
     else:
-        General_record = _empty_record(General_output_path)
+        General_record = _empty_record(General_output_path, output_fname)
 
     # ----------------------------------------------------------------
     # 2. Extract data based on file sub-type
@@ -231,20 +249,22 @@ def one_single_file(root_dir, output_dir, file_name):
                 data_payload = {
                     "metadata_Sample_Sheet": df.iloc[0].to_dict()
                 }
-                General_record["run_id"] = (
-                    data_payload["metadata_Sample_Sheet"]
-                    .get("protocol_run_id", "unknown")
-                )
+                row = data_payload["metadata_Sample_Sheet"]
+                General_record["run_id"] = row.get("protocol_run_id", "unknown")
+                if General_record.get("sample_id", "unknown") == "unknown":
+                    General_record["sample_id"] = row.get("sample_id", "unknown")
 
         elif file_type == "final_summary":
             data_payload = {
                 "metadata_Final_Summary": extract_metadata_from_txt(path_file)
             }
+            summary = data_payload["metadata_Final_Summary"]
             if General_record["run_id"] == "unknown":
                 General_record["run_id"] = (
-                    data_payload["metadata_Final_Summary"].get("protocol_run_id") or
-                    data_payload["metadata_Final_Summary"].get("run_id")
+                    summary.get("protocol_run_id") or summary.get("run_id")
                 )
+            if General_record.get("sample_id", "unknown") == "unknown":
+                General_record["sample_id"] = summary.get("sample_id", "unknown")
 
         elif file_type == "sequencing_summary":
             data_payload = {
@@ -321,7 +341,7 @@ def one_single_file(root_dir, output_dir, file_name):
             with open(General_output_path, 'w') as out:
                 json.dump(General_record, out, indent=4)
 
-            print(f"✅ Updated Generalized_metadata.json with: {file_name}")
+            print(f"✅ Updated {output_fname} with: {file_name}")
             print(f" \n 💾 Saved to: {General_output_path}")
 
     except Exception as e:
